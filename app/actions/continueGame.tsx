@@ -1,2 +1,2 @@
 "use server";
-export default function continueGame() {}
+export default async function continueGame() {}

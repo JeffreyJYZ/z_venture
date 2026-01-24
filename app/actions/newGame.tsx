@@ -1,2 +1,2 @@
 "use server";
-export default function newGame() {}
+export default async function newGame() {}
