@@ -1,9 +1,9 @@
 "use client";
 import { useActionState } from "react";
-import Container from "./ui/container";
-import continueGame from "./actions/continueGame";
-import newGame from "./actions/newGame";
-import StateText from "./ui/components/stateText";
+import Container from "@/app/ui/container";
+import continueGame from "@/app/actions/continueGame";
+import newGame from "@/app/actions/newGame";
+import StateText from "@/app/ui/components/stateText";
 
 export default function Home() {
 	const [stateC, actionC, pendingC] = useActionState(continueGame, null);
