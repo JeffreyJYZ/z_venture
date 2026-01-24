@@ -1,19 +1,26 @@
+import "server-only";
+
 export interface SaveHelper {
-	save: () => Promise<void>;
-	load: () => Promise<void>;
-	delete: () => Promise<void>;
+	save: (k: string, o: object) => Promise<void>;
+	load: (k: string) => Promise<object | void>;
+	delete: (k: string) => Promise<object>;
 }
 
 class LocalSave implements SaveHelper {
-	async save() {}
-	async load() {}
-	async delete() {}
+	async save(k: string, o: object) {
+		localStorage.setItem(k, JSON.stringify(o));
+	}
+	async load(k: string) {
+		const res = JSON.parse(localStorage.getItem(k) ?? "{}");
+		if (Object.keys(res)) return res;
+	}
+	async delete(k: string) {
+		const res = JSON.parse(localStorage.getItem(k) ?? "{}");
+		if (!Object.keys(res).length)
+			throw new Error("cannot find item to delete!");
+		localStorage.removeItem(k);
+		return res;
+	}
 }
 
-class ServerSave implements SaveHelper {
-	async save() {}
-	async load() {}
-	async delete() {}
-}
-
-export default class Saver extends LocalSave implements SaveHelper {}
+export default class saver extends LocalSave implements SaveHelper {}
