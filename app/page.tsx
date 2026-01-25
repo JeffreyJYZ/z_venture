@@ -1,4 +1,4 @@
-import HomeButtons from "./ui/components/homeButtons";
+import HomeButtons from "./ui/components/home/homeButtons";
 import Container from "./ui/container";
 
 export default function Home() {

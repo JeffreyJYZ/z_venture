@@ -1,9 +1,6 @@
 "use client";
-
-import { ServerActionAction } from "next/dist/client/components/router-reducer/router-reducer-types";
-import { Peddana } from "next/font/google";
 import { useActionState } from "react";
-import StateText from "./stateText";
+import ErrorText from "./stateText";
 
 export default function Form({
 	actionParam,
@@ -41,7 +38,7 @@ export default function Form({
 			>
 				{isAnyPending || pending ? sbmtBtnLoadingText : sbmtBtnText}
 			</button>
-			<StateText>{!!state && state}</StateText>
+			<ErrorText>{!!state && state}</ErrorText>
 		</form>
 	);
 }

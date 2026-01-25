@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Raleway, Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
-
-export const ralewayFont = Raleway({
-	subsets: ["latin"],
-});
-
-export const interFont = Inter({
-	subsets: ["latin"],
-});
+import { interFont, ralewayFont } from "./ui/fonts";
+import CustomErrorBoundary from "./ui/components/CustomErrorBoundary";
 
 export const metadata: Metadata = {
 	title: "Z Venture",
@@ -24,13 +17,15 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body
-				className={`${interFont.className} ${ralewayFont.className} antialiased`}
-			>
-				{children}
-				<SpeedInsights />
-				<Analytics />
-			</body>
+			<CustomErrorBoundary>
+				<body
+					className={`${interFont.className} ${ralewayFont.className} antialiased`}
+				>
+					{children}
+					<SpeedInsights />
+					<Analytics />
+				</body>
+			</CustomErrorBoundary>
 		</html>
 	);
 }

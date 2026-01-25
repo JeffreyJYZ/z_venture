@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import continueGame from "@/app/actions/continueGame";
-import newGame from "@/app/actions/newGame";
-import Form from "./form";
+import continueGame from "@/app/actions/game/continueGame";
+import newGame from "@/app/actions/game/newGame";
+import Form from "../form";
 
 const BtnStyles: React.CSSProperties = {
 	height: "100px",
