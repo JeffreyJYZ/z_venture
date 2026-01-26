@@ -12,7 +12,7 @@ export default function Form({
 	isAnyPending = false,
 	setIsAnyPending,
 }: {
-	actionParam: (prev: any, data: FormData) => Promise<void>;
+	actionParam: (_: any, data: FormData) => Promise<void>;
 	children?: React.ReactNode;
 	sbmtBtnText?: string;
 	sbmtBtnLoadingText?: string;

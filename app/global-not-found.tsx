@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Container from "./ui/container";
 
 export default function NotFound() {
 	return (
-		<main>
+		<Container>
 			<h1>404 Not Found!</h1>
 			<Link href="/">Home</Link>
-		</main>
+		</Container>
 	);
 }

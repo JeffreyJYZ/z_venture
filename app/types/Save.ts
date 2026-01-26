@@ -1,14 +1,22 @@
 import { UUID } from "crypto";
 
+export interface Game {
+	name: string;
+	saves: Save[];
+	lastSave?: Save;
+}
+
 export interface Save {
 	id: UUID;
 	username: string;
-	time: `${number}`;
+	game: string;
+	time: string;
 	auto: boolean;
 	state: GameState;
 }
 
 export interface GameState {
+	name: string;
 	area: GameArea;
 	inventory: Inventory;
 	stats: Record<StatName, number>;
@@ -72,13 +80,15 @@ export type GameArea =
 	| "Dungeon"
 	| "Base";
 
-export function initSave(username: string): Save {
+export function initSave(username: string, saveName: string): Save {
 	return {
 		id: crypto.randomUUID() as UUID,
 		username,
+		game: saveName,
 		time: `${Date.now()}`,
 		auto: false,
 		state: {
+			name: saveName,
 			area: "Field",
 			inventory: { items: [], maxSize: 20 },
 			stats: { strength: 10, agility: 10, experience: 0, health: 100 },
