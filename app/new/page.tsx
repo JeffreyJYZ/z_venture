@@ -27,6 +27,11 @@ export default function Page() {
 							"username",
 							(await saver.load("username")) as string,
 						);
+						data.append(
+							"name",
+							((await saver.load("Player")) as Player).name
+								.str as string,
+						);
 						await newGame(_, data);
 					}}
 				>

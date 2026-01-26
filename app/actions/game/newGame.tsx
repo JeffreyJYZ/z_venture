@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export default async function newGame(_: any, data: FormData) {
 	const { gameName, name, username } = Object.fromEntries(data);
 
-	if (!name || !gameName || !username) {
+	if (!gameName || !username || !name) {
 		throw new Error("Missing required fields: name, gameName, or username");
 	}
 
