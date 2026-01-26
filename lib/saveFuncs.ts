@@ -1,6 +1,3 @@
-"use server";
-import "server-only";
-
 export interface SaveHelper {
 	save: (k: string, o: any) => Promise<void>;
 	load: (k: string) => Promise<any | void>;
