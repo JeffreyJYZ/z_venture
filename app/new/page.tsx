@@ -21,7 +21,15 @@ export default function Page() {
 	return (
 		<Container>
 			{hasAccount ? (
-				<Form actionParam={newGame}>
+				<Form
+					actionParam={async (_, data) => {
+						data.append(
+							"username",
+							(await saver.load("username")) as string,
+						);
+						await newGame(_, data);
+					}}
+				>
 					<input type="text" placeholder="Name" name="gameName" />
 				</Form>
 			) : (
