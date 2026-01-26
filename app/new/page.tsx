@@ -3,46 +3,61 @@ import { useEffect, useState } from "react";
 import newGame from "../actions/game/newGame";
 import Form from "../ui/components/form";
 import Saver from "@/lib/saveFuncs";
-import { randomUUID } from "crypto";
 import { Player } from "../types/Player";
 import Container from "../ui/container";
-import { revalidateAll } from "../utils/helper";
 import createAcc from "../actions/user/createAcc";
 
 export default function Page() {
 	const [hasAccount, setHasAccount] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const saver = new Saver();
 
 	useEffect(() => {
-		saver.load("username").then((u) => {
-			setHasAccount(!!u);
-		});
-	}, []);
+		(async () => {
+			try {
+				const username = await saver.load("username");
+				setHasAccount(!!username);
+			} catch (error) {
+				console.error("Error loading username:", error);
+			} finally {
+				setLoading(false);
+			}
+		})();
+	}, []); //eslint-disable-line react-hooks/exhaustive-deps
+
+	if (loading) {
+		return <Container>Loading...</Container>;
+	}
+
 	return (
 		<Container>
 			{hasAccount ? (
 				<Form
 					actionParam={async (_, data) => {
-						const username = (await saver.load(
-							"username",
-						)) as string;
-						const playerData = await saver.load("Player");
+						try {
+							const username = (await saver.load(
+								"username",
+							)) as string;
+							const playerData = await saver.load("Player");
 
-						data.append("username", username);
+							data.append("username", username);
 
-						if (playerData) {
-							data.append(
-								"name",
-								(playerData as Player).name.str as string,
-							);
-						} else {
-							data.append("name", "Filler Name");
+							if (playerData) {
+								data.append(
+									"name",
+									(playerData as Player).name.str as string,
+								);
+							} else {
+								data.append("name", "Default Name");
+							}
+
+							await newGame(_, data);
+						} catch (error) {
+							console.error("Error submitting form:", error);
 						}
-
-						await newGame(_, data);
 					}}
 				>
-					<input type="text" placeholder="Name" name="gameName" />
+					<input type="text" placeholder="Game Name" name="gameName" />
 				</Form>
 			) : (
 				<>
@@ -50,18 +65,18 @@ export default function Page() {
 					<Form actionParam={createAcc}>
 						<input
 							type="text"
-							placeholder="username"
+							placeholder="Username"
 							name="username"
 						/>
-						<input type="text" placeholder="name" name="name" />
+						<input type="text" placeholder="Name" name="name" />
 						<input
 							type="password"
-							placeholder="password"
+							placeholder="Password"
 							name="password"
 						/>
 						<input
 							type="password"
-							placeholder="confirm password"
+							placeholder="Confirm Password"
 							name="confirmPassword"
 						/>
 					</Form>
