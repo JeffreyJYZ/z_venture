@@ -17,7 +17,7 @@ export default function Page() {
 		saver.load("username").then((u) => {
 			setHasAccount(!!u);
 		});
-	});
+	}, []);
 	return (
 		<Container>
 			{hasAccount ? (

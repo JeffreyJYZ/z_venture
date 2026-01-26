@@ -1,3 +1,4 @@
+"use client";
 import { Player } from "@/app/types/Player";
 import Saver from "@/lib/saveFuncs";
 import { randomUUID } from "crypto";
