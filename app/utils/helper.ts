@@ -1,16 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-
-export const URLs: Record<string, string> = {
-	home: "/",
-	game: "/game",
-	inventory: "/inventory",
-	settings: "/settings",
-	newGame: "/new",
-	continueGame: "/continue",
-	about: "/about",
-	map: "/map",
-};
+import { URLs } from "./urls";
 
 export async function tryFn<T>(fn: () => T): Promise<T | { error: unknown }> {
 	try {
