@@ -23,15 +23,22 @@ export default function Page() {
 			{hasAccount ? (
 				<Form
 					actionParam={async (_, data) => {
-						data.append(
+						const username = (await saver.load(
 							"username",
-							(await saver.load("username")) as string,
-						);
-						data.append(
-							"name",
-							((await saver.load("Player")) as Player).name
-								.str as string,
-						);
+						)) as string;
+						const playerData = await saver.load("Player");
+
+						data.append("username", username);
+
+						if (playerData) {
+							data.append(
+								"name",
+								(playerData as Player).name.str as string,
+							);
+						} else {
+							data.append("name", "Filler Name");
+						}
+
 						await newGame(_, data);
 					}}
 				>
