@@ -42,7 +42,11 @@ export default function Page() {
 
 							data.append("username", username);
 
-							const parsedPlayer = playerData ? JSON.parse(playerData) : null;
+							let parsedPlayer = playerData;
+							if (typeof playerData === "string") {
+								parsedPlayer = JSON.parse(playerData);
+							}
+
 							if (parsedPlayer && parsedPlayer.name && parsedPlayer.name.str) {
 								data.append("name", parsedPlayer.name.str);
 							} else {
