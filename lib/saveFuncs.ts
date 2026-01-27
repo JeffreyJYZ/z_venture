@@ -4,7 +4,7 @@ export interface SaveHelper {
 	delete: (k: string) => Promise<any | void>;
 }
 
-class LocalSave implements SaveHelper {
+const Save: SaveHelper = {
 	async save(k: string, o: any) {
 		try {
 			localStorage.setItem(k, JSON.stringify(o));
@@ -12,7 +12,7 @@ class LocalSave implements SaveHelper {
 		} catch (error) {
 			console.error(`Error saving to localStorage key="${k}":`, error);
 		}
-	}
+	},
 	async load(k: string) {
 		const item = localStorage.getItem(k);
 		if (!item) return null; // Return null if the key doesn't exist
@@ -22,13 +22,15 @@ class LocalSave implements SaveHelper {
 			console.error(`Error parsing localStorage key "${k}":`, error);
 			return null;
 		}
-	}
+	},
 	async delete(k: string) {
 		const res = JSON.parse(localStorage.getItem(k) ?? "{}");
 		if (!Object.keys(res).length) return;
 		localStorage.removeItem(k);
 		return res;
-	}
-}
+	},
+};
 
-export default class Saver extends LocalSave implements SaveHelper {}
+const Saver = Save;
+
+export default Saver;

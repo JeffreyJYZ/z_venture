@@ -28,7 +28,11 @@ export default function Form({
 	};
 
 	return (
-		<form action={action} onSubmit={handleSubmit}>
+		<form
+			action={action}
+			onSubmit={handleSubmit}
+			className="flex flex-col gap-5 justify-center justify-self-center"
+		>
 			{children}
 			<button
 				type="submit"

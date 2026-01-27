@@ -17,8 +17,7 @@ export default async function createAcc(_: any, data: FormData) {
 		false,
 		generateUUID(),
 	);
-	const saver = new Saver();
-	await saver.save("username", data.get("username"));
-	await saver.save("Player", player);
+	await Saver.save("username", data.get("username"));
+	await Saver.save("Player", player);
 	revalidateAll();
 }
