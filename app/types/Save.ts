@@ -1,27 +1,25 @@
-import { UUID } from "crypto";
-
 export interface Game {
 	name: string;
-	saves: Save[];
-	lastSave?: Save;
+	saves: string[];
+	lastSave?: string;
 }
 
 export interface Save {
-	id: UUID;
+	id: string;
 	username: string;
-	game: string;
+	gameName: string;
 	time: string;
 	auto: boolean;
 	state: GameState;
 }
 
 export interface GameState {
-	name: string;
 	area: GameArea;
 	inventory: Inventory;
+	ruppees: number;
 	stats: Record<StatName, number>;
 	visitedAreas?: Record<GameArea, boolean>;
-	killedBosses?: Boss[];
+	killedBosses?: string[];
 }
 
 export type StatName = "strength" | "agility" | "experience" | "health";
@@ -31,10 +29,11 @@ export type Boss = {
 	name: string;
 	description: string;
 	stats: Record<StatName, number>;
+	drops?: (Record<InventoryItemName, number> | number)[];
 };
 
 export type InventoryItem = {
-	id: UUID;
+	id: string;
 	name: InventoryItemName;
 	description: string;
 	amount: number;
@@ -80,16 +79,20 @@ export type GameArea =
 	| "Dungeon"
 	| "Base";
 
-export function initSave(username: string, saveName: string): Save {
+export function initGame(
+	username: string,
+	gameName: string,
+	auto: boolean = false,
+): Save {
 	return {
-		id: crypto.randomUUID() as UUID,
+		id: crypto.randomUUID(),
 		username,
-		game: saveName,
+		gameName,
 		time: `${Date.now()}`,
-		auto: false,
+		auto,
 		state: {
-			name: saveName,
-			area: "Field",
+			area: "Base",
+			ruppees: 100,
 			inventory: { items: [], maxSize: 20 },
 			stats: { strength: 10, agility: 10, experience: 0, health: 100 },
 		},

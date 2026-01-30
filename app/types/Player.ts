@@ -1,38 +1,21 @@
-import type { Game, Save } from "./Save";
-import { initSave } from "./Save";
+import type { Game } from "./Save";
 
-export class Player implements PlayerInterface {
-	public lastGame?: Game;
-	public games: Game[];
-	public lastPlayed: Date;
-	public name: { first: string; last: string; str: string };
-
-	constructor(
-		name: `${string} ${string}`,
-		public username: string,
-		public readonly admin: boolean,
-		gameName: string,
-	) {
-		this.lastPlayed = new Date();
-		this.games = [];
-		this.name = {
-			first: name.split(" ")[0],
-			last: name.split(" ")[1],
-			str: name,
-		};
-		this.lastGame = {
-			name: gameName,
-			saves: [initSave(username, gameName)],
-		};
-		this.games.push(this.lastGame);
-	}
+// Build a Player creation payload without performing any side effects.
+export function Player(name: string, username: string, admin: boolean) {
+	return {
+		name,
+		username,
+		admin,
+	} satisfies {
+		name: string;
+		username: string;
+		admin: boolean;
+	};
 }
 
-export interface PlayerInterface {
-	name: { first: string; last: string; str: string };
+export interface CreatePlayerType {
+	name: string;
 	username: string;
 	readonly admin: boolean;
-	lastGame?: Game;
-	lastPlayed: Date;
 	games: Game[];
 }

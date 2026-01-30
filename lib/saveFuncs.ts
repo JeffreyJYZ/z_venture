@@ -1,3 +1,5 @@
+"use client";
+
 export interface SaveHelper {
 	save: (k: string, o: any) => Promise<void>;
 	load: (k: string) => Promise<any | void>;
@@ -31,6 +33,6 @@ const Save: SaveHelper = {
 	},
 };
 
-const Saver = Save;
+const LocalSaver = Save;
 
-export default Saver;
+export default LocalSaver;

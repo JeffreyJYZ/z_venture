@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Form from "../form";
 import { useRouter } from "next/navigation";
-import { revalidateAll } from "@/app/utils/helper";
 
 const BtnStyles: React.CSSProperties = {
 	height: "100px",
@@ -23,7 +22,6 @@ export default function HomeButtons() {
 			<Form
 				sbmtBtnStyles={BtnStyles}
 				actionParam={async (_, __) => {
-					revalidateAll();
 					router.push("/continue");
 				}}
 				sbmtBtnText="Continue Game"
@@ -33,7 +31,6 @@ export default function HomeButtons() {
 			<Form
 				sbmtBtnStyles={BtnStyles}
 				actionParam={async (_, __) => {
-					revalidateAll();
 					router.push("/new");
 				}}
 				sbmtBtnText="New Game"

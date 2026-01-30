@@ -1,8 +1,4 @@
-import { Google_Sans, Raleway, Inter, Roboto, Poppins } from "next/font/google";
-
-export const googleSansFont = Google_Sans({
-	subsets: ["latin"],
-});
+import { Raleway, Inter, Roboto, Poppins } from "next/font/google";
 
 export const ralewayFont = Raleway({
 	subsets: ["latin"],

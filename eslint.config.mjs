@@ -19,6 +19,8 @@ const eslintConfig = defineConfig([
 			"css(unknownAtRules)": "off",
 			"@typescript-eslint/no-explicit-any": "off",
 			"@typescript-eslint/no-unused-expressions": "off",
+			"prefer-const": "off",
+			"@typescript-eslint/no-unnecessary-type-constraint": "off",
 		},
 	},
 ]);

@@ -1,0 +1,51 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "./client"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+model Player {
+    id         String   @id @unique @default(uuid())
+    name       String
+    username   String   @unique
+    admin      Boolean
+    lastPlayed DateTime @default(now())
+    createdAt  DateTime @default(now())
+    games      Game[]
+}
+
+model Game {
+    id        String   @id @unique @default(uuid())
+    name      String
+    player    Player   @relation(fields: [username], references: [username])
+    username  String
+    saves     Save[]
+    createdAt DateTime @default(now())
+}
+
+model Save {
+    id        String     @id @unique @default(uuid())
+    game      Game       @relation(fields: [gameId], references: [id])
+    gameId    String
+    time      String
+    auto      Boolean    @default(true)
+    state     GameState? @relation
+    stateId   String     @unique
+    createdAt DateTime   @default(now())
+}
+
+model GameState {
+    id           String   @id @unique @default(uuid())
+    save         Save     @relation(fields: [saveId], references: [id])
+    saveId       String   @unique
+    name         String
+    area         String   @default("Base")
+    inventory    Json
+    ruppees      Int      @default(0)
+    stats        Json
+    visitedAreas String[] @default([])
+    killedBosses String[] @default([])
+}

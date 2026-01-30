@@ -1,7 +1,7 @@
 "use client";
 
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import ErrorText from "./stateText";
+import ErrorText from "./errorText";
 
 interface CustomErrorBoundaryProps {
 	children: React.ReactNode;

@@ -1,10 +1,10 @@
 export const URLs: Record<string, string> = {
-	home: "/",
-	game: "/game",
-	inventory: "/inventory",
-	settings: "/settings",
-	newGame: "/new",
-	continueGame: "/continue",
-	about: "/about",
-	map: "/map",
+	Home: "/",
+	Game: "/game",
+	Inventory: "/inventory",
+	Settings: "/settings",
+	"New Game": "/new",
+	"Continue Game": "/continue",
+	About: "/about",
+	Map: "/map",
 };
