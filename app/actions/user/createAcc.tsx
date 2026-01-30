@@ -3,6 +3,7 @@
 import { Player } from "@/app/types/Player";
 import { pAction, revalidateAll } from "@/app/utils/helper";
 import { setUsernameCookie } from "@/app/utils/auth";
+import bcrypt from "bcryptjs";
 
 type ActionResult = { error?: string; success?: boolean };
 
@@ -45,7 +46,7 @@ export default async function createAcc(
 	const created = await pAction("Player", "create", {
 		data: {
 			...playerPayload,
-			password: password ?? null,
+			password: password ? await bcrypt.hash(password, 13) : null,
 		},
 	});
 

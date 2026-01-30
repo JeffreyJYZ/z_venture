@@ -4,6 +4,7 @@ import { pAction } from "@/app/utils/helper";
 import { setUsernameCookie } from "@/app/utils/auth";
 import { redirect } from "next/navigation";
 import { Player } from "@/prisma/client";
+import bcrypt from "bcryptjs";
 
 interface ActionResult {
 	error?: string;
@@ -48,7 +49,11 @@ export default async function signIn(
 	}
 
 	// If a password exists, require it; otherwise allow legacy accounts.
-	if (player.password && player.password !== password) {
+	if (
+		player.password &&
+		(player.password !== password ||
+			!(await bcrypt.compare(password, player.password)))
+	) {
 		return { error: "Invalid credentials" };
 	}
 
