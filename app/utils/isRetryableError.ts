@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/prisma/client";
 
 export function isRetryableError(error: unknown): boolean {
 	if (!error || typeof error !== "object") return false;
