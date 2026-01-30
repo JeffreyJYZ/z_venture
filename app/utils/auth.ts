@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-export const USERNAME_COOKIE = "zv_username";
+const USERNAME_COOKIE = "zv_username";
 
 export async function getUsernameCookie(): Promise<string | null> {
 	const store = await cookies();
