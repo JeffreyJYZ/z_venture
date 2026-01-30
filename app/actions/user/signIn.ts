@@ -3,6 +3,7 @@
 import { pAction } from "@/app/utils/helper";
 import { setUsernameCookie } from "@/app/utils/auth";
 import { redirect } from "next/navigation";
+import type { Player as PrismaPlayer } from "@prisma/client";
 
 interface ActionResult {
 	error?: string;
@@ -23,13 +24,15 @@ export default async function signIn(
 		return { error: "Username is required" };
 	}
 
-	const player = await pAction("Player", "findUnique", {
+	const playerResult = (await pAction("Player", "findUnique", {
 		where: { username },
-	});
+	})) as PrismaPlayer | null | { error: unknown };
 
-	if (isErrorResult(player)) {
+	if (isErrorResult(playerResult)) {
 		return { error: "Unable to check account" };
 	}
+
+	const player = playerResult as PrismaPlayer | null;
 
 	if (!player) {
 		return { error: "Account not found" };
