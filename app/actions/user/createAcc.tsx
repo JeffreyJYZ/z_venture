@@ -2,6 +2,7 @@
 
 import { Player } from "@/app/types/Player";
 import { pAction, revalidateAll } from "@/app/utils/helper";
+import { setUsernameCookie } from "@/app/utils/auth";
 
 type ActionResult = { error?: string; success?: boolean };
 
@@ -42,13 +43,17 @@ export default async function createAcc(
 	const playerPayload = Player(name, username, false);
 
 	const created = await pAction("Player", "create", {
-		data: playerPayload,
+		data: {
+			...playerPayload,
+			password: password ?? null,
+		},
 	});
 
 	if (isErrorResult(created)) {
 		return { error: "Failed to create account" };
 	}
 
+	await setUsernameCookie(username);
 	await revalidateAll();
 	return { success: true };
 }

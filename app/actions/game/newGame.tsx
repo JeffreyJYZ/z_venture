@@ -2,6 +2,7 @@
 import { Player } from "@/app/types/Player";
 import { pAction } from "@/app/utils/helper";
 import { redirect } from "next/navigation";
+import { getUsernameCookie, setUsernameCookie } from "@/app/utils/auth";
 
 type ActionResult = { error?: string };
 
@@ -14,18 +15,38 @@ export default async function newGame(
 ): Promise<ActionResult | void> {
 	const gameName = data.get("gameName")?.toString().trim();
 	const name = data.get("name")?.toString().trim();
-	const username = data.get("username")?.toString().trim();
+	const providedUsername = data.get("username")?.toString().trim();
+	const password = data.get("password")?.toString();
+	const cookieUsername = await getUsernameCookie();
+	const username = providedUsername || cookieUsername;
 
-	if (!gameName || !username || !name) {
-		return { error: "Please provide a name, username, and game name." };
+	if (!gameName) {
+		return { error: "Please provide a game name." };
 	}
 
-	const playerPayload = Player(name, username, false);
+	if (!username) {
+		return { error: "Please sign in or create an account first." };
+	}
+
+	const existing = await pAction("Player", "findUnique", {
+		where: { username },
+		select: { username: true },
+	});
+
+	if (isErrorResult(existing)) {
+		return { error: "Unable to verify account." };
+	}
+
+	if (!existing && !name) {
+		return { error: "Please provide your name to create an account." };
+	}
+
+	const playerPayload = Player(name || username, username, false);
 
 	const player = await pAction("Player", "upsert", {
 		where: { username },
-		update: { name },
-		create: playerPayload,
+		update: name ? { name } : {},
+		create: { ...playerPayload, password: password ?? null },
 	});
 
 	if (isErrorResult(player)) {
@@ -52,5 +73,6 @@ export default async function newGame(
 		return { error: "Failed to create the game." };
 	}
 
+	await setUsernameCookie(username);
 	redirect("/game");
 }
