@@ -26,7 +26,19 @@ export default async function signIn(
 
 	const playerResult = (await pAction("Player", "findUnique", {
 		where: { username },
-	})) as PrismaPlayer | null | { error: unknown };
+		select: {
+			id: true,
+			name: true,
+			username: true,
+			admin: true,
+			lastPlayed: true,
+			createdAt: true,
+			password: true,
+		},
+	})) as
+		| (PrismaPlayer & { password: string | null })
+		| null
+		| { error: unknown };
 
 	if (isErrorResult(playerResult)) {
 		return { error: "Unable to check account" };
