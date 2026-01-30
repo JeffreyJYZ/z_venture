@@ -3,7 +3,15 @@
 import { pAction } from "@/app/utils/helper";
 import { setUsernameCookie } from "@/app/utils/auth";
 import { redirect } from "next/navigation";
-import type { Player as PrismaPlayer } from "@/prisma/client";
+type PlayerWithPassword = {
+	id: string;
+	name: string;
+	username: string;
+	admin: boolean;
+	lastPlayed: Date;
+	createdAt: Date;
+	password: string | null;
+};
 
 interface ActionResult {
 	error?: string;
@@ -35,16 +43,13 @@ export default async function signIn(
 			createdAt: true,
 			password: true,
 		},
-	})) as
-		| (PrismaPlayer & { password: string | null })
-		| null
-		| { error: unknown };
+	})) as PlayerWithPassword | null | { error: unknown };
 
 	if (isErrorResult(playerResult)) {
 		return { error: "Unable to check account" };
 	}
 
-	const player = playerResult as PrismaPlayer | null;
+	const player = playerResult as PlayerWithPassword | null;
 
 	if (!player) {
 		return { error: "Account not found" };
