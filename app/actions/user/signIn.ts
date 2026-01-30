@@ -3,7 +3,7 @@
 import { pAction } from "@/app/utils/helper";
 import { setUsernameCookie } from "@/app/utils/auth";
 import { redirect } from "next/navigation";
-import type { Player as PrismaPlayer } from "@prisma/client";
+import type { Player as PrismaPlayer } from "@/prisma/client";
 
 interface ActionResult {
 	error?: string;
