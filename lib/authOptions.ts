@@ -4,6 +4,13 @@ import Credentials from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+const secret = process.env.NEXTAUTH_SECRET;
+if (!secret) {
+	throw new Error(
+		"NEXTAUTH_SECRET is not set. Define it in your environment (e.g. .env.local).",
+	);
+}
+
 const credentialsProvider = Credentials({
 	name: "Credentials",
 	credentials: {
@@ -36,6 +43,7 @@ const credentialsProvider = Credentials({
 
 export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma as any),
+	secret,
 	session: { strategy: "database" },
 	pages: {
 		signIn: "/signin",
