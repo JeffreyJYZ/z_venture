@@ -27,7 +27,20 @@ const credentialsProvider = Credentials({
 			where: { username },
 		});
 
-		if (!user || !user.hashedPassword) return null;
+		if (!user) {
+			console.warn("[auth] credentials signin failed: user not found", {
+				username,
+			});
+			return null;
+		}
+
+		if (!user.hashedPassword) {
+			console.warn(
+				"[auth] credentials signin failed: no password set for user",
+				{ username },
+			);
+			return null;
+		}
 
 		const isValid = await bcrypt.compare(password, user.hashedPassword);
 		if (!isValid) return null;
