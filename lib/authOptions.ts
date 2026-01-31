@@ -44,7 +44,7 @@ const credentialsProvider = Credentials({
 export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma as any),
 	secret,
-	session: { strategy: "database" },
+	session: { strategy: "jwt" },
 	pages: {
 		signIn: "/signin",
 	},
