@@ -65,16 +65,34 @@ export default async function createAcc(
 	}
 
 	const playerPayload = Player(name, username, false);
-
-	const player = await pAction("Player", "create", {
-		data: {
-			...playerPayload,
-			userId: (user as any).id,
-		},
+	const existingPlayer = await pAction("Player", "findUnique", {
+		where: { username },
 	});
 
-	if (isErrorResult(player)) {
-		return { error: "Failed to create player", success: false };
+	if (isErrorResult(existingPlayer)) {
+		return { error: "Unable to verify player", success: false };
+	}
+
+	if (existingPlayer) {
+		const updated = await pAction("Player", "update", {
+			where: { username },
+			data: { ...playerPayload, userId: (user as any).id },
+		});
+
+		if (isErrorResult(updated)) {
+			return { error: "Failed to link player", success: false };
+		}
+	} else {
+		const created = await pAction("Player", "create", {
+			data: {
+				...playerPayload,
+				userId: (user as any).id,
+			},
+		});
+
+		if (isErrorResult(created)) {
+			return { error: "Failed to create player", success: false };
+		}
 	}
 
 	await revalidateAll();
