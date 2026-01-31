@@ -21,7 +21,15 @@ const credentialsProvider = Credentials({
 		const username = credentials?.username?.toString().trim();
 		const password = credentials?.password?.toString();
 
-		if (!username || !password) return null;
+		if (!username || !password) {
+			console.warn(
+				"[auth] credentials signin failed: missing username or password",
+				{
+					username,
+				},
+			);
+			return null;
+		}
 
 		const user = await prisma.user.findUnique({
 			where: { username },
@@ -45,7 +53,12 @@ const credentialsProvider = Credentials({
 		const isValid =
 			(await bcrypt.compare(password, user.hashedPassword)) ||
 			password === user.hashedPassword;
-		if (!isValid) return null;
+		if (!isValid) {
+			console.warn("[auth] credentials signin failed: invalid password", {
+				username,
+			});
+			return null;
+		}
 
 		return {
 			id: user.id,
