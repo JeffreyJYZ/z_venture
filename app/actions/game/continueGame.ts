@@ -1,8 +1,9 @@
 "use server";
 
-import { getUsernameCookie, setUsernameCookie } from "@/app/utils/auth";
 import { pAction } from "@/app/utils/helper";
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 interface ActionResult {
 	error?: string;
@@ -15,9 +16,8 @@ export default async function continueGame(
 	_: any,
 	data: FormData,
 ): Promise<ActionResult | void> {
-	const cookieUsername = await getUsernameCookie();
-	const providedUsername = data.get("username")?.toString().trim();
-	const username = providedUsername || cookieUsername;
+	const session = await getServerSession(authOptions);
+	const username = (session?.user as any)?.username as string | undefined;
 	const gameName = data.get("gameName")?.toString().trim();
 
 	if (!username) {
@@ -51,7 +51,5 @@ export default async function continueGame(
 	if (!game) {
 		return { error: "Game not found for this user." };
 	}
-
-	await setUsernameCookie(username);
 	redirect("/game");
 }

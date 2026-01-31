@@ -2,43 +2,33 @@
 import { Player } from "@/app/types/Player";
 import { pAction } from "@/app/utils/helper";
 import { redirect } from "next/navigation";
-import { getUsernameCookie, setUsernameCookie } from "@/app/utils/auth";
+import ActionResult from "@/app/types/actionRes";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
-type ActionResult = { error?: string };
-
-const isErrorResult = (value: unknown): value is { error: unknown } =>
-	Boolean(value && typeof value === "object" && "error" in value);
+function isErrorResult(value: unknown): value is { error: unknown } {
+	return Boolean(!!value && typeof value === "object" && "error" in value);
+}
 
 export default async function newGame(
 	_: any,
 	data: FormData,
 ): Promise<ActionResult | void> {
 	const gameName = data.get("gameName")?.toString().trim();
-	const name = data.get("name")?.toString().trim();
-	const providedUsername = data.get("username")?.toString().trim();
-	const password = data.get("password")?.toString();
-	const cookieUsername = await getUsernameCookie();
-	const username = providedUsername || cookieUsername;
+	const session = await getServerSession(authOptions);
+	const username = (session?.user as any)?.username as string | undefined;
+	const userId = (session?.user as any)?.id as string | undefined;
+	const name = session?.user?.name ?? username;
 
 	if (!gameName) {
-		return { error: "Please provide a game name." };
+		return { error: "Please provide a game name.", success: false };
 	}
 
-	if (!username) {
-		return { error: "Please sign in or create an account first." };
-	}
-
-	const existing = await pAction("Player", "findUnique", {
-		where: { username },
-		select: { username: true },
-	});
-
-	if (isErrorResult(existing)) {
-		return { error: "Unable to verify account." };
-	}
-
-	if (!existing && !name) {
-		return { error: "Please provide your name to create an account." };
+	if (!username || !userId) {
+		return {
+			error: "Please sign in or create an account first.",
+			success: false,
+		};
 	}
 
 	const playerPayload = Player(name || username, username, false);
@@ -46,11 +36,16 @@ export default async function newGame(
 	const player = await pAction("Player", "upsert", {
 		where: { username },
 		update: name ? { name } : {},
-		create: { ...playerPayload, password: password ?? null },
+		create: { ...playerPayload, userId },
 	});
 
 	if (isErrorResult(player)) {
-		return { error: "Could not create or find player." };
+		return {
+			error:
+				"Could not create or find player. Prisma Error: " +
+				player.error,
+			success: false,
+		};
 	}
 
 	const existingGame = await pAction("Game", "findFirst", {
@@ -58,11 +53,19 @@ export default async function newGame(
 	});
 
 	if (isErrorResult(existingGame)) {
-		return { error: "Unable to verify existing games." };
+		return {
+			error:
+				"Unable to verify existing games. Prisma Error: " +
+				existingGame.error,
+			success: false,
+		};
 	}
 
 	if (existingGame) {
-		return { error: "A game with this name already exists." };
+		return {
+			error: "A game with this name already exists.",
+			success: false,
+		};
 	}
 
 	const createdGame = await pAction("Game", "create", {
@@ -70,9 +73,11 @@ export default async function newGame(
 	});
 
 	if (isErrorResult(createdGame)) {
-		return { error: "Failed to create the game." };
+		return {
+			error:
+				"Failed to create the game. Prisma Error: " + createdGame.error,
+			success: false,
+		};
 	}
-
-	await setUsernameCookie(username);
 	redirect("/game");
 }

@@ -2,10 +2,12 @@ import Link from "next/link";
 import newGame from "../actions/game/newGame";
 import Form from "../ui/components/form";
 import Container from "../ui/container";
-import { getUsernameCookie } from "@/app/utils/auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 export default async function Page() {
-	const username = await getUsernameCookie();
+	const session = await getServerSession(authOptions);
+	const username = (session?.user as any)?.username as string | undefined;
 
 	return (
 		<Container>
@@ -14,10 +16,10 @@ export default async function Page() {
 				<Link href="/">Home</Link>
 				<Link href="/continue">Continue</Link>
 				<Link href="/signin">Sign In</Link>
+				<Link href="/signup">Sign Up</Link>
 			</nav>
 			{username ? (
 				<Form actionParam={newGame}>
-					<input type="hidden" name="username" value={username} />
 					<input
 						type="text"
 						placeholder="Game Name"
@@ -25,30 +27,11 @@ export default async function Page() {
 					/>
 				</Form>
 			) : (
-				<>
-					<Form actionParam={newGame}>
-						<input type="text" placeholder="Name" name="name" />
-						<input
-							type="text"
-							placeholder="Username"
-							name="username"
-						/>
-						<input
-							type="password"
-							placeholder="Password (optional)"
-							name="password"
-						/>
-						<input
-							type="text"
-							placeholder="Game Name"
-							name="gameName"
-						/>
-					</Form>
-					<p>
-						Already have an account?{" "}
-						<Link href="/signin">Sign in</Link>.
-					</p>
-				</>
+				<div className="flex flex-col gap-3">
+					<p>Please sign in or sign up to start a game.</p>
+					<Link href="/signin">Go to Sign In</Link>
+					<Link href="/signup">Create an Account</Link>
+				</div>
 			)}
 		</Container>
 	);

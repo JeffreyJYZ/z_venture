@@ -3,10 +3,15 @@ import Container from "../ui/container";
 import continueGame from "../actions/game/continueGame";
 import Form from "../ui/components/form";
 import prisma from "@/lib/prisma";
-import { getUsernameCookie } from "@/app/utils/auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 async function getData() {
-	const username = await getUsernameCookie();
+	const session = await getServerSession(authOptions);
+	const username = (session?.user as any)?.username as
+		| string
+		| null
+		| undefined;
 	if (!username) {
 		return { username: null as string | null, games: [] as string[] };
 	}

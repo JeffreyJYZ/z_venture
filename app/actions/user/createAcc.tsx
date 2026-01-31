@@ -2,10 +2,8 @@
 
 import { Player } from "@/app/types/Player";
 import { pAction, revalidateAll } from "@/app/utils/helper";
-import { setUsernameCookie } from "@/app/utils/auth";
 import bcrypt from "bcryptjs";
-
-type ActionResult = { error?: string; success?: boolean };
+import ActionResult from "@/app/types/actionRes";
 
 const isErrorResult = (value: unknown): value is { error: unknown } =>
 	Boolean(value && typeof value === "object" && "error" in value);
@@ -20,41 +18,65 @@ export default async function createAcc(
 	const confirmPassword = data.get("confirmPassword")?.toString();
 
 	if (!name || !username) {
-		return { error: "Name and username are required" };
+		return { error: "Name and username are required", success: false };
 	}
 
-	if (password || confirmPassword) {
-		if (!confirmPassword || password !== confirmPassword) {
-			return { error: "Passwords do not match" };
+	if (password && confirmPassword) {
+		if (password !== confirmPassword) {
+			return { error: "Passwords do not match", success: false };
 		}
+	} else {
+		return {
+			error: "Password and confirmation are required",
+			success: false,
+		};
 	}
 
-	const existing = await pAction("Player", "findUnique", {
+	const existingUser = await pAction("User", "findUnique", {
 		where: { username },
 	});
 
-	if (isErrorResult(existing)) {
-		return { error: "Unable to check account availability" };
+	if (isErrorResult(existingUser)) {
+		return {
+			error: "Unable to check account availability",
+			success: false,
+		};
 	}
 
-	if (existing) {
-		return { error: "Account already exists" };
+	if (existingUser) {
+		return {
+			error: "Account already exists",
+			success: false,
+		};
+	}
+
+	const hashedPassword = await bcrypt.hash(password, 13);
+
+	const user = await pAction("User", "create", {
+		data: {
+			username,
+			name,
+			hashedPassword,
+		},
+	});
+
+	if (isErrorResult(user)) {
+		return { error: "Failed to create account", success: false };
 	}
 
 	const playerPayload = Player(name, username, false);
 
-	const created = await pAction("Player", "create", {
+	const player = await pAction("Player", "create", {
 		data: {
 			...playerPayload,
-			password: password ? await bcrypt.hash(password, 13) : null,
+			userId: (user as any).id,
 		},
 	});
 
-	if (isErrorResult(created)) {
-		return { error: "Failed to create account" };
+	if (isErrorResult(player)) {
+		return { error: "Failed to create player", success: false };
 	}
 
-	await setUsernameCookie(username);
 	await revalidateAll();
 	return { success: true };
 }

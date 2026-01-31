@@ -92,11 +92,52 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  username: 'username',
+  email: 'email',
+  emailVerified: 'emailVerified',
+  image: 'image',
+  hashedPassword: 'hashedPassword'
+};
+
+exports.Prisma.AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state',
+  oauth_token_secret: 'oauth_token_secret',
+  oauth_token: 'oauth_token'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires'
+};
+
+exports.Prisma.VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
+};
+
 exports.Prisma.PlayerScalarFieldEnum = {
   id: 'id',
   name: 'name',
   username: 'username',
   password: 'password',
+  userId: 'userId',
   admin: 'admin',
   lastPlayed: 'lastPlayed',
   createdAt: 'createdAt'
@@ -157,6 +198,10 @@ exports.Prisma.JsonNullValueFilter = {
 
 
 exports.Prisma.ModelName = {
+  User: 'User',
+  Account: 'Account',
+  Session: 'Session',
+  VerificationToken: 'VerificationToken',
   Player: 'Player',
   Game: 'Game',
   Save: 'Save',
@@ -170,10 +215,10 @@ const config = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Player {\n  id         String   @id @unique @default(uuid())\n  name       String\n  username   String   @unique\n  password   String?\n  admin      Boolean\n  lastPlayed DateTime @default(now())\n  createdAt  DateTime @default(now())\n  games      Game[]\n}\n\nmodel Game {\n  id        String   @id @unique @default(uuid())\n  name      String\n  player    Player   @relation(fields: [username], references: [username])\n  username  String\n  saves     Save[]\n  createdAt DateTime @default(now())\n\n  @@unique([username, name])\n}\n\nmodel Save {\n  id        String     @id @unique @default(uuid())\n  game      Game       @relation(fields: [gameId], references: [id])\n  gameId    String\n  time      String\n  auto      Boolean    @default(true)\n  state     GameState? @relation\n  stateId   String     @unique\n  createdAt DateTime   @default(now())\n}\n\nmodel GameState {\n  id           String   @id @unique @default(uuid())\n  save         Save     @relation(fields: [saveId], references: [id])\n  saveId       String   @unique\n  name         String\n  area         String   @default(\"Base\")\n  inventory    Json\n  ruppees      Int      @default(0)\n  stats        Json\n  visitedAreas String[] @default([])\n  killedBosses String[] @default([])\n}\n"
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// NextAuth models\nmodel User {\n  id             String    @id @default(cuid())\n  name           String?\n  username       String?   @unique\n  email          String?   @unique\n  emailVerified  DateTime?\n  image          String?\n  hashedPassword String?\n  accounts       Account[]\n  sessions       Session[]\n  players        Player[]\n}\n\nmodel Account {\n  id                 String  @id @default(cuid())\n  userId             String\n  type               String\n  provider           String\n  providerAccountId  String\n  refresh_token      String? @db.Text\n  access_token       String? @db.Text\n  expires_at         Int?\n  token_type         String?\n  scope              String?\n  id_token           String? @db.Text\n  session_state      String?\n  oauth_token_secret String?\n  oauth_token        String?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String   @unique\n  expires    DateTime\n\n  @@unique([identifier, token])\n}\n\nmodel Player {\n  id         String   @id @unique @default(uuid())\n  name       String\n  username   String   @unique\n  password   String?\n  userId     String?  @unique\n  user       User?    @relation(fields: [userId], references: [id])\n  admin      Boolean\n  lastPlayed DateTime @default(now())\n  createdAt  DateTime @default(now())\n  games      Game[]\n}\n\nmodel Game {\n  id        String   @id @unique @default(uuid())\n  name      String\n  player    Player   @relation(fields: [username], references: [username])\n  username  String\n  saves     Save[]\n  createdAt DateTime @default(now())\n\n  @@unique([username, name])\n}\n\nmodel Save {\n  id        String     @id @unique @default(uuid())\n  game      Game       @relation(fields: [gameId], references: [id])\n  gameId    String\n  time      String\n  auto      Boolean    @default(true)\n  state     GameState? @relation\n  stateId   String     @unique\n  createdAt DateTime   @default(now())\n}\n\nmodel GameState {\n  id           String   @id @unique @default(uuid())\n  save         Save     @relation(fields: [saveId], references: [id])\n  saveId       String   @unique\n  name         String\n  area         String   @default(\"Base\")\n  inventory    Json\n  ruppees      Int      @default(0)\n  stats        Json\n  visitedAreas String[] @default([])\n  killedBosses String[] @default([])\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Player\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"admin\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"lastPlayed\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"games\",\"kind\":\"object\",\"type\":\"Game\",\"relationName\":\"GameToPlayer\"}],\"dbName\":null},\"Game\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"player\",\"kind\":\"object\",\"type\":\"Player\",\"relationName\":\"GameToPlayer\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saves\",\"kind\":\"object\",\"type\":\"Save\",\"relationName\":\"GameToSave\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Save\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"game\",\"kind\":\"object\",\"type\":\"Game\",\"relationName\":\"GameToSave\"},{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"auto\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"state\",\"kind\":\"object\",\"type\":\"GameState\",\"relationName\":\"GameStateToSave\"},{\"name\":\"stateId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"GameState\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"save\",\"kind\":\"object\",\"type\":\"Save\",\"relationName\":\"GameStateToSave\"},{\"name\":\"saveId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"area\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"inventory\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"ruppees\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"stats\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"visitedAreas\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"killedBosses\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"hashedPassword\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"players\",\"kind\":\"object\",\"type\":\"Player\",\"relationName\":\"PlayerToUser\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"oauth_token_secret\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"oauth_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Player\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PlayerToUser\"},{\"name\":\"admin\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"lastPlayed\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"games\",\"kind\":\"object\",\"type\":\"Game\",\"relationName\":\"GameToPlayer\"}],\"dbName\":null},\"Game\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"player\",\"kind\":\"object\",\"type\":\"Player\",\"relationName\":\"GameToPlayer\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saves\",\"kind\":\"object\",\"type\":\"Save\",\"relationName\":\"GameToSave\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Save\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"game\",\"kind\":\"object\",\"type\":\"Game\",\"relationName\":\"GameToSave\"},{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"auto\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"state\",\"kind\":\"object\",\"type\":\"GameState\",\"relationName\":\"GameStateToSave\"},{\"name\":\"stateId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"GameState\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"save\",\"kind\":\"object\",\"type\":\"Save\",\"relationName\":\"GameStateToSave\"},{\"name\":\"saveId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"area\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"inventory\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"ruppees\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"stats\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"visitedAreas\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"killedBosses\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
   getRuntime: async () => require('./query_compiler_fast_bg.js'),
