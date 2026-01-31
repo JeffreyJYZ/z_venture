@@ -4,6 +4,7 @@ import { Player } from "@/app/types/Player";
 import { pAction, revalidateAll } from "@/app/utils/helper";
 import bcrypt from "bcryptjs";
 import ActionResult from "@/app/types/actionRes";
+import prisma from "@/lib/prisma";
 
 const isErrorResult = (value: unknown): value is { error: unknown } =>
 	Boolean(value && typeof value === "object" && "error" in value);
@@ -65,12 +66,13 @@ export default async function createAcc(
 	}
 
 	const playerPayload = Player(name, username, false);
-	const existingPlayer = await pAction("Player", "findUnique", {
-		where: { username },
-	});
-
-	if (isErrorResult(existingPlayer)) {
-		return { error: "Unable to verify player", success: false };
+	let existingPlayer: any = null;
+	try {
+		existingPlayer = await prisma.player.findUnique({
+			where: { username },
+		});
+	} catch (error) {
+		console.error("[signup] unable to verify player", { username, error });
 	}
 
 	if (existingPlayer) {
