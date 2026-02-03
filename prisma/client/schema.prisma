@@ -1,3 +1,4 @@
+// biome-ignore-all lint: generated file
 generator client {
   provider = "prisma-client-js"
   output   = "./client"
@@ -62,7 +63,6 @@ model Player {
   id         String   @id @unique @default(uuid())
   name       String
   username   String   @unique
-  password   String?
   userId     String?  @unique
   user       User?    @relation(fields: [userId], references: [id])
   admin      Boolean

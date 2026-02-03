@@ -5998,7 +5998,6 @@ export namespace Prisma {
     id: string | null
     name: string | null
     username: string | null
-    password: string | null
     userId: string | null
     admin: boolean | null
     lastPlayed: Date | null
@@ -6009,7 +6008,6 @@ export namespace Prisma {
     id: string | null
     name: string | null
     username: string | null
-    password: string | null
     userId: string | null
     admin: boolean | null
     lastPlayed: Date | null
@@ -6020,7 +6018,6 @@ export namespace Prisma {
     id: number
     name: number
     username: number
-    password: number
     userId: number
     admin: number
     lastPlayed: number
@@ -6033,7 +6030,6 @@ export namespace Prisma {
     id?: true
     name?: true
     username?: true
-    password?: true
     userId?: true
     admin?: true
     lastPlayed?: true
@@ -6044,7 +6040,6 @@ export namespace Prisma {
     id?: true
     name?: true
     username?: true
-    password?: true
     userId?: true
     admin?: true
     lastPlayed?: true
@@ -6055,7 +6050,6 @@ export namespace Prisma {
     id?: true
     name?: true
     username?: true
-    password?: true
     userId?: true
     admin?: true
     lastPlayed?: true
@@ -6139,7 +6133,6 @@ export namespace Prisma {
     id: string
     name: string
     username: string
-    password: string | null
     userId: string | null
     admin: boolean
     lastPlayed: Date
@@ -6167,7 +6160,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     username?: boolean
-    password?: boolean
     userId?: boolean
     admin?: boolean
     lastPlayed?: boolean
@@ -6181,7 +6173,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     username?: boolean
-    password?: boolean
     userId?: boolean
     admin?: boolean
     lastPlayed?: boolean
@@ -6193,7 +6184,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     username?: boolean
-    password?: boolean
     userId?: boolean
     admin?: boolean
     lastPlayed?: boolean
@@ -6205,14 +6195,13 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     username?: boolean
-    password?: boolean
     userId?: boolean
     admin?: boolean
     lastPlayed?: boolean
     createdAt?: boolean
   }
 
-  export type PlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "password" | "userId" | "admin" | "lastPlayed" | "createdAt", ExtArgs["result"]["player"]>
+  export type PlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "userId" | "admin" | "lastPlayed" | "createdAt", ExtArgs["result"]["player"]>
   export type PlayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Player$userArgs<ExtArgs>
     games?: boolean | Player$gamesArgs<ExtArgs>
@@ -6235,7 +6224,6 @@ export namespace Prisma {
       id: string
       name: string
       username: string
-      password: string | null
       userId: string | null
       admin: boolean
       lastPlayed: Date
@@ -6668,7 +6656,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Player", 'String'>
     readonly name: FieldRef<"Player", 'String'>
     readonly username: FieldRef<"Player", 'String'>
-    readonly password: FieldRef<"Player", 'String'>
     readonly userId: FieldRef<"Player", 'String'>
     readonly admin: FieldRef<"Player", 'Boolean'>
     readonly lastPlayed: FieldRef<"Player", 'DateTime'>
@@ -10497,7 +10484,6 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     username: 'username',
-    password: 'password',
     userId: 'userId',
     admin: 'admin',
     lastPlayed: 'lastPlayed',
@@ -10943,7 +10929,6 @@ export namespace Prisma {
     id?: StringFilter<"Player"> | string
     name?: StringFilter<"Player"> | string
     username?: StringFilter<"Player"> | string
-    password?: StringNullableFilter<"Player"> | string | null
     userId?: StringNullableFilter<"Player"> | string | null
     admin?: BoolFilter<"Player"> | boolean
     lastPlayed?: DateTimeFilter<"Player"> | Date | string
@@ -10956,7 +10941,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     username?: SortOrder
-    password?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
@@ -10973,7 +10957,6 @@ export namespace Prisma {
     OR?: PlayerWhereInput[]
     NOT?: PlayerWhereInput | PlayerWhereInput[]
     name?: StringFilter<"Player"> | string
-    password?: StringNullableFilter<"Player"> | string | null
     admin?: BoolFilter<"Player"> | boolean
     lastPlayed?: DateTimeFilter<"Player"> | Date | string
     createdAt?: DateTimeFilter<"Player"> | Date | string
@@ -10985,7 +10968,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     username?: SortOrder
-    password?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
@@ -11002,7 +10984,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Player"> | string
     name?: StringWithAggregatesFilter<"Player"> | string
     username?: StringWithAggregatesFilter<"Player"> | string
-    password?: StringNullableWithAggregatesFilter<"Player"> | string | null
     userId?: StringNullableWithAggregatesFilter<"Player"> | string | null
     admin?: BoolWithAggregatesFilter<"Player"> | boolean
     lastPlayed?: DateTimeWithAggregatesFilter<"Player"> | Date | string
@@ -11497,7 +11478,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     admin: boolean
     lastPlayed?: Date | string
     createdAt?: Date | string
@@ -11509,7 +11489,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     userId?: string | null
     admin: boolean
     lastPlayed?: Date | string
@@ -11521,7 +11500,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11533,7 +11511,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11545,7 +11522,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     userId?: string | null
     admin: boolean
     lastPlayed?: Date | string
@@ -11556,7 +11532,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11566,7 +11541,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12119,7 +12093,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     username?: SortOrder
-    password?: SortOrder
     userId?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
@@ -12130,7 +12103,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     username?: SortOrder
-    password?: SortOrder
     userId?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
@@ -12141,7 +12113,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     username?: SortOrder
-    password?: SortOrder
     userId?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
@@ -13033,7 +13004,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     admin: boolean
     lastPlayed?: Date | string
     createdAt?: Date | string
@@ -13044,7 +13014,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     admin: boolean
     lastPlayed?: Date | string
     createdAt?: Date | string
@@ -13146,7 +13115,6 @@ export namespace Prisma {
     id?: StringFilter<"Player"> | string
     name?: StringFilter<"Player"> | string
     username?: StringFilter<"Player"> | string
-    password?: StringNullableFilter<"Player"> | string | null
     userId?: StringNullableFilter<"Player"> | string | null
     admin?: BoolFilter<"Player"> | boolean
     lastPlayed?: DateTimeFilter<"Player"> | Date | string
@@ -13399,7 +13367,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     admin: boolean
     lastPlayed?: Date | string
     createdAt?: Date | string
@@ -13410,7 +13377,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     userId?: string | null
     admin: boolean
     lastPlayed?: Date | string
@@ -13465,7 +13431,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13476,7 +13441,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13693,7 +13657,6 @@ export namespace Prisma {
     id?: string
     name: string
     username: string
-    password?: string | null
     admin: boolean
     lastPlayed?: Date | string
     createdAt?: Date | string
@@ -13769,7 +13732,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13780,7 +13742,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13791,7 +13752,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

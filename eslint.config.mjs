@@ -21,6 +21,7 @@ const eslintConfig = defineConfig([
 			"@typescript-eslint/no-unused-expressions": "off",
 			"prefer-const": "off",
 			"@typescript-eslint/no-unnecessary-type-constraint": "off",
+			"@typescript-eslint/no-require-imports": "off",
 		},
 	},
 ]);
