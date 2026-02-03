@@ -1,16 +1,10 @@
 import Link from "next/link";
-import newGame from "../actions/game/newGame";
-import Form from "../ui/components/form";
-import Container from "../ui/container";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
+import Form from "@/app/ui/components/form";
+import newGame from "@/app/actions/game/new";
 
 export default async function Page() {
-	const session = await getServerSession(authOptions);
-	const username = (session?.user as any)?.username as string | undefined;
-
 	return (
-		<Container>
+		<>
 			<h1>Start a New Adventure</h1>
 			<nav className="flex gap-3 mb-4">
 				<Link href="/">Home</Link>
@@ -18,8 +12,8 @@ export default async function Page() {
 				<Link href="/signin">Sign In</Link>
 				<Link href="/signup">Sign Up</Link>
 			</nav>
-			{username ? (
-				<Form actionParam={newGame}>
+			{true ? (
+				<Form actionParam={newGame} sbmtBtnText="New Game">
 					<input
 						type="text"
 						placeholder="Game Name"
@@ -33,6 +27,6 @@ export default async function Page() {
 					<Link href="/signup">Create an Account</Link>
 				</div>
 			)}
-		</Container>
+		</>
 	);
 }

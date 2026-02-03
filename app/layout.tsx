@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 import { interFont, ralewayFont } from "./ui/fonts";
 import CustomErrorBoundary from "./ui/components/CustomErrorBoundary";
+import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Z Venture",

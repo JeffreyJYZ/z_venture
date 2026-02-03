@@ -1,5 +1,5 @@
 import SideNav from "../ui/components/sideNav";
-import Container from "../ui/container";
+import Container from "../ui/components/container";
 
 export default function GameLayout({
 	children,
