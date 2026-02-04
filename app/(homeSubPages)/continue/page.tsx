@@ -5,6 +5,8 @@ import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
 
+export const dynamic = "force-dynamic";
+
 export default async function ContinuePage() {
 	return (
 		<>

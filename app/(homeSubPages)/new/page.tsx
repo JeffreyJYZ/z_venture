@@ -3,6 +3,8 @@ import Form from "@/app/ui/components/form";
 import newGame from "@/app/actions/game/new";
 import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
 	return (
 		<>
