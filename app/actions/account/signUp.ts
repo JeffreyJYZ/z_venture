@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import cookiesSetRules from "@/app/utils/cookiesSetRules";
 
-export default async function signUp(data: FormData) {
+export default async function signUp(_: any, data: FormData) {
 	const username = data.get("username") as string;
 	const password = data.get("password") as string;
 	const confirmPassword = data.get("cfmPassword") as string;

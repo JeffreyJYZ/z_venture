@@ -9,7 +9,7 @@ import { isError } from "@/app/utils/isRetryableError";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 
-export default async function signIn(data: FormData) {
+export default async function signIn(_: any, data: FormData) {
 	const username = data.get("username") as string;
 	const password = data.get("password") as string;
 
