@@ -1,4 +1,4 @@
-import signIn from "../../actions/account/signUp";
+import signIn from "../../actions/account/signin";
 import Form from "../../ui/components/form";
 
 export default function SignInPage() {

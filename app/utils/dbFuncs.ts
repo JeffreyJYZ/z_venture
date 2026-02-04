@@ -36,6 +36,14 @@ export async function createUserSession(username: string) {
 	);
 }
 
+export async function deleteSessionByToken(token: string) {
+	return await withRetry(() =>
+		prisma.session.deleteMany({
+			where: { token },
+		}),
+	);
+}
+
 export async function createUser(
 	username: string,
 	password: string,

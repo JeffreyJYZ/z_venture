@@ -1,6 +1,14 @@
-import { headers } from "next/headers";
 import Container from "../ui/components/container";
 import Link from "next/link";
+import logout from "../actions/account/logout";
+import Form from "../ui/components/form";
+import { redirect } from "next/navigation";
+
+async function handleLogout() {
+	"use server";
+	await logout();
+	redirect("/");
+}
 
 export default async function Base({
 	children,
@@ -15,6 +23,12 @@ export default async function Base({
 				<Link href="/signup">Sign Up</Link>
 				<Link href="/continue">Continue Game</Link>
 				<Link href="/new">New Game</Link>
+				<Form
+					actionParam={handleLogout}
+					sbmtBtnText="Logout"
+					formClasses={["inline"]}
+					sbmtBtnLoadingText="Logging Out..."
+				></Form>
 			</nav>
 			<main>{children}</main>
 		</Container>
