@@ -25,6 +25,8 @@ export default async function signUp(data: FormData) {
 		return newSession;
 	}
 	const cookieStore = await cookies();
+	if (!cookieStore || typeof cookieStore.set !== "function")
+		return { error: "Could not access cookies" };
 	cookieStore.set("session", newSession.token, cookiesSetRules);
 	return "success";
 }

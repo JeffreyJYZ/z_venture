@@ -29,6 +29,8 @@ export default async function signIn(data: FormData) {
 	const sessions = await getUserSessions(username);
 	if (isError(sessions)) return sessions;
 	const cookieStore = await cookies();
+	if (!cookieStore || typeof cookieStore.set !== "function")
+		return { error: "Could not access cookies" };
 	const newSession =
 		sessions?.length > 0 ? sessions[0] : await createUserSession(username);
 	if (isError(newSession)) return newSession;
