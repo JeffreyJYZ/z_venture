@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import Form from "../form";
 import { useRouter } from "next/navigation";
 
 const BtnStyles: React.CSSProperties = {
@@ -12,24 +14,29 @@ const BtnStyles: React.CSSProperties = {
 };
 
 export default function HomeButtons() {
+	const [isAnyPending, setIsAnyPending] = useState(false);
 	const router = useRouter();
 
 	return (
 		<section className="flex">
-			<button
-				type="button"
-				style={BtnStyles}
-				onClick={() => router.push("/continue")}
-			>
-				Continue Game
-			</button>
-			<button
-				type="button"
-				style={BtnStyles}
-				onClick={() => router.push("/new")}
-			>
-				New Game
-			</button>
+			<Form
+				sbmtBtnStyles={BtnStyles}
+				actionParam={async (_, __) => {
+					router.push("/continue");
+				}}
+				sbmtBtnText="Continue Game"
+				isAnyPending={isAnyPending}
+				setIsAnyPending={setIsAnyPending}
+			></Form>
+			<Form
+				sbmtBtnStyles={BtnStyles}
+				actionParam={async (_, __) => {
+					router.push("/new");
+				}}
+				sbmtBtnText="New Game"
+				isAnyPending={isAnyPending}
+				setIsAnyPending={setIsAnyPending}
+			></Form>
 		</section>
 	);
 }
