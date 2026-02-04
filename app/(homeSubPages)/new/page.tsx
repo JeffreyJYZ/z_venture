@@ -1,14 +1,13 @@
 import Link from "next/link";
 import Form from "@/app/ui/components/form";
 import newGame from "@/app/actions/game/new";
-import { cookies } from "next/headers";
+import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
 
 export default async function Page() {
-	const cookieStore = await cookies();
 	return (
 		<>
 			<h1>Start a New Adventure</h1>
-			{!!cookieStore.get("session") ? (
+			{(await isCurrentTokenExpired()) ? (
 				<Form actionParam={newGame} sbmtBtnText="New Game">
 					<input
 						type="text"

@@ -1308,7 +1308,6 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: string | null
-    name: string | null
     username: string | null
     password: string | null
     admin: boolean | null
@@ -1318,7 +1317,6 @@ export namespace Prisma {
 
   export type UserMaxAggregateOutputType = {
     id: string | null
-    name: string | null
     username: string | null
     password: string | null
     admin: boolean | null
@@ -1328,7 +1326,6 @@ export namespace Prisma {
 
   export type UserCountAggregateOutputType = {
     id: number
-    name: number
     username: number
     password: number
     admin: number
@@ -1340,7 +1337,6 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
-    name?: true
     username?: true
     password?: true
     admin?: true
@@ -1350,7 +1346,6 @@ export namespace Prisma {
 
   export type UserMaxAggregateInputType = {
     id?: true
-    name?: true
     username?: true
     password?: true
     admin?: true
@@ -1360,7 +1355,6 @@ export namespace Prisma {
 
   export type UserCountAggregateInputType = {
     id?: true
-    name?: true
     username?: true
     password?: true
     admin?: true
@@ -1443,7 +1437,6 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -1470,7 +1463,6 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     username?: boolean
     password?: boolean
     admin?: boolean
@@ -1483,7 +1475,6 @@ export namespace Prisma {
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     username?: boolean
     password?: boolean
     admin?: boolean
@@ -1493,7 +1484,6 @@ export namespace Prisma {
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     username?: boolean
     password?: boolean
     admin?: boolean
@@ -1503,7 +1493,6 @@ export namespace Prisma {
 
   export type UserSelectScalar = {
     id?: boolean
-    name?: boolean
     username?: boolean
     password?: boolean
     admin?: boolean
@@ -1511,7 +1500,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "password" | "admin" | "lastPlayed" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "admin" | "lastPlayed" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     games?: boolean | User$gamesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1528,7 +1517,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
       username: string
       password: string
       admin: boolean
@@ -1960,7 +1948,6 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
-    readonly name: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly admin: FieldRef<"User", 'Boolean'>
@@ -6778,7 +6765,6 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    name: 'name',
     username: 'username',
     password: 'password',
     admin: 'admin',
@@ -6958,7 +6944,6 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
@@ -6970,7 +6955,6 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
     username?: SortOrder
     password?: SortOrder
     admin?: SortOrder
@@ -6986,7 +6970,6 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
     lastPlayed?: DateTimeFilter<"User"> | Date | string
@@ -6997,7 +6980,6 @@ export namespace Prisma {
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
     username?: SortOrder
     password?: SortOrder
     admin?: SortOrder
@@ -7013,7 +6995,6 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
-    name?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     admin?: BoolWithAggregatesFilter<"User"> | boolean
@@ -7267,7 +7248,6 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id?: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -7279,7 +7259,6 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -7291,7 +7270,6 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -7303,7 +7281,6 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -7315,7 +7292,6 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -7325,7 +7301,6 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -7335,7 +7310,6 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -7645,7 +7619,6 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     username?: SortOrder
     password?: SortOrder
     admin?: SortOrder
@@ -7655,7 +7628,6 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     username?: SortOrder
     password?: SortOrder
     admin?: SortOrder
@@ -7665,7 +7637,6 @@ export namespace Prisma {
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     username?: SortOrder
     password?: SortOrder
     admin?: SortOrder
@@ -8419,7 +8390,6 @@ export namespace Prisma {
 
   export type UserCreateWithoutGamesInput = {
     id?: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -8430,7 +8400,6 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutGamesInput = {
     id?: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -8485,7 +8454,6 @@ export namespace Prisma {
 
   export type UserUpdateWithoutGamesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -8496,7 +8464,6 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutGamesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -8691,7 +8658,6 @@ export namespace Prisma {
 
   export type UserCreateWithoutSessionsInput = {
     id?: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -8702,7 +8668,6 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: string
-    name: string
     username: string
     password: string
     admin: boolean
@@ -8729,7 +8694,6 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -8740,7 +8704,6 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
