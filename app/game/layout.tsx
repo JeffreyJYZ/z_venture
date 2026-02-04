@@ -7,9 +7,9 @@ export default function GameLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="flex flex-row p-5">
+		<Container className="flex flex-row p-5 gap-5">
 			<SideNav />
-			<Container>{children}</Container>
-		</div>
+			<main>{children}</main>
+		</Container>
 	);
 }

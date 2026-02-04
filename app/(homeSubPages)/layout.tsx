@@ -8,7 +8,7 @@ export default async function Base({
 	children: React.ReactNode;
 }) {
 	return (
-		<Container>
+		<Container className={"flex-row gap-5"}>
 			<nav>
 				<Link href="/">Home</Link>
 				<Link href="/signin">Sign In</Link>
@@ -16,7 +16,7 @@ export default async function Base({
 				<Link href="/continue">Continue Game</Link>
 				<Link href="/new">New Game</Link>
 			</nav>
-			{children}
+			<main>{children}</main>
 		</Container>
 	);
 }

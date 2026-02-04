@@ -1,18 +1,14 @@
 import Link from "next/link";
 import Form from "@/app/ui/components/form";
 import newGame from "@/app/actions/game/new";
+import { cookies } from "next/headers";
 
 export default async function Page() {
+	const cookieStore = await cookies();
 	return (
 		<>
 			<h1>Start a New Adventure</h1>
-			<nav className="flex gap-3 mb-4">
-				<Link href="/">Home</Link>
-				<Link href="/continue">Continue</Link>
-				<Link href="/signin">Sign In</Link>
-				<Link href="/signup">Sign Up</Link>
-			</nav>
-			{true ? (
+			{!!cookieStore.get("session") ? (
 				<Form actionParam={newGame} sbmtBtnText="New Game">
 					<input
 						type="text"

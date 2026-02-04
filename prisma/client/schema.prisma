@@ -8,13 +8,15 @@ datasource db {
 }
 
 model User {
-  id         String   @id @unique @default(uuid())
+  id         String    @id @unique @default(uuid())
   name       String
-  username   String   @unique
+  username   String    @unique
+  password   String
   admin      Boolean
-  lastPlayed DateTime @default(now())
-  createdAt  DateTime @default(now())
+  lastPlayed DateTime  @default(now())
+  createdAt  DateTime  @default(now())
   games      Game[]
+  sessions   Session[]
 }
 
 model Game {
@@ -50,4 +52,12 @@ model GameState {
   stats        Json
   visitedAreas String[] @default([])
   killedBosses String[] @default([])
+}
+
+model Session {
+  user      User     @relation(fields: [username], references: [username])
+  username  String
+  token     String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  expiresAt DateTime @default(dbgenerated("now() + interval '10 days'"))
 }

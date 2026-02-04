@@ -35,3 +35,7 @@ export function isRetryableError(error: unknown): boolean {
 
 	return false;
 }
+
+export function isError(obj: any): obj is { error: unknown } {
+	return obj && typeof obj === "object" && "error" in obj;
+}

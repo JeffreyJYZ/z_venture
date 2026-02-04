@@ -1,6 +1,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
 import ErrorText from "./errorText";
+import { isError } from "@/app/utils/isRetryableError";
 
 export default function Form({
 	actionParam,
@@ -40,8 +41,8 @@ export default function Form({
 	const errorMessage =
 		typeof state === "string"
 			? state
-			: state && typeof state === "object" && "error" in state
-				? String((state as { error: unknown }).error)
+			: isError(state)
+				? String(state.error)
 				: "";
 
 	return (

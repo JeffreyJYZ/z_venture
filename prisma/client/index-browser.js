@@ -124,6 +124,7 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   username: 'username',
+  password: 'password',
   admin: 'admin',
   lastPlayed: 'lastPlayed',
   createdAt: 'createdAt'
@@ -157,6 +158,13 @@ exports.Prisma.GameStateScalarFieldEnum = {
   killedBosses: 'killedBosses'
 };
 
+exports.Prisma.SessionScalarFieldEnum = {
+  username: 'username',
+  token: 'token',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -182,7 +190,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Game: 'Game',
   Save: 'Save',
-  GameState: 'GameState'
+  GameState: 'GameState',
+  Session: 'Session'
 };
 
 /**

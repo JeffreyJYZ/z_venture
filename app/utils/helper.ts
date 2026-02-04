@@ -28,9 +28,11 @@ export async function withRetry<T>(
 	options: {
 		retries?: number;
 		baseDelayMs?: number;
+		throw?: boolean;
 	} = {
 		retries: 10,
 		baseDelayMs: 300,
+		throw: false,
 	},
 ): Promise<T | { error: unknown }> {
 	const retries = options?.retries ?? 5;
@@ -47,6 +49,7 @@ export async function withRetry<T>(
 			attempt++;
 
 			if (!isRetryableError(error) || attempt >= retries) {
+				if (options.throw) throw error;
 				return { error };
 			}
 			const delay =
@@ -63,24 +66,4 @@ export async function withRetry<T>(
 	}
 
 	return { error: lastError };
-}
-
-export async function pAction<
-	TModel extends Prisma.ModelName,
-	TAction extends Prisma.PrismaAction,
-	TData,
->(
-	model: TModel,
-	action: TAction,
-	data: TData,
-	retries?: number,
-	...options: any[]
-) {
-	const result = await withRetry(
-		() => (prisma as any)[model][action](data, ...options),
-		{
-			retries,
-		},
-	);
-	return result;
 }

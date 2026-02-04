@@ -1,13 +1,13 @@
 "use client";
 
 export interface SaveHelper {
-	save: (k: string, o: any) => Promise<void>;
-	load: (k: string) => Promise<any | void>;
-	delete: (k: string) => Promise<any | void>;
+	save: (k: string, o: any) => void;
+	load: (k: string) => any | void;
+	delete: (k: string) => any | void;
 }
 
-const Save: SaveHelper = {
-	async save(k: string, o: any) {
+const local: SaveHelper = {
+	save(k: string, o: any) {
 		try {
 			localStorage.setItem(k, JSON.stringify(o));
 			console.log(`Saved to localStorage: key="${k}", value=`, o);
@@ -15,7 +15,7 @@ const Save: SaveHelper = {
 			console.error(`Error saving to localStorage key="${k}":`, error);
 		}
 	},
-	async load(k: string) {
+	load(k: string) {
 		const item = localStorage.getItem(k);
 		if (!item) return null; // Return null if the key doesn't exist
 		try {
@@ -25,7 +25,7 @@ const Save: SaveHelper = {
 			return null;
 		}
 	},
-	async delete(k: string) {
+	delete(k: string) {
 		const res = JSON.parse(localStorage.getItem(k) ?? "{}");
 		if (!Object.keys(res).length) return;
 		localStorage.removeItem(k);
@@ -33,6 +33,4 @@ const Save: SaveHelper = {
 	},
 };
 
-const LocalSaver = Save;
-
-export default LocalSaver;
+export default local;

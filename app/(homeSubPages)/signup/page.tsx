@@ -6,23 +6,30 @@ export default function SignUpPage() {
 	return (
 		<>
 			<h1>Sign Up</h1>
-			<nav className="flex gap-3 mb-4">
-				<Link href="/">Home</Link>
-				<Link href="/signin">Sign In</Link>
-			</nav>
 			<Form
 				actionParam={signUp}
 				formClasses={["flex", "flex-col", "gap-3"]}
+				sbmtBtnText="Create Account"
+				sbmtBtnLoadingText="Creating your account..."
 			>
-				<input type="email" name="email" placeholder="Email" />
-				<input type="text" name="username" placeholder="Username" />
-				<input type="password" name="password" placeholder="Password" />
+				<input
+					type="text"
+					name="username"
+					placeholder="Username"
+					required
+				/>
+				<input
+					type="password"
+					name="password"
+					placeholder="Password"
+					required
+				/>
 				<input
 					type="password"
 					name="cfmPassword"
 					placeholder="Confirm Password"
+					required
 				/>
-				<button type="submit">Create Account</button>
 			</Form>
 		</>
 	);

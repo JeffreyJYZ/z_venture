@@ -1,8 +1,12 @@
 import Link from "next/link";
 import Form from "@/app/ui/components/form";
 import continueGame from "@/app/actions/game/continue";
+import { cookies } from "next/headers";
+import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 export default async function ContinuePage() {
+	const cookieStore = await cookies();
 	return (
 		<>
 			<h1>Continue</h1>
@@ -11,25 +15,23 @@ export default async function ContinuePage() {
 				<Link href="/new">New Game</Link>
 				<Link href="/signin">Sign In</Link>
 			</nav>
-			{true ? (
+			{!!cookieStore.get("session") ? (
 				<Form actionParam={continueGame} sbmtBtnText="Continue">
-					{[].length ? (
+					{(await prisma.game.findMany()).length ? (
 						<select name="gameName" defaultValue="">
 							<option value="" disabled>
 								Select a game
 							</option>
-							{[].map((name) => (
+							{(await prisma.game.findMany()).map(({ name }) => (
 								<option key={name} value={name}>
 									{name}
 								</option>
 							))}
 						</select>
 					) : (
-						<input
-							type="text"
-							name="gameName"
-							placeholder="Game Name"
-						/>
+						await (async function () {
+							redirect("/new");
+						})()
 					)}
 				</Form>
 			) : (
