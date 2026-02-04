@@ -78,6 +78,8 @@ export async function isExpiredToken(token: string) {
 
 export async function isCurrentTokenExpired() {
 	const cookieStore = await cookies();
+	if (!cookieStore || typeof cookieStore.get !== "function") return true;
+
 	const sessionToken = cookieStore.get("session")?.value;
 	if (!sessionToken) return true;
 	return await isExpiredToken(sessionToken);

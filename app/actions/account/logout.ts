@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 
 export default async function logout() {
 	const cookieStore = await cookies();
-	const sessionToken = cookieStore.get("session")?.value;
+	const sessionToken = cookieStore?.get?.("session")?.value;
 
 	if (sessionToken) {
 		const result = await deleteSessionByToken(sessionToken);
@@ -15,6 +15,6 @@ export default async function logout() {
 	}
 
 	// Clear cookie regardless of DB state so the client is signed out.
-	cookieStore.set("session", "", { ...cookiesSetRules, maxAge: 0 });
+	cookieStore?.set?.("session", "", { ...cookiesSetRules, maxAge: 0 });
 	return "success";
 }
