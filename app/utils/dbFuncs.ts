@@ -77,10 +77,16 @@ export async function isExpiredToken(token: string) {
 }
 
 export async function isCurrentTokenExpired() {
-	const cookieStore = await cookies();
-	if (!cookieStore || typeof cookieStore.get !== "function") return true;
+	try {
+		const cookieStore = await cookies();
+		if (!cookieStore || typeof cookieStore.get !== "function") return true;
 
-	const sessionToken = cookieStore?.get?.("session")?.value;
-	if (!sessionToken) return true;
-	return await isExpiredToken(sessionToken);
+		const sessionToken = cookieStore.get("session")?.value;
+		if (!sessionToken) return true;
+		return await isExpiredToken(sessionToken);
+	} catch (err) {
+		// If cookies() is unavailable (e.g., during prerender), treat as expired
+		console.warn("isCurrentTokenExpired: cookies unavailable", err);
+		return true;
+	}
 }
