@@ -1,4 +1,4 @@
-import HomeButtons from "./ui/components/home/homeButtons";
+import HomeButtons from "./ui/components/specifics/home/homeButtons";
 import Container from "./ui/components/container";
 import Link from "next/link";
 

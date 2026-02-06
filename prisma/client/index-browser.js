@@ -123,10 +123,10 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
-  password: 'password',
   admin: 'admin',
+  createdAt: 'createdAt',
   lastPlayed: 'lastPlayed',
-  createdAt: 'createdAt'
+  password: 'password'
 };
 
 exports.Prisma.GameScalarFieldEnum = {
@@ -153,8 +153,8 @@ exports.Prisma.GameStateScalarFieldEnum = {
   inventory: 'inventory',
   ruppees: 'ruppees',
   stats: 'stats',
-  visitedAreas: 'visitedAreas',
-  killedBosses: 'killedBosses'
+  killedBosses: 'killedBosses',
+  visitedAreas: 'visitedAreas'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {

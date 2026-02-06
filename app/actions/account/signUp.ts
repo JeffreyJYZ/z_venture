@@ -7,9 +7,9 @@ import bcrypt from "bcryptjs";
 import cookiesSetRules from "@/app/utils/cookiesSetRules";
 
 export default async function signUp(_: any, data: FormData) {
-	const username = data.get("username") as string;
-	const password = data.get("password") as string;
-	const confirmPassword = data.get("cfmPassword") as string;
+	const username = String(data.get("username") ?? "").trim();
+	const password = String(data.get("password") ?? "").trim();
+	const confirmPassword = String(data.get("cfmPassword") ?? "").trim();
 	if (!username || !password || !confirmPassword) {
 		return { error: "All fields are required" };
 	}

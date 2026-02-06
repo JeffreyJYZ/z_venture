@@ -10,7 +10,7 @@ export default function Container({
 }) {
 	return (
 		<main
-			className={`flex flex-col items-center justify-self-center pt-5 ${Array.isArray(className) ? className.join(" ") : className}`}
+			className={`flex flex-col items-center justify-self-center p-5 ${Array.isArray(className) ? className.join(" ") : className}`}
 			style={style}
 		>
 			{children}

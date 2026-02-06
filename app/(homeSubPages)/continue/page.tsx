@@ -5,9 +5,9 @@ import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
 
-export const dynamic = "force-dynamic";
-
 export default async function ContinuePage() {
+	const games = await prisma.game.findMany();
+
 	return (
 		<>
 			<h1>Continue</h1>
@@ -16,25 +16,25 @@ export default async function ContinuePage() {
 				<Link href="/new">New Game</Link>
 				<Link href="/signin">Sign In</Link>
 			</nav>
-			{(await isCurrentTokenExpired()) ? (
-				<Form actionParam={continueGame} sbmtBtnText="Continue">
-					{(await prisma.game.findMany()).length ? (
+			{!(await isCurrentTokenExpired()) ? (
+				games.length ? (
+					<Form actionParam={continueGame} sbmtBtnText="Continue">
 						<select name="gameName" defaultValue="">
 							<option value="" disabled>
 								Select a game
 							</option>
-							{(await prisma.game.findMany()).map(({ name }) => (
+							{games.map(({ name }) => (
 								<option key={name} value={name}>
 									{name}
 								</option>
 							))}
 						</select>
-					) : (
-						await (async function () {
-							redirect("/new");
-						})()
-					)}
-				</Form>
+					</Form>
+				) : (
+					await (async function () {
+						redirect("/new");
+					})()
+				)
 			) : (
 				<div className="flex flex-col gap-2">
 					<p>Please sign in to continue a game.</p>

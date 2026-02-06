@@ -3,13 +3,11 @@ import Form from "@/app/ui/components/form";
 import newGame from "@/app/actions/game/new";
 import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
 
-export const dynamic = "force-dynamic";
-
 export default async function Page() {
 	return (
 		<>
 			<h1>Start a New Adventure</h1>
-			{(await isCurrentTokenExpired()) ? (
+			{!(await isCurrentTokenExpired()) ? (
 				<Form actionParam={newGame} sbmtBtnText="New Game">
 					<input
 						type="text"

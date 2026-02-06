@@ -12,6 +12,19 @@ export async function getUser(username: string) {
 	);
 }
 
+export async function getUserInsensitive(username: string) {
+	return await withRetry(() =>
+		prisma.user.findFirst({
+			where: {
+				username: {
+					equals: username,
+					mode: "insensitive",
+				},
+			},
+		}),
+	);
+}
+
 export async function getUserSessions(username: string) {
 	return await withRetry(() =>
 		prisma.session.findMany({
@@ -32,6 +45,18 @@ export async function createUserSession(username: string) {
 			data: {
 				username,
 			},
+		}),
+	);
+}
+
+export async function updateUserPassword(
+	username: string,
+	hashedPassword: string,
+) {
+	return await withRetry(() =>
+		prisma.user.update({
+			where: { username },
+			data: { password: hashedPassword },
 		}),
 	);
 }
@@ -64,19 +89,23 @@ export async function createUser(
 	);
 }
 
-export async function isExpiredToken(token: string) {
+export async function isExpiredToken(token: string): Promise<boolean> {
 	const session = await withRetry(() =>
 		prisma.session.findUnique({ where: { token } }),
 	);
 	const now = new Date();
-	return !session
-		? { error: "Session not found!" }
-		: isError(session)
-			? session
-			: session.expiresAt < now;
+
+	if (isError(session)) {
+		console.error("Failed to load session", session.error);
+		return true;
+	}
+
+	if (!session) return true;
+
+	return session.expiresAt < now;
 }
 
-export async function isCurrentTokenExpired() {
+export async function isCurrentTokenExpired(): Promise<boolean> {
 	const cookieStore = await cookies();
 	const sessionToken = cookieStore.get("session")?.value;
 	if (!sessionToken) return true;

@@ -1,7 +1,12 @@
+import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
 import signIn from "../../actions/account/signin";
 import Form from "../../ui/components/form";
+import { redirect } from "next/navigation";
 
-export default function SignInPage() {
+export default async function SignInPage() {
+	if (!(await isCurrentTokenExpired())) {
+		redirect("/new");
+	}
 	return (
 		<>
 			<h1>Sign In</h1>

@@ -1,8 +1,13 @@
 import Link from "next/link";
 import Form from "../../ui/components/form";
 import signUp from "@/app/actions/account/signUp";
+import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
+import { redirect } from "next/navigation";
 
-export default function SignUpPage() {
+export default async function SignUpPage() {
+	if (!(await isCurrentTokenExpired())) {
+		redirect("/new");
+	}
 	return (
 		<>
 			<h1>Sign Up</h1>
