@@ -3,10 +3,14 @@ import Form from "@/app/ui/components/form";
 import continueGame from "@/app/actions/game/continue";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
+import { allOfType, isCurrentTokenExpired } from "@/app/utils/dbFuncs";
+import { isError } from "@/app/utils/isRetryableError";
 
 export default async function ContinuePage() {
-	const games = await prisma.game.findMany();
+	const games = await allOfType("Game");
+	if (isError(games)) {
+		throw new Error("Error fetching games:\n" + games.error);
+	}
 
 	return (
 		<>
