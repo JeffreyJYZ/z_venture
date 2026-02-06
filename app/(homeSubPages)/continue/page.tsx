@@ -11,11 +11,6 @@ export default async function ContinuePage() {
 	return (
 		<>
 			<h1>Continue</h1>
-			<nav className="flex gap-3 mb-4">
-				<Link href="/">Home</Link>
-				<Link href="/new">New Game</Link>
-				<Link href="/signin">Sign In</Link>
-			</nav>
 			{!(await isCurrentTokenExpired()) ? (
 				games.length ? (
 					<Form actionParam={continueGame} sbmtBtnText="Continue">
