@@ -13,6 +13,7 @@ export default async function Page() {
 						type="text"
 						placeholder="Game Name"
 						name="gameName"
+						required
 					/>
 				</Form>
 			) : (

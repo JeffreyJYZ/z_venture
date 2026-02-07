@@ -1,6 +1,6 @@
 import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
-import signIn from "../../actions/account/signin";
-import Form from "../../ui/components/form";
+import signIn from "@/app/actions/account/signin";
+import Form from "@/app/ui/components/form";
 import { redirect } from "next/navigation";
 
 export default async function SignInPage() {

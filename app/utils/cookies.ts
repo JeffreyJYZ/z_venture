@@ -17,20 +17,21 @@ const cookiesSetRules: CookieSetOptions = {
 export async function getUsername(): Promise<
 	string | null | { error: unknown }
 > {
+	const cookieStore = await cookies();
+	const sessionToken = cookieStore.get("session")?.value;
+	if (!sessionToken) return null;
+
 	const session = await withRetry(() =>
-		prisma.session.findFirst({
-			where: {
-				expiresAt: {
-					gt: new Date(),
-				},
-			},
-			include: {
-				user: true,
-			},
+		prisma.session.findUnique({
+			where: { token: sessionToken },
+			include: { user: true },
 		}),
 	);
+
 	if (!session || isError(session)) return session;
-	else return session.user.username;
+	if (session.expiresAt < new Date()) return null;
+
+	return session.user.username;
 }
 
 export default cookiesSetRules;

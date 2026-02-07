@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Form from "../../ui/components/form";
+import Form from "@/app/ui/components/form";
 import signUp from "@/app/actions/account/signUp";
 import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
 import { redirect } from "next/navigation";
