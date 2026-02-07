@@ -18,57 +18,83 @@ function isStats(value: unknown): value is Stats {
 	);
 }
 
-async function getGameData(id: string) {
-	let game:
-		| (Game & {
-				saves: (Save & {
-					state: GameState | null;
-				})[];
-		  })
-		| { error: unknown }
-		| null = null;
+type GameWithSaves = Game & {
+	saves: (Save & {
+		state: GameState | null;
+	})[];
+};
+
+async function getGameData(id: string): Promise<{
+	game: GameWithSaves | null;
+	errorElement: React.ReactElement | null;
+}> {
+	let game: GameWithSaves | { error: unknown } | null = null;
 	const username = await getUsername();
 	if (!username) {
-		return (
-			<div>
-				Please <Link href="/signin">log in</Link> to view your game.
-			</div>
-		);
+		return {
+			game: null,
+			errorElement: (
+				<div>
+					Please <Link href="/signin">log in</Link> to view your game.
+				</div>
+			),
+		};
 	}
 	if (isError(username)) {
-		return <div>Error fetching user: {String(username.error)}</div>;
+		return {
+			game: null,
+			errorElement: (
+				<div>Error fetching user: {String(username.error)}</div>
+			),
+		};
 	}
 	const currentUser = await getUser(username);
 	if (!currentUser) {
-		return (
-			<div>
-				User not found. Please <Link href="/signin">log in</Link> again.
-			</div>
-		);
+		return {
+			game: null,
+			errorElement: (
+				<div>
+					User not found. Please <Link href="/signin">log in</Link> again.
+				</div>
+			),
+		};
 	}
 	if (isError(currentUser)) {
-		return <div>Error fetching user: {String(currentUser.error)}</div>;
+		return {
+			game: null,
+			errorElement: (
+				<div>Error fetching user: {String(currentUser.error)}</div>
+			),
+		};
 	}
 	if (!id) {
 		if (!currentUser.lastGameName) {
-			return (
-				<div>
-					No game found. Please{" "}
-					<Link href="/new">start a new game.</Link>
-				</div>
-			);
+			return {
+				game: null,
+				errorElement: (
+					<div>
+						No game found. Please{" "}
+						<Link href="/new">start a new game.</Link>
+					</div>
+				),
+			};
 		}
 		game = await getGameByName(currentUser.lastGameName);
 	} else {
 		game = await getGameById(id);
 	}
 	if (isError(game)) {
-		return <div>Error fetching game: {String(game.error)}</div>;
+		return {
+			game: null,
+			errorElement: (
+				<div>Error fetching game: {String(game.error)}</div>
+			),
+		};
 	}
 	if (!game) {
-		return <div>Cannot find game.</div>;
+		return { game: null, errorElement: <div>Cannot find game.</div> };
 	}
-	return game;
+	return { game, errorElement: null };
 }
 
 export default async function GamePage({
@@ -77,19 +103,13 @@ export default async function GamePage({
 	searchParams: Promise<{ id?: string }>;
 }) {
 	const id = decodeURIComponent((await searchParams).id?.trim() || "");
-	let game = await getGameData(id);
-	if (isError(game) || React.isValidElement(game)) {
-		return game;
+	const { game, errorElement } = await getGameData(id);
+	if (errorElement) {
+		return errorElement;
 	}
-	game = game as Game & {
-		saves: (Save & {
-			state:
-				| (GameState & {
-						stats: Stats;
-				  })
-				| null;
-		})[];
-	};
+	if (!game) {
+		return <div>Cannot find game.</div>;
+	}
 	if (!game.saves.length) {
 		return (
 			<>
