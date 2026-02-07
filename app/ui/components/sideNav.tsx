@@ -5,9 +5,12 @@ import Link from "next/link";
 import Form from "./form";
 import handleLogout from "@/app/actions/account/logout";
 
+export const sideNavClasses =
+	"flex flex-row md:flex-col gap-4 p-5 rounded-2xl border-2 border-gray-500 md:mr-5 flex-1 flex-wrap justify-center items-center";
+
 export default function SideNav({ logoutBtn = false }: { logoutBtn: boolean }) {
 	return (
-		<nav className="flex flex-row md:flex-col gap-4 p-5 rounded-2xl border-2 border-gray-500 md:mr-5 flex-1 flex-wrap justify-center items-center">
+		<nav className={sideNavClasses}>
 			<Link href="/">Home</Link>
 			<Link href="/signin">Sign In</Link>
 			<Link href="/signup">Sign Up</Link>
