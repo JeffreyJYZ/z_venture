@@ -1,16 +1,18 @@
 "use server";
 
 import { getUsername } from "@/app/utils/cookies";
-import { getUser } from "@/app/utils/dbFuncs";
 import { withRetry } from "@/app/utils/helper";
 import { initGame } from "@/app/utils/inits";
 import { isError } from "@/app/utils/isRetryableError";
 import { prisma } from "@/lib/prisma";
-import { error } from "console";
 import { redirect } from "next/navigation";
 
 export default async function newGame(_: any, data: FormData) {
-	const name = String(data.get("name") ?? "").trim();
+	const name = (
+		(data.get("gameName") as string) ??
+		(data.get("name") as string) ??
+		""
+	).trim();
 	if (!name) {
 		return { error: "Name is required" };
 	}
@@ -27,7 +29,7 @@ export default async function newGame(_: any, data: FormData) {
 	}
 	const result = await withRetry(() => prisma.game.create({ data: newGame }));
 	if (isError(result)) {
-		return { error: "Failed to save game to database" };
+		return { error: "Failed to save Game. Error: " + String(result.error) };
 	}
 	redirect(`/game?id=${result.id}`);
 }
