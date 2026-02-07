@@ -10,10 +10,10 @@ datasource db {
 model User {
   id         String    @id @unique @default(uuid())
   username   String    @unique
-  admin      Boolean
-  createdAt  DateTime  @default(now())
-  lastPlayed DateTime  @default(now())
   password   String
+  admin      Boolean
+  lastPlayed DateTime  @default(now())
+  createdAt  DateTime  @default(now())
   games      Game[]
   sessions   Session[]
 }
@@ -21,42 +21,41 @@ model User {
 model Game {
   id        String   @id @unique @default(uuid())
   name      String
-  username  String
-  createdAt DateTime @default(now())
   player    User     @relation(fields: [username], references: [username])
+  username  String
   saves     Save[]
+  createdAt DateTime @default(now())
 
   @@unique([username, name])
 }
 
 model Save {
   id        String     @id @unique @default(uuid())
+  game      Game       @relation(fields: [gameId], references: [id])
   gameId    String
   time      String
   auto      Boolean    @default(true)
-  stateId   String     @unique
+  state     GameState? @relation
   createdAt DateTime   @default(now())
-  state     GameState?
-  game      Game       @relation(fields: [gameId], references: [id])
 }
 
 model GameState {
   id           String   @id @unique @default(uuid())
+  save         Save     @relation(fields: [saveId], references: [id])
   saveId       String   @unique
   name         String
   area         String   @default("Base")
   inventory    Json
   ruppees      Int      @default(0)
   stats        Json
-  killedBosses String[] @default([])
   visitedAreas String[] @default([])
-  save         Save     @relation(fields: [saveId], references: [id])
+  killedBosses String[] @default([])
 }
 
 model Session {
+  user      User     @relation(fields: [username], references: [username])
   username  String
   token     String   @id @unique @default(uuid())
   createdAt DateTime @default(now())
-  expiresAt DateTime @default(dbgenerated("(now() + '10 days'::interval)"))
-  user      User     @relation(fields: [username], references: [username])
+  expiresAt DateTime @default(dbgenerated("now() + interval '10 days'"))
 }

@@ -1309,28 +1309,28 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     username: string | null
-    admin: boolean | null
-    createdAt: Date | null
-    lastPlayed: Date | null
     password: string | null
+    admin: boolean | null
+    lastPlayed: Date | null
+    createdAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     username: string | null
-    admin: boolean | null
-    createdAt: Date | null
-    lastPlayed: Date | null
     password: string | null
+    admin: boolean | null
+    lastPlayed: Date | null
+    createdAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     username: number
-    admin: number
-    createdAt: number
-    lastPlayed: number
     password: number
+    admin: number
+    lastPlayed: number
+    createdAt: number
     _all: number
   }
 
@@ -1338,28 +1338,28 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     username?: true
-    admin?: true
-    createdAt?: true
-    lastPlayed?: true
     password?: true
+    admin?: true
+    lastPlayed?: true
+    createdAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     username?: true
-    admin?: true
-    createdAt?: true
-    lastPlayed?: true
     password?: true
+    admin?: true
+    lastPlayed?: true
+    createdAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     username?: true
-    admin?: true
-    createdAt?: true
-    lastPlayed?: true
     password?: true
+    admin?: true
+    lastPlayed?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -1438,10 +1438,10 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     username: string
-    admin: boolean
-    createdAt: Date
-    lastPlayed: Date
     password: string
+    admin: boolean
+    lastPlayed: Date
+    createdAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1464,10 +1464,10 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     username?: boolean
-    admin?: boolean
-    createdAt?: boolean
-    lastPlayed?: boolean
     password?: boolean
+    admin?: boolean
+    lastPlayed?: boolean
+    createdAt?: boolean
     games?: boolean | User$gamesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1476,31 +1476,31 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     username?: boolean
-    admin?: boolean
-    createdAt?: boolean
-    lastPlayed?: boolean
     password?: boolean
+    admin?: boolean
+    lastPlayed?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     username?: boolean
-    admin?: boolean
-    createdAt?: boolean
-    lastPlayed?: boolean
     password?: boolean
+    admin?: boolean
+    lastPlayed?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
     username?: boolean
-    admin?: boolean
-    createdAt?: boolean
-    lastPlayed?: boolean
     password?: boolean
+    admin?: boolean
+    lastPlayed?: boolean
+    createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "admin" | "createdAt" | "lastPlayed" | "password", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "admin" | "lastPlayed" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     games?: boolean | User$gamesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1518,10 +1518,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       username: string
-      admin: boolean
-      createdAt: Date
-      lastPlayed: Date
       password: string
+      admin: boolean
+      lastPlayed: Date
+      createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1949,10 +1949,10 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
-    readonly admin: FieldRef<"User", 'Boolean'>
-    readonly createdAt: FieldRef<"User", 'DateTime'>
-    readonly lastPlayed: FieldRef<"User", 'DateTime'>
     readonly password: FieldRef<"User", 'String'>
+    readonly admin: FieldRef<"User", 'Boolean'>
+    readonly lastPlayed: FieldRef<"User", 'DateTime'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -3497,7 +3497,6 @@ export namespace Prisma {
     gameId: string | null
     time: string | null
     auto: boolean | null
-    stateId: string | null
     createdAt: Date | null
   }
 
@@ -3506,7 +3505,6 @@ export namespace Prisma {
     gameId: string | null
     time: string | null
     auto: boolean | null
-    stateId: string | null
     createdAt: Date | null
   }
 
@@ -3515,7 +3513,6 @@ export namespace Prisma {
     gameId: number
     time: number
     auto: number
-    stateId: number
     createdAt: number
     _all: number
   }
@@ -3526,7 +3523,6 @@ export namespace Prisma {
     gameId?: true
     time?: true
     auto?: true
-    stateId?: true
     createdAt?: true
   }
 
@@ -3535,7 +3531,6 @@ export namespace Prisma {
     gameId?: true
     time?: true
     auto?: true
-    stateId?: true
     createdAt?: true
   }
 
@@ -3544,7 +3539,6 @@ export namespace Prisma {
     gameId?: true
     time?: true
     auto?: true
-    stateId?: true
     createdAt?: true
     _all?: true
   }
@@ -3626,7 +3620,6 @@ export namespace Prisma {
     gameId: string
     time: string
     auto: boolean
-    stateId: string
     createdAt: Date
     _count: SaveCountAggregateOutputType | null
     _min: SaveMinAggregateOutputType | null
@@ -3652,10 +3645,9 @@ export namespace Prisma {
     gameId?: boolean
     time?: boolean
     auto?: boolean
-    stateId?: boolean
     createdAt?: boolean
-    state?: boolean | Save$stateArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
+    state?: boolean | Save$stateArgs<ExtArgs>
   }, ExtArgs["result"]["save"]>
 
   export type SaveSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3663,7 +3655,6 @@ export namespace Prisma {
     gameId?: boolean
     time?: boolean
     auto?: boolean
-    stateId?: boolean
     createdAt?: boolean
     game?: boolean | GameDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["save"]>
@@ -3673,7 +3664,6 @@ export namespace Prisma {
     gameId?: boolean
     time?: boolean
     auto?: boolean
-    stateId?: boolean
     createdAt?: boolean
     game?: boolean | GameDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["save"]>
@@ -3683,14 +3673,13 @@ export namespace Prisma {
     gameId?: boolean
     time?: boolean
     auto?: boolean
-    stateId?: boolean
     createdAt?: boolean
   }
 
-  export type SaveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gameId" | "time" | "auto" | "stateId" | "createdAt", ExtArgs["result"]["save"]>
+  export type SaveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gameId" | "time" | "auto" | "createdAt", ExtArgs["result"]["save"]>
   export type SaveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    state?: boolean | Save$stateArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
+    state?: boolean | Save$stateArgs<ExtArgs>
   }
   export type SaveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     game?: boolean | GameDefaultArgs<ExtArgs>
@@ -3702,15 +3691,14 @@ export namespace Prisma {
   export type $SavePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Save"
     objects: {
-      state: Prisma.$GameStatePayload<ExtArgs> | null
       game: Prisma.$GamePayload<ExtArgs>
+      state: Prisma.$GameStatePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       gameId: string
       time: string
       auto: boolean
-      stateId: string
       createdAt: Date
     }, ExtArgs["result"]["save"]>
     composites: {}
@@ -4106,8 +4094,8 @@ export namespace Prisma {
    */
   export interface Prisma__SaveClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    state<T extends Save$stateArgs<ExtArgs> = {}>(args?: Subset<T, Save$stateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     game<T extends GameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameDefaultArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    state<T extends Save$stateArgs<ExtArgs> = {}>(args?: Subset<T, Save$stateArgs<ExtArgs>>): Prisma__GameStateClient<$Result.GetResult<Prisma.$GameStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4141,7 +4129,6 @@ export namespace Prisma {
     readonly gameId: FieldRef<"Save", 'String'>
     readonly time: FieldRef<"Save", 'String'>
     readonly auto: FieldRef<"Save", 'Boolean'>
-    readonly stateId: FieldRef<"Save", 'String'>
     readonly createdAt: FieldRef<"Save", 'DateTime'>
   }
     
@@ -4620,8 +4607,8 @@ export namespace Prisma {
     inventory: number
     ruppees: number
     stats: number
-    killedBosses: number
     visitedAreas: number
+    killedBosses: number
     _all: number
   }
 
@@ -4658,8 +4645,8 @@ export namespace Prisma {
     inventory?: true
     ruppees?: true
     stats?: true
-    killedBosses?: true
     visitedAreas?: true
+    killedBosses?: true
     _all?: true
   }
 
@@ -4757,8 +4744,8 @@ export namespace Prisma {
     inventory: JsonValue
     ruppees: number
     stats: JsonValue
-    killedBosses: string[]
     visitedAreas: string[]
+    killedBosses: string[]
     _count: GameStateCountAggregateOutputType | null
     _avg: GameStateAvgAggregateOutputType | null
     _sum: GameStateSumAggregateOutputType | null
@@ -4788,8 +4775,8 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    killedBosses?: boolean
     visitedAreas?: boolean
+    killedBosses?: boolean
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
 
@@ -4801,8 +4788,8 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    killedBosses?: boolean
     visitedAreas?: boolean
+    killedBosses?: boolean
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
 
@@ -4814,8 +4801,8 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    killedBosses?: boolean
     visitedAreas?: boolean
+    killedBosses?: boolean
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
 
@@ -4827,11 +4814,11 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    killedBosses?: boolean
     visitedAreas?: boolean
+    killedBosses?: boolean
   }
 
-  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saveId" | "name" | "area" | "inventory" | "ruppees" | "stats" | "killedBosses" | "visitedAreas", ExtArgs["result"]["gameState"]>
+  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saveId" | "name" | "area" | "inventory" | "ruppees" | "stats" | "visitedAreas" | "killedBosses", ExtArgs["result"]["gameState"]>
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }
@@ -4855,8 +4842,8 @@ export namespace Prisma {
       inventory: Prisma.JsonValue
       ruppees: number
       stats: Prisma.JsonValue
-      killedBosses: string[]
       visitedAreas: string[]
+      killedBosses: string[]
     }, ExtArgs["result"]["gameState"]>
     composites: {}
   }
@@ -5288,8 +5275,8 @@ export namespace Prisma {
     readonly inventory: FieldRef<"GameState", 'Json'>
     readonly ruppees: FieldRef<"GameState", 'Int'>
     readonly stats: FieldRef<"GameState", 'Json'>
-    readonly killedBosses: FieldRef<"GameState", 'String[]'>
     readonly visitedAreas: FieldRef<"GameState", 'String[]'>
+    readonly killedBosses: FieldRef<"GameState", 'String[]'>
   }
     
 
@@ -6766,10 +6753,10 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     username: 'username',
+    password: 'password',
     admin: 'admin',
-    createdAt: 'createdAt',
     lastPlayed: 'lastPlayed',
-    password: 'password'
+    createdAt: 'createdAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -6790,7 +6777,6 @@ export namespace Prisma {
     gameId: 'gameId',
     time: 'time',
     auto: 'auto',
-    stateId: 'stateId',
     createdAt: 'createdAt'
   };
 
@@ -6805,8 +6791,8 @@ export namespace Prisma {
     inventory: 'inventory',
     ruppees: 'ruppees',
     stats: 'stats',
-    killedBosses: 'killedBosses',
-    visitedAreas: 'visitedAreas'
+    visitedAreas: 'visitedAreas',
+    killedBosses: 'killedBosses'
   };
 
   export type GameStateScalarFieldEnum = (typeof GameStateScalarFieldEnum)[keyof typeof GameStateScalarFieldEnum]
@@ -6945,10 +6931,10 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
-    admin?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    lastPlayed?: DateTimeFilter<"User"> | Date | string
     password?: StringFilter<"User"> | string
+    admin?: BoolFilter<"User"> | boolean
+    lastPlayed?: DateTimeFilter<"User"> | Date | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
     games?: GameListRelationFilter
     sessions?: SessionListRelationFilter
   }
@@ -6956,10 +6942,10 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     username?: SortOrder
-    admin?: SortOrder
-    createdAt?: SortOrder
-    lastPlayed?: SortOrder
     password?: SortOrder
+    admin?: SortOrder
+    lastPlayed?: SortOrder
+    createdAt?: SortOrder
     games?: GameOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
   }
@@ -6970,10 +6956,10 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    admin?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    lastPlayed?: DateTimeFilter<"User"> | Date | string
     password?: StringFilter<"User"> | string
+    admin?: BoolFilter<"User"> | boolean
+    lastPlayed?: DateTimeFilter<"User"> | Date | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
     games?: GameListRelationFilter
     sessions?: SessionListRelationFilter
   }, "id" | "id" | "username">
@@ -6981,10 +6967,10 @@ export namespace Prisma {
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     username?: SortOrder
-    admin?: SortOrder
-    createdAt?: SortOrder
-    lastPlayed?: SortOrder
     password?: SortOrder
+    admin?: SortOrder
+    lastPlayed?: SortOrder
+    createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -6996,10 +6982,10 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
-    admin?: BoolWithAggregatesFilter<"User"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    lastPlayed?: DateTimeWithAggregatesFilter<"User"> | Date | string
     password?: StringWithAggregatesFilter<"User"> | string
+    admin?: BoolWithAggregatesFilter<"User"> | boolean
+    lastPlayed?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type GameWhereInput = {
@@ -7064,10 +7050,9 @@ export namespace Prisma {
     gameId?: StringFilter<"Save"> | string
     time?: StringFilter<"Save"> | string
     auto?: BoolFilter<"Save"> | boolean
-    stateId?: StringFilter<"Save"> | string
     createdAt?: DateTimeFilter<"Save"> | Date | string
-    state?: XOR<GameStateNullableScalarRelationFilter, GameStateWhereInput> | null
     game?: XOR<GameScalarRelationFilter, GameWhereInput>
+    state?: XOR<GameStateNullableScalarRelationFilter, GameStateWhereInput> | null
   }
 
   export type SaveOrderByWithRelationInput = {
@@ -7075,15 +7060,13 @@ export namespace Prisma {
     gameId?: SortOrder
     time?: SortOrder
     auto?: SortOrder
-    stateId?: SortOrder
     createdAt?: SortOrder
-    state?: GameStateOrderByWithRelationInput
     game?: GameOrderByWithRelationInput
+    state?: GameStateOrderByWithRelationInput
   }
 
   export type SaveWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    stateId?: string
     AND?: SaveWhereInput | SaveWhereInput[]
     OR?: SaveWhereInput[]
     NOT?: SaveWhereInput | SaveWhereInput[]
@@ -7091,16 +7074,15 @@ export namespace Prisma {
     time?: StringFilter<"Save"> | string
     auto?: BoolFilter<"Save"> | boolean
     createdAt?: DateTimeFilter<"Save"> | Date | string
-    state?: XOR<GameStateNullableScalarRelationFilter, GameStateWhereInput> | null
     game?: XOR<GameScalarRelationFilter, GameWhereInput>
-  }, "id" | "id" | "stateId">
+    state?: XOR<GameStateNullableScalarRelationFilter, GameStateWhereInput> | null
+  }, "id" | "id">
 
   export type SaveOrderByWithAggregationInput = {
     id?: SortOrder
     gameId?: SortOrder
     time?: SortOrder
     auto?: SortOrder
-    stateId?: SortOrder
     createdAt?: SortOrder
     _count?: SaveCountOrderByAggregateInput
     _max?: SaveMaxOrderByAggregateInput
@@ -7115,7 +7097,6 @@ export namespace Prisma {
     gameId?: StringWithAggregatesFilter<"Save"> | string
     time?: StringWithAggregatesFilter<"Save"> | string
     auto?: BoolWithAggregatesFilter<"Save"> | boolean
-    stateId?: StringWithAggregatesFilter<"Save"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Save"> | Date | string
   }
 
@@ -7130,8 +7111,8 @@ export namespace Prisma {
     inventory?: JsonFilter<"GameState">
     ruppees?: IntFilter<"GameState"> | number
     stats?: JsonFilter<"GameState">
-    killedBosses?: StringNullableListFilter<"GameState">
     visitedAreas?: StringNullableListFilter<"GameState">
+    killedBosses?: StringNullableListFilter<"GameState">
     save?: XOR<SaveScalarRelationFilter, SaveWhereInput>
   }
 
@@ -7143,8 +7124,8 @@ export namespace Prisma {
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
-    killedBosses?: SortOrder
     visitedAreas?: SortOrder
+    killedBosses?: SortOrder
     save?: SaveOrderByWithRelationInput
   }
 
@@ -7159,8 +7140,8 @@ export namespace Prisma {
     inventory?: JsonFilter<"GameState">
     ruppees?: IntFilter<"GameState"> | number
     stats?: JsonFilter<"GameState">
-    killedBosses?: StringNullableListFilter<"GameState">
     visitedAreas?: StringNullableListFilter<"GameState">
+    killedBosses?: StringNullableListFilter<"GameState">
     save?: XOR<SaveScalarRelationFilter, SaveWhereInput>
   }, "id" | "id" | "saveId">
 
@@ -7172,8 +7153,8 @@ export namespace Prisma {
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
-    killedBosses?: SortOrder
     visitedAreas?: SortOrder
+    killedBosses?: SortOrder
     _count?: GameStateCountOrderByAggregateInput
     _avg?: GameStateAvgOrderByAggregateInput
     _max?: GameStateMaxOrderByAggregateInput
@@ -7192,8 +7173,8 @@ export namespace Prisma {
     inventory?: JsonWithAggregatesFilter<"GameState">
     ruppees?: IntWithAggregatesFilter<"GameState"> | number
     stats?: JsonWithAggregatesFilter<"GameState">
-    killedBosses?: StringNullableListFilter<"GameState">
     visitedAreas?: StringNullableListFilter<"GameState">
+    killedBosses?: StringNullableListFilter<"GameState">
   }
 
   export type SessionWhereInput = {
@@ -7249,10 +7230,10 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     username: string
-    admin: boolean
-    createdAt?: Date | string
-    lastPlayed?: Date | string
     password: string
+    admin: boolean
+    lastPlayed?: Date | string
+    createdAt?: Date | string
     games?: GameCreateNestedManyWithoutPlayerInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -7260,10 +7241,10 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: string
     username: string
-    admin: boolean
-    createdAt?: Date | string
-    lastPlayed?: Date | string
     password: string
+    admin: boolean
+    lastPlayed?: Date | string
+    createdAt?: Date | string
     games?: GameUncheckedCreateNestedManyWithoutPlayerInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -7271,10 +7252,10 @@ export namespace Prisma {
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUpdateManyWithoutPlayerNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -7282,10 +7263,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUncheckedUpdateManyWithoutPlayerNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -7293,28 +7274,28 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: string
     username: string
-    admin: boolean
-    createdAt?: Date | string
-    lastPlayed?: Date | string
     password: string
+    admin: boolean
+    lastPlayed?: Date | string
+    createdAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GameCreateInput = {
@@ -7373,10 +7354,9 @@ export namespace Prisma {
     id?: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
-    state?: GameStateCreateNestedOneWithoutSaveInput
     game: GameCreateNestedOneWithoutSavesInput
+    state?: GameStateCreateNestedOneWithoutSaveInput
   }
 
   export type SaveUncheckedCreateInput = {
@@ -7384,7 +7364,6 @@ export namespace Prisma {
     gameId: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
     state?: GameStateUncheckedCreateNestedOneWithoutSaveInput
   }
@@ -7393,10 +7372,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    state?: GameStateUpdateOneWithoutSaveNestedInput
     game?: GameUpdateOneRequiredWithoutSavesNestedInput
+    state?: GameStateUpdateOneWithoutSaveNestedInput
   }
 
   export type SaveUncheckedUpdateInput = {
@@ -7404,7 +7382,6 @@ export namespace Prisma {
     gameId?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     state?: GameStateUncheckedUpdateOneWithoutSaveNestedInput
   }
@@ -7414,7 +7391,6 @@ export namespace Prisma {
     gameId: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
   }
 
@@ -7422,7 +7398,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7431,7 +7406,6 @@ export namespace Prisma {
     gameId?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7442,8 +7416,8 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
     visitedAreas?: GameStateCreatevisitedAreasInput | string[]
+    killedBosses?: GameStateCreatekilledBossesInput | string[]
     save: SaveCreateNestedOneWithoutStateInput
   }
 
@@ -7455,8 +7429,8 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
     visitedAreas?: GameStateCreatevisitedAreasInput | string[]
+    killedBosses?: GameStateCreatekilledBossesInput | string[]
   }
 
   export type GameStateUpdateInput = {
@@ -7466,8 +7440,8 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
     visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
+    killedBosses?: GameStateUpdatekilledBossesInput | string[]
     save?: SaveUpdateOneRequiredWithoutStateNestedInput
   }
 
@@ -7479,8 +7453,8 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
     visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
+    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type GameStateCreateManyInput = {
@@ -7491,8 +7465,8 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
     visitedAreas?: GameStateCreatevisitedAreasInput | string[]
+    killedBosses?: GameStateCreatekilledBossesInput | string[]
   }
 
   export type GameStateUpdateManyMutationInput = {
@@ -7502,8 +7476,8 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
     visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
+    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type GameStateUncheckedUpdateManyInput = {
@@ -7514,8 +7488,8 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
     visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
+    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type SessionCreateInput = {
@@ -7620,28 +7594,28 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
-    admin?: SortOrder
-    createdAt?: SortOrder
-    lastPlayed?: SortOrder
     password?: SortOrder
+    admin?: SortOrder
+    lastPlayed?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
-    admin?: SortOrder
-    createdAt?: SortOrder
-    lastPlayed?: SortOrder
     password?: SortOrder
+    admin?: SortOrder
+    lastPlayed?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
-    admin?: SortOrder
-    createdAt?: SortOrder
-    lastPlayed?: SortOrder
     password?: SortOrder
+    admin?: SortOrder
+    lastPlayed?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7725,14 +7699,14 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type GameStateNullableScalarRelationFilter = {
-    is?: GameStateWhereInput | null
-    isNot?: GameStateWhereInput | null
-  }
-
   export type GameScalarRelationFilter = {
     is?: GameWhereInput
     isNot?: GameWhereInput
+  }
+
+  export type GameStateNullableScalarRelationFilter = {
+    is?: GameStateWhereInput | null
+    isNot?: GameStateWhereInput | null
   }
 
   export type SaveCountOrderByAggregateInput = {
@@ -7740,7 +7714,6 @@ export namespace Prisma {
     gameId?: SortOrder
     time?: SortOrder
     auto?: SortOrder
-    stateId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -7749,7 +7722,6 @@ export namespace Prisma {
     gameId?: SortOrder
     time?: SortOrder
     auto?: SortOrder
-    stateId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -7758,7 +7730,6 @@ export namespace Prisma {
     gameId?: SortOrder
     time?: SortOrder
     auto?: SortOrder
-    stateId?: SortOrder
     createdAt?: SortOrder
   }
   export type JsonFilter<$PrismaModel = never> =
@@ -7817,8 +7788,8 @@ export namespace Prisma {
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
-    killedBosses?: SortOrder
     visitedAreas?: SortOrder
+    killedBosses?: SortOrder
   }
 
   export type GameStateAvgOrderByAggregateInput = {
@@ -8060,22 +8031,30 @@ export namespace Prisma {
     deleteMany?: SaveScalarWhereInput | SaveScalarWhereInput[]
   }
 
-  export type GameStateCreateNestedOneWithoutSaveInput = {
-    create?: XOR<GameStateCreateWithoutSaveInput, GameStateUncheckedCreateWithoutSaveInput>
-    connectOrCreate?: GameStateCreateOrConnectWithoutSaveInput
-    connect?: GameStateWhereUniqueInput
-  }
-
   export type GameCreateNestedOneWithoutSavesInput = {
     create?: XOR<GameCreateWithoutSavesInput, GameUncheckedCreateWithoutSavesInput>
     connectOrCreate?: GameCreateOrConnectWithoutSavesInput
     connect?: GameWhereUniqueInput
   }
 
+  export type GameStateCreateNestedOneWithoutSaveInput = {
+    create?: XOR<GameStateCreateWithoutSaveInput, GameStateUncheckedCreateWithoutSaveInput>
+    connectOrCreate?: GameStateCreateOrConnectWithoutSaveInput
+    connect?: GameStateWhereUniqueInput
+  }
+
   export type GameStateUncheckedCreateNestedOneWithoutSaveInput = {
     create?: XOR<GameStateCreateWithoutSaveInput, GameStateUncheckedCreateWithoutSaveInput>
     connectOrCreate?: GameStateCreateOrConnectWithoutSaveInput
     connect?: GameStateWhereUniqueInput
+  }
+
+  export type GameUpdateOneRequiredWithoutSavesNestedInput = {
+    create?: XOR<GameCreateWithoutSavesInput, GameUncheckedCreateWithoutSavesInput>
+    connectOrCreate?: GameCreateOrConnectWithoutSavesInput
+    upsert?: GameUpsertWithoutSavesInput
+    connect?: GameWhereUniqueInput
+    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutSavesInput, GameUpdateWithoutSavesInput>, GameUncheckedUpdateWithoutSavesInput>
   }
 
   export type GameStateUpdateOneWithoutSaveNestedInput = {
@@ -8088,14 +8067,6 @@ export namespace Prisma {
     update?: XOR<XOR<GameStateUpdateToOneWithWhereWithoutSaveInput, GameStateUpdateWithoutSaveInput>, GameStateUncheckedUpdateWithoutSaveInput>
   }
 
-  export type GameUpdateOneRequiredWithoutSavesNestedInput = {
-    create?: XOR<GameCreateWithoutSavesInput, GameUncheckedCreateWithoutSavesInput>
-    connectOrCreate?: GameCreateOrConnectWithoutSavesInput
-    upsert?: GameUpsertWithoutSavesInput
-    connect?: GameWhereUniqueInput
-    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutSavesInput, GameUpdateWithoutSavesInput>, GameUncheckedUpdateWithoutSavesInput>
-  }
-
   export type GameStateUncheckedUpdateOneWithoutSaveNestedInput = {
     create?: XOR<GameStateCreateWithoutSaveInput, GameStateUncheckedCreateWithoutSaveInput>
     connectOrCreate?: GameStateCreateOrConnectWithoutSaveInput
@@ -8106,11 +8077,11 @@ export namespace Prisma {
     update?: XOR<XOR<GameStateUpdateToOneWithWhereWithoutSaveInput, GameStateUpdateWithoutSaveInput>, GameStateUncheckedUpdateWithoutSaveInput>
   }
 
-  export type GameStateCreatekilledBossesInput = {
+  export type GameStateCreatevisitedAreasInput = {
     set: string[]
   }
 
-  export type GameStateCreatevisitedAreasInput = {
+  export type GameStateCreatekilledBossesInput = {
     set: string[]
   }
 
@@ -8128,12 +8099,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type GameStateUpdatekilledBossesInput = {
+  export type GameStateUpdatevisitedAreasInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type GameStateUpdatevisitedAreasInput = {
+  export type GameStateUpdatekilledBossesInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -8391,20 +8362,20 @@ export namespace Prisma {
   export type UserCreateWithoutGamesInput = {
     id?: string
     username: string
-    admin: boolean
-    createdAt?: Date | string
-    lastPlayed?: Date | string
     password: string
+    admin: boolean
+    lastPlayed?: Date | string
+    createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGamesInput = {
     id?: string
     username: string
-    admin: boolean
-    createdAt?: Date | string
-    lastPlayed?: Date | string
     password: string
+    admin: boolean
+    lastPlayed?: Date | string
+    createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8417,7 +8388,6 @@ export namespace Prisma {
     id?: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
     state?: GameStateCreateNestedOneWithoutSaveInput
   }
@@ -8426,7 +8396,6 @@ export namespace Prisma {
     id?: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
     state?: GameStateUncheckedCreateNestedOneWithoutSaveInput
   }
@@ -8455,20 +8424,20 @@ export namespace Prisma {
   export type UserUpdateWithoutGamesInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGamesInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8496,35 +8465,7 @@ export namespace Prisma {
     gameId?: StringFilter<"Save"> | string
     time?: StringFilter<"Save"> | string
     auto?: BoolFilter<"Save"> | boolean
-    stateId?: StringFilter<"Save"> | string
     createdAt?: DateTimeFilter<"Save"> | Date | string
-  }
-
-  export type GameStateCreateWithoutSaveInput = {
-    id?: string
-    name: string
-    area?: string
-    inventory: JsonNullValueInput | InputJsonValue
-    ruppees?: number
-    stats: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
-    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
-  }
-
-  export type GameStateUncheckedCreateWithoutSaveInput = {
-    id?: string
-    name: string
-    area?: string
-    inventory: JsonNullValueInput | InputJsonValue
-    ruppees?: number
-    stats: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
-    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
-  }
-
-  export type GameStateCreateOrConnectWithoutSaveInput = {
-    where: GameStateWhereUniqueInput
-    create: XOR<GameStateCreateWithoutSaveInput, GameStateUncheckedCreateWithoutSaveInput>
   }
 
   export type GameCreateWithoutSavesInput = {
@@ -8546,37 +8487,31 @@ export namespace Prisma {
     create: XOR<GameCreateWithoutSavesInput, GameUncheckedCreateWithoutSavesInput>
   }
 
-  export type GameStateUpsertWithoutSaveInput = {
-    update: XOR<GameStateUpdateWithoutSaveInput, GameStateUncheckedUpdateWithoutSaveInput>
+  export type GameStateCreateWithoutSaveInput = {
+    id?: string
+    name: string
+    area?: string
+    inventory: JsonNullValueInput | InputJsonValue
+    ruppees?: number
+    stats: JsonNullValueInput | InputJsonValue
+    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
+    killedBosses?: GameStateCreatekilledBossesInput | string[]
+  }
+
+  export type GameStateUncheckedCreateWithoutSaveInput = {
+    id?: string
+    name: string
+    area?: string
+    inventory: JsonNullValueInput | InputJsonValue
+    ruppees?: number
+    stats: JsonNullValueInput | InputJsonValue
+    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
+    killedBosses?: GameStateCreatekilledBossesInput | string[]
+  }
+
+  export type GameStateCreateOrConnectWithoutSaveInput = {
+    where: GameStateWhereUniqueInput
     create: XOR<GameStateCreateWithoutSaveInput, GameStateUncheckedCreateWithoutSaveInput>
-    where?: GameStateWhereInput
-  }
-
-  export type GameStateUpdateToOneWithWhereWithoutSaveInput = {
-    where?: GameStateWhereInput
-    data: XOR<GameStateUpdateWithoutSaveInput, GameStateUncheckedUpdateWithoutSaveInput>
-  }
-
-  export type GameStateUpdateWithoutSaveInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
-    inventory?: JsonNullValueInput | InputJsonValue
-    ruppees?: IntFieldUpdateOperationsInput | number
-    stats?: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
-  }
-
-  export type GameStateUncheckedUpdateWithoutSaveInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
-    inventory?: JsonNullValueInput | InputJsonValue
-    ruppees?: IntFieldUpdateOperationsInput | number
-    stats?: JsonNullValueInput | InputJsonValue
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
   }
 
   export type GameUpsertWithoutSavesInput = {
@@ -8604,11 +8539,43 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GameStateUpsertWithoutSaveInput = {
+    update: XOR<GameStateUpdateWithoutSaveInput, GameStateUncheckedUpdateWithoutSaveInput>
+    create: XOR<GameStateCreateWithoutSaveInput, GameStateUncheckedCreateWithoutSaveInput>
+    where?: GameStateWhereInput
+  }
+
+  export type GameStateUpdateToOneWithWhereWithoutSaveInput = {
+    where?: GameStateWhereInput
+    data: XOR<GameStateUpdateWithoutSaveInput, GameStateUncheckedUpdateWithoutSaveInput>
+  }
+
+  export type GameStateUpdateWithoutSaveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    area?: StringFieldUpdateOperationsInput | string
+    inventory?: JsonNullValueInput | InputJsonValue
+    ruppees?: IntFieldUpdateOperationsInput | number
+    stats?: JsonNullValueInput | InputJsonValue
+    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
+    killedBosses?: GameStateUpdatekilledBossesInput | string[]
+  }
+
+  export type GameStateUncheckedUpdateWithoutSaveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    area?: StringFieldUpdateOperationsInput | string
+    inventory?: JsonNullValueInput | InputJsonValue
+    ruppees?: IntFieldUpdateOperationsInput | number
+    stats?: JsonNullValueInput | InputJsonValue
+    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
+    killedBosses?: GameStateUpdatekilledBossesInput | string[]
+  }
+
   export type SaveCreateWithoutStateInput = {
     id?: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
     game: GameCreateNestedOneWithoutSavesInput
   }
@@ -8618,7 +8585,6 @@ export namespace Prisma {
     gameId: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
   }
 
@@ -8642,7 +8608,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUpdateOneRequiredWithoutSavesNestedInput
   }
@@ -8652,27 +8617,26 @@ export namespace Prisma {
     gameId?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutSessionsInput = {
     id?: string
     username: string
-    admin: boolean
-    createdAt?: Date | string
-    lastPlayed?: Date | string
     password: string
+    admin: boolean
+    lastPlayed?: Date | string
+    createdAt?: Date | string
     games?: GameCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: string
     username: string
-    admin: boolean
-    createdAt?: Date | string
-    lastPlayed?: Date | string
     password: string
+    admin: boolean
+    lastPlayed?: Date | string
+    createdAt?: Date | string
     games?: GameUncheckedCreateNestedManyWithoutPlayerInput
   }
 
@@ -8695,20 +8659,20 @@ export namespace Prisma {
   export type UserUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
     password?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
@@ -8766,7 +8730,6 @@ export namespace Prisma {
     id?: string
     time: string
     auto?: boolean
-    stateId: string
     createdAt?: Date | string
   }
 
@@ -8774,7 +8737,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     state?: GameStateUpdateOneWithoutSaveNestedInput
   }
@@ -8783,7 +8745,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     state?: GameStateUncheckedUpdateOneWithoutSaveNestedInput
   }
@@ -8792,7 +8753,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     auto?: BoolFieldUpdateOperationsInput | boolean
-    stateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

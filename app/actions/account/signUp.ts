@@ -4,7 +4,7 @@ import { createUser, createUserSession } from "@/app/utils/dbFuncs";
 import { isError } from "@/app/utils/isRetryableError";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
-import cookiesSetRules from "@/app/utils/cookiesSetRules";
+import cookiesSetRules from "@/app/utils/cookies";
 
 export default async function signUp(_: any, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();

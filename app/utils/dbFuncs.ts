@@ -4,7 +4,7 @@ import { withRetry } from "./helper";
 import { isError } from "./isRetryableError";
 import { cookies } from "next/headers";
 import { Prisma } from "@/prisma/client";
-import type { PrismaClient } from "@/prisma/client/client";
+import type { PrismaClient } from "@/prisma/client";
 
 type ModelKey = Uncapitalize<Prisma.ModelName>;
 type FindManyResult<M extends Prisma.ModelName> =

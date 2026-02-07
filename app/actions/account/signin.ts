@@ -1,5 +1,5 @@
 "use server";
-import cookiesSetRules from "@/app/utils/cookiesSetRules";
+import cookiesSetRules from "@/app/utils/cookies";
 import {
 	createUserSession,
 	getUser,

@@ -36,7 +36,6 @@ model Save {
     time      String
     auto      Boolean    @default(true)
     state     GameState? @relation
-    stateId   String     @unique
     createdAt DateTime   @default(now())
 }
 

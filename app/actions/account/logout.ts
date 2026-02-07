@@ -1,7 +1,7 @@
 "use server";
 
 import { deleteSessionByToken } from "@/app/utils/dbFuncs";
-import cookiesSetRules from "@/app/utils/cookiesSetRules";
+import cookiesSetRules from "@/app/utils/cookies";
 import { isError } from "@/app/utils/isRetryableError";
 import { cookies } from "next/headers";
 
