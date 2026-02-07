@@ -27,9 +27,22 @@ export default async function newGame(_: any, data: FormData) {
 	if (isError(newGame)) {
 		return { error: "Failed to create game" };
 	}
-	const result = await withRetry(() => prisma.game.create({ data: newGame }));
+	let result = await withRetry(() => prisma.game.create({ data: newGame }));
 	if (isError(result)) {
 		return { error: "Failed to save Game. Error: " + String(result.error) };
+	}
+	const resultt = await withRetry(() =>
+		prisma.user.update({
+			where: { username },
+			data: {
+				lastGameName: name,
+			},
+		}),
+	);
+	if (isError(resultt)) {
+		return {
+			error: "Failed to update user. Error: " + String(resultt.error),
+		};
 	}
 	redirect(`/game?id=${result.id}`);
 }

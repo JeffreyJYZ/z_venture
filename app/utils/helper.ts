@@ -56,11 +56,6 @@ export async function withRetry<T>(
 				baseDelayMs * 2 ** (attempt - 1) +
 				Math.floor(Math.random() * 100);
 
-			console.warn(
-				`[withRetry] attempt ${attempt}/${retries} failed, retrying in ${delay}ms`,
-				error,
-			);
-
 			await sleep(delay);
 		}
 	}

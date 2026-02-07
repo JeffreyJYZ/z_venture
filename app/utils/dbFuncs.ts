@@ -122,7 +122,6 @@ export async function isExpiredToken(token: string): Promise<boolean> {
 	const now = new Date();
 
 	if (isError(session)) {
-		console.error("Failed to load session", session.error);
 		return true;
 	}
 

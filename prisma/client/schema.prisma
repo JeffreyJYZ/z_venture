@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id         String    @id @unique @default(uuid())
-  username   String    @unique
-  password   String
-  admin      Boolean
-  lastPlayed DateTime  @default(now())
-  createdAt  DateTime  @default(now())
-  games      Game[]
-  sessions   Session[]
+  id           String    @id @unique @default(uuid())
+  username     String    @unique
+  password     String
+  admin        Boolean
+  lastPlayed   DateTime  @default(now())
+  lastGameName String?
+  createdAt    DateTime  @default(now())
+  games        Game[]
+  sessions     Session[]
 }
 
 model Game {

@@ -29,5 +29,18 @@ export default async function continueGame(_: any, data: FormData) {
 	if (!game || game.length === 0) {
 		return { error: "Game not found" };
 	}
+	const resultt = await withRetry(() =>
+		prisma.user.update({
+			where: { username },
+			data: {
+				lastGameName: gameName,
+			},
+		}),
+	);
+	if (isError(resultt)) {
+		return {
+			error: "Failed to update user. Error: " + String(resultt.error),
+		};
+	}
 	redirect(`/game?id=${encodeURIComponent(game[0].id)}`);
 }

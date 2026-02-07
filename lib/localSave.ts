@@ -8,12 +8,7 @@ export interface SaveHelper {
 
 const local: SaveHelper = {
 	save(k: string, o: any) {
-		try {
-			localStorage.setItem(k, JSON.stringify(o));
-			console.log(`Saved to localStorage: key="${k}", value=`, o);
-		} catch (error) {
-			console.error(`Error saving to localStorage key="${k}":`, error);
-		}
+		localStorage.setItem(k, JSON.stringify(o));
 	},
 	load(k: string) {
 		const item = localStorage.getItem(k);
@@ -21,7 +16,6 @@ const local: SaveHelper = {
 		try {
 			return JSON.parse(item);
 		} catch (error) {
-			console.error(`Error parsing localStorage key "${k}":`, error);
 			return null;
 		}
 	},

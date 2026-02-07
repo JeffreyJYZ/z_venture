@@ -1312,6 +1312,7 @@ export namespace Prisma {
     password: string | null
     admin: boolean | null
     lastPlayed: Date | null
+    lastGameName: string | null
     createdAt: Date | null
   }
 
@@ -1321,6 +1322,7 @@ export namespace Prisma {
     password: string | null
     admin: boolean | null
     lastPlayed: Date | null
+    lastGameName: string | null
     createdAt: Date | null
   }
 
@@ -1330,6 +1332,7 @@ export namespace Prisma {
     password: number
     admin: number
     lastPlayed: number
+    lastGameName: number
     createdAt: number
     _all: number
   }
@@ -1341,6 +1344,7 @@ export namespace Prisma {
     password?: true
     admin?: true
     lastPlayed?: true
+    lastGameName?: true
     createdAt?: true
   }
 
@@ -1350,6 +1354,7 @@ export namespace Prisma {
     password?: true
     admin?: true
     lastPlayed?: true
+    lastGameName?: true
     createdAt?: true
   }
 
@@ -1359,6 +1364,7 @@ export namespace Prisma {
     password?: true
     admin?: true
     lastPlayed?: true
+    lastGameName?: true
     createdAt?: true
     _all?: true
   }
@@ -1441,6 +1447,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed: Date
+    lastGameName: string | null
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -1467,6 +1474,7 @@ export namespace Prisma {
     password?: boolean
     admin?: boolean
     lastPlayed?: boolean
+    lastGameName?: boolean
     createdAt?: boolean
     games?: boolean | User$gamesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1479,6 +1487,7 @@ export namespace Prisma {
     password?: boolean
     admin?: boolean
     lastPlayed?: boolean
+    lastGameName?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1488,6 +1497,7 @@ export namespace Prisma {
     password?: boolean
     admin?: boolean
     lastPlayed?: boolean
+    lastGameName?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1497,10 +1507,11 @@ export namespace Prisma {
     password?: boolean
     admin?: boolean
     lastPlayed?: boolean
+    lastGameName?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "admin" | "lastPlayed" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "admin" | "lastPlayed" | "lastGameName" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     games?: boolean | User$gamesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1521,6 +1532,7 @@ export namespace Prisma {
       password: string
       admin: boolean
       lastPlayed: Date
+      lastGameName: string | null
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1952,6 +1964,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly admin: FieldRef<"User", 'Boolean'>
     readonly lastPlayed: FieldRef<"User", 'DateTime'>
+    readonly lastGameName: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -6756,6 +6769,7 @@ export namespace Prisma {
     password: 'password',
     admin: 'admin',
     lastPlayed: 'lastPlayed',
+    lastGameName: 'lastGameName',
     createdAt: 'createdAt'
   };
 
@@ -6829,6 +6843,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   export const JsonNullValueFilter: {
@@ -6934,6 +6956,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
     lastPlayed?: DateTimeFilter<"User"> | Date | string
+    lastGameName?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     games?: GameListRelationFilter
     sessions?: SessionListRelationFilter
@@ -6945,6 +6968,7 @@ export namespace Prisma {
     password?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
+    lastGameName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     games?: GameOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
@@ -6959,6 +6983,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
     lastPlayed?: DateTimeFilter<"User"> | Date | string
+    lastGameName?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     games?: GameListRelationFilter
     sessions?: SessionListRelationFilter
@@ -6970,6 +6995,7 @@ export namespace Prisma {
     password?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
+    lastGameName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -6985,6 +7011,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     admin?: BoolWithAggregatesFilter<"User"> | boolean
     lastPlayed?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    lastGameName?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -7233,6 +7260,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed?: Date | string
+    lastGameName?: string | null
     createdAt?: Date | string
     games?: GameCreateNestedManyWithoutPlayerInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -7244,6 +7272,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed?: Date | string
+    lastGameName?: string | null
     createdAt?: Date | string
     games?: GameUncheckedCreateNestedManyWithoutPlayerInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -7255,6 +7284,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUpdateManyWithoutPlayerNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -7266,6 +7296,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUncheckedUpdateManyWithoutPlayerNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -7277,6 +7308,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed?: Date | string
+    lastGameName?: string | null
     createdAt?: Date | string
   }
 
@@ -7286,6 +7318,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7295,6 +7328,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7571,6 +7605,21 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type GameListRelationFilter = {
     every?: GameWhereInput
     some?: GameWhereInput
@@ -7581,6 +7630,11 @@ export namespace Prisma {
     every?: SessionWhereInput
     some?: SessionWhereInput
     none?: SessionWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type GameOrderByRelationAggregateInput = {
@@ -7597,6 +7651,7 @@ export namespace Prisma {
     password?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
+    lastGameName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -7606,6 +7661,7 @@ export namespace Prisma {
     password?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
+    lastGameName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -7615,6 +7671,7 @@ export namespace Prisma {
     password?: SortOrder
     admin?: SortOrder
     lastPlayed?: SortOrder
+    lastGameName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -7656,6 +7713,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -7919,6 +7994,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type GameUpdateManyWithoutPlayerNestedInput = {
     create?: XOR<GameCreateWithoutPlayerInput, GameUncheckedCreateWithoutPlayerInput> | GameCreateWithoutPlayerInput[] | GameUncheckedCreateWithoutPlayerInput[]
     connectOrCreate?: GameCreateOrConnectWithoutPlayerInput | GameCreateOrConnectWithoutPlayerInput[]
@@ -8161,6 +8240,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8209,6 +8302,34 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -8365,6 +8486,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed?: Date | string
+    lastGameName?: string | null
     createdAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -8375,6 +8497,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed?: Date | string
+    lastGameName?: string | null
     createdAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8427,6 +8550,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -8437,6 +8561,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8626,6 +8751,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed?: Date | string
+    lastGameName?: string | null
     createdAt?: Date | string
     games?: GameCreateNestedManyWithoutPlayerInput
   }
@@ -8636,6 +8762,7 @@ export namespace Prisma {
     password: string
     admin: boolean
     lastPlayed?: Date | string
+    lastGameName?: string | null
     createdAt?: Date | string
     games?: GameUncheckedCreateNestedManyWithoutPlayerInput
   }
@@ -8662,6 +8789,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUpdateManyWithoutPlayerNestedInput
   }
@@ -8672,6 +8800,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     lastPlayed?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastGameName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     games?: GameUncheckedUpdateManyWithoutPlayerNestedInput
   }

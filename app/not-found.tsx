@@ -6,6 +6,7 @@ export default function NotFound() {
 		<Container>
 			<h1>404 Not Found!</h1>
 			<Link href="/">Home</Link>
+			<Link href="/game">Game</Link>
 		</Container>
 	);
 }
