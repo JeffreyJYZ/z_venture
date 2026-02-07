@@ -6,9 +6,16 @@ import { getUsername } from "@/app/utils/cookies";
 import { isError } from "@/app/utils/isRetryableError";
 
 export default async function getGameById(id: string) {
+	const username = await getUsername();
+	if (!username) {
+		return { error: "User not authenticated" };
+	}
+	if (isError(username)) {
+		return username;
+	}
 	const game = await withRetry(() =>
-		prisma.game.findUnique({
-			where: { id },
+		prisma.game.findFirst({
+			where: { id, username },
 			include: {
 				saves: {
 					include: {

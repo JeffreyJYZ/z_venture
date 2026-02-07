@@ -7,6 +7,17 @@ import { Game, GameState, Save } from "@/prisma/client";
 import React from "react";
 import { Stats } from "./utils/types";
 
+function isStats(value: unknown): value is Stats {
+	if (!value || typeof value !== "object") return false;
+	const stats = value as Partial<Stats>;
+	return (
+		typeof stats.health === "number" &&
+		typeof stats.strength === "number" &&
+		typeof stats.agility === "number" &&
+		typeof stats.experience === "number"
+	);
+}
+
 async function getGameData(id: string) {
 	let game:
 		| (Game & {
@@ -79,18 +90,32 @@ export default async function GamePage({
 				| null;
 		})[];
 	};
+	if (!game.saves.length) {
+		return (
+			<>
+				<h1>{game.name}</h1>
+				<p>No saves found for this game.</p>
+			</>
+		);
+	}
+	const currentSave = game.saves[0];
+	const stats = isStats(currentSave.state?.stats)
+		? currentSave.state?.stats
+		: null;
 	return (
 		<>
 			<h1>{game.name}</h1>
 			<section className="stats">
 				<h2>Stats</h2>
 				<ul>
-					{Object.entries(game.saves[0].state?.stats || {}).map(
-						([name, value]) => (
+					{stats ? (
+						Object.entries(stats).map(([name, value]) => (
 							<li key={name}>
 								{name}: {String(value)}
 							</li>
-						),
+						))
+					) : (
+						<li>Stats unavailable.</li>
 					)}
 				</ul>
 			</section>
