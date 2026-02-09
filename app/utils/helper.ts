@@ -18,7 +18,7 @@ export async function sleep(ms: number) {
 }
 
 export async function revalidateAll() {
-	for (const url of Object.values(URLs)) {
+	for (const url of Object.values(URLs.all)) {
 		revalidatePath(url);
 	}
 }

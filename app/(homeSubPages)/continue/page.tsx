@@ -58,7 +58,7 @@ export default async function ContinuePage() {
 				</Form>
 			) : (
 				await (async function () {
-					redirect("/new");
+					redirect("/new?from=continue&reason=no-saved-games");
 				})()
 			)}
 		</>

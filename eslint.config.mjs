@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
 		"next-env.d.ts",
 	]),
 	{
+		plugins: ["unused-imports"],
 		rules: {
 			"@typescript-eslint/no-unused-vars": "off",
 			"css(unknownAtRules)": "off",
@@ -22,6 +23,9 @@ const eslintConfig = defineConfig([
 			"prefer-const": "off",
 			"@typescript-eslint/no-unnecessary-type-constraint": "off",
 			"@typescript-eslint/no-require-imports": "off",
+			"@typescript-eslint/no-unused-imports": "warn",
+			"unused-imports/no-unused-imports": "warn",
+			"unused-imports/no-unused-vars": "off",
 		},
 	},
 ]);

@@ -1,13 +1,30 @@
-export const URLs: Record<string, string> = {
-	Home: "/",
-	Game: "/game",
-	Inventory: "/game/inventory",
-	Settings: "/settings",
-	"Game Settings": "/settings/game",
-	"Sign In": "/signin",
-	"Sign Up": "/signup",
-	"New Game": "/new",
-	"Continue Game": "/continue",
-	About: "/about",
-	Map: "/game/map",
-};
+export const URLs = {
+	all: {
+		Home: "/",
+		Game: "/game",
+		Inventory: "/game/inventory",
+		Settings: "/settings",
+		"Game Settings": "/settings/game",
+		"Sign In": "/signin",
+		"Sign Up": "/signup",
+		"New Game": "/new",
+		"Continue Game": "/continue",
+		About: "/about",
+		Map: "/game/map",
+	},
+	game: {
+		Exit: "/",
+		Main: "/game",
+		Inventory: "/game/inventory",
+		Settings: "/game/settings",
+		Map: "/game/map",
+	},
+	home: {
+		Home: "/",
+		"Sign In": "/signin",
+		"Sign Up": "/signup",
+		"New Game": "/new",
+		"Continue Game": "/continue",
+		About: "/about",
+	},
+} as const;

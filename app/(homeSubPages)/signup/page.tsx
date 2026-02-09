@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 export default async function SignUpPage() {
 	if (!(await isCurrentTokenExpired())) {
-		redirect("/new");
+		redirect("/new?from=signup&reason=alr-signed-in");
 	}
 	return (
 		<>

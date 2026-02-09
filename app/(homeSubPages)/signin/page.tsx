@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 export default async function SignInPage() {
 	if (!(await isCurrentTokenExpired())) {
-		redirect("/new");
+		redirect("/new?from=signin&reason=alr-signed-in");
 	}
 	return (
 		<>

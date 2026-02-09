@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { interFont, ralewayFont } from "./ui/fonts";
 import CustomErrorBoundary from "./ui/components/CustomErrorBoundary";
 import CustomTopLoader from "./ui/components/customTopLoader";
+import Image from "next/image";
 
 export const metadata: Metadata = {
 	title: "Z Venture",
@@ -17,17 +18,26 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<CustomErrorBoundary>
-				<body
-					className={`${interFont.className} ${ralewayFont.className} antialiased`}
-				>
+		<html lang="en" className="h-full">
+			<body
+				className={`${interFont.className} ${ralewayFont.className} antialiased min-h-full flex flex-col`}
+			>
+				<CustomErrorBoundary>
 					<CustomTopLoader />
-					{children}
+					<main>{children}</main>
+					<footer className="flex flex-col items-center bg-[#151921] w-full p-10 mt-auto h-full">
+						<Image
+							src="/logoDarkRed.png"
+							alt="Z Venture Logo"
+							className="m-5 justify-self-center"
+							width={150}
+							height={150}
+						/>
+					</footer>
 					<SpeedInsights />
 					<Analytics />
-				</body>
-			</CustomErrorBoundary>
+				</CustomErrorBoundary>
+			</body>
 		</html>
 	);
 }

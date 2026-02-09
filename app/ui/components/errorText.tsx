@@ -1,4 +1,10 @@
 "use client";
-export default function ErrorText({ children }: { children: React.ReactNode }) {
-	return <p className="text-red-500 text-xs">{children}</p>;
+export default function ErrorText({
+	children,
+	className = "",
+}: {
+	children: React.ReactNode;
+	className?: string;
+}) {
+	return <p className={`text-red-500 text-sm ${className}`}>{children}</p>;
 }

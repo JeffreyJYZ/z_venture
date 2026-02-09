@@ -5,7 +5,7 @@
 
 @layer base {
 	:root {
-		--background: #190000;
+		--background: #360000;
 		--foreground: #ffffff;
 		--dont-use: #a80000;
 	}
@@ -27,6 +27,13 @@
 		text-align: center;
 		color: var(--background);
 		margin: 5px;
+	}
+	a {
+		transition-duration: 0.2s;
+	}
+	a:hover {
+		color: rgb(0, 121, 182);
+		text-decoration: underline;
 	}
 }
 
