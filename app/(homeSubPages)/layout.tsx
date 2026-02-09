@@ -1,5 +1,5 @@
 import Container from "../ui/components/container";
-import { URLs } from "../utils/urls";
+import { toNavLinks, URLs } from "../utils/urls";
 import Navbar from "../ui/components/navBar";
 
 export default async function Base({
@@ -9,13 +9,7 @@ export default async function Base({
 }) {
 	return (
 		<>
-			<Navbar
-				links={Object.entries(URLs.home).map(([label, to]) => ({
-					label,
-					to,
-				}))}
-				title="Z Venture"
-			/>
+			<Navbar links={toNavLinks(URLs.home)} title="Z Venture" />
 			<Container className={"flex-col gap-5 flex-wrap"}>
 				{children}
 			</Container>

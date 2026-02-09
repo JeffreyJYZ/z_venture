@@ -1,6 +1,6 @@
 import Container from "../ui/components/container";
 import CustomTopLoader from "../ui/components/customTopLoader";
-import { URLs } from "../utils/urls";
+import { toNavLinks, URLs } from "../utils/urls";
 import Navbar from "../ui/components/navBar";
 import { isCurrentTokenExpired } from "../utils/dbFuncs";
 
@@ -18,13 +18,7 @@ export default async function GameLayout({
 		);
 	return (
 		<>
-			<Navbar
-				links={Object.entries(URLs.game).map(([label, to]) => ({
-					label,
-					to,
-				}))}
-				title="Z Venture"
-			/>
+			<Navbar links={toNavLinks(URLs.game)} title="Z Venture" />
 			<Container className="flex flex-col p-5 gap-5">
 				{children}
 			</Container>

@@ -28,3 +28,10 @@ export const URLs = {
 		About: "/about",
 	},
 } as const;
+
+export function toNavLinks(urls: (typeof URLs)[keyof typeof URLs]) {
+	return Object.entries(urls).map(([label, to]) => ({
+		label,
+		to,
+	}));
+}

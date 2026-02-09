@@ -4,7 +4,7 @@ import Link from "next/link";
 
 // Import the Tailwind CSS classes directly if you have set up your environment correctly
 interface NavbarProps {
-	links: Array<{ label: string; to: string }>;
+	links: { label: string; to: string }[];
 	title?: React.ReactNode;
 	linkClasses?: string | string[];
 	navClasses?: string | string[];
