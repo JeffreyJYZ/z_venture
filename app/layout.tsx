@@ -19,6 +19,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="h-full">
+			<head>
+				<link rel="icon" href="/logoLightRed.png" />
+			</head>
 			<body
 				className={`${interFont.className} ${ralewayFont.className} antialiased min-h-full flex flex-col`}
 			>
