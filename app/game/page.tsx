@@ -1,11 +1,11 @@
-import { getUser } from "@/app/utils/funcs/dbFuncs";
-import { getUsername } from "@/app/utils/data/cookies";
-import { isError } from "@/app/utils/funcs/isRetryableError";
-import getGameById, { getGameByName } from "../utils/funcs/getGame";
+import { getCurrentUser, getUser } from "@/utils/funcs/dbFuncs";
+import { getUsername } from "@/utils/data/cookies";
+import { isError } from "@/utils/funcs/isRetryableError";
+import getGameById, { getGameByName } from "../../utils/funcs/getGame";
 import Link from "next/link";
 import { Game, GameState, Save } from "@/prisma/client";
 import React from "react";
-import { Stats } from "../utils/types/stats";
+import { Stats } from "../../utils/types/stats";
 
 function isStats(value: unknown): value is Stats {
 	if (!value || typeof value !== "object") return false;
@@ -29,26 +29,7 @@ async function getGameData(id: string): Promise<{
 	errorElement: React.ReactElement | null;
 }> {
 	let game: GameWithSaves | { error: unknown } | null = null;
-	const username = await getUsername();
-	if (!username) {
-		return {
-			game: null,
-			errorElement: (
-				<div>
-					Please <Link href="/signin">log in</Link> to view your game.
-				</div>
-			),
-		};
-	}
-	if (isError(username)) {
-		return {
-			game: null,
-			errorElement: (
-				<div>Error fetching user: {String(username.error)}</div>
-			),
-		};
-	}
-	const currentUser = await getUser(username);
+	const currentUser = await getCurrentUser();
 	if (!currentUser) {
 		return {
 			game: null,

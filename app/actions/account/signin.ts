@@ -1,13 +1,13 @@
 "use server";
-import cookiesSetRules from "@/app/utils/data/cookies";
+import cookiesSetRules from "@/utils/data/cookies";
 import {
 	createUserSession,
 	getUser,
 	getUserInsensitive,
 	getUserSessions,
 	updateUserPassword,
-} from "@/app/utils/funcs/dbFuncs";
-import { isError } from "@/app/utils/funcs/isRetryableError";
+} from "@/utils/funcs/dbFuncs";
+import { isError } from "@/utils/funcs/isRetryableError";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 

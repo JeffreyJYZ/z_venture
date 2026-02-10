@@ -1,9 +1,9 @@
 "use server";
 
-import { getUsername } from "@/app/utils/data/cookies";
-import { withRetry } from "@/app/utils/funcs/helper";
-import { initGame } from "@/app/utils/funcs/inits";
-import { isError } from "@/app/utils/funcs/isRetryableError";
+import { getUsername } from "@/utils/data/cookies";
+import { withRetry } from "@/utils/funcs/helper";
+import { initGame } from "@/utils/funcs/inits";
+import { isError } from "@/utils/funcs/isRetryableError";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
@@ -25,7 +25,7 @@ export default async function newGame(_: any, data: FormData) {
 	}
 	const newGame = initGame(name, username);
 	if (isError(newGame)) {
-		return { error: "Failed to create game" };
+		return newGame;
 	}
 	let result = await withRetry(() => prisma.game.create({ data: newGame }));
 	if (isError(result)) {

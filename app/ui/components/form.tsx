@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
 import ErrorText from "./errorText";
-import { isError } from "@/app/utils/funcs/isRetryableError";
+import { isError } from "@/utils/funcs/isRetryableError";
 
 export default function Form({
 	actionParam,

@@ -1,9 +1,9 @@
 "use server";
-import { withRetry } from "@/app/utils/funcs/helper";
+import { withRetry } from "@/utils/funcs/helper";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { isError } from "@/app/utils/funcs/isRetryableError";
-import { getUsername } from "@/app/utils/data/cookies";
+import { isError } from "@/utils/funcs/isRetryableError";
+import { getUsername } from "@/utils/data/cookies";
 
 export default async function continueGame(_: any, data: FormData) {
 	const gameName = (data.get("gameName") as string)?.trim();

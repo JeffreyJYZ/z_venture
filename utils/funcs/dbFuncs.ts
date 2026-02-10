@@ -163,22 +163,28 @@ export async function getGameState(gameId: string) {
 }
 
 export async function getLastGameId() {
-	const username = await getUsername();
-	if (isError(username)) return username;
-	if (!username) return { error: "User not logged in" };
-
-	const user = await getUser(username);
+	const user = await getCurrentUser();
 	if (isError(user)) return user;
 	if (!user) return { error: "User not found" };
 	if (!user.lastGameName) return { error: "No last game found for user" };
 
 	const lastGame = await withRetry(() =>
 		prisma.game.findFirst({
-			where: { name: user.lastGameName ?? undefined, username },
+			where: {
+				name: user.lastGameName ?? undefined,
+				username: user.username,
+			},
 		}),
 	);
 	if (isError(lastGame)) return lastGame;
 	if (!lastGame) return { error: "Last game not found" };
 
 	return lastGame.id;
+}
+
+export async function getCurrentUser() {
+	const username = await getUsername();
+	if (isError(username)) return username;
+	if (!username) return { error: "User not logged in" };
+	return await getUser(username);
 }

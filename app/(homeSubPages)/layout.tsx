@@ -1,5 +1,5 @@
 import Container from "../ui/components/container";
-import { toNavLinks, URLs } from "../utils/data/urls";
+import { toNavLinks, URLs } from "../../utils/data/urls";
 import Navbar from "../ui/components/navBar";
 import { ralewayFont } from "../ui/fonts";
 
