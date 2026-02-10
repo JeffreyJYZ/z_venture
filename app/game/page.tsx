@@ -18,7 +18,7 @@ function isStats(value: unknown): value is Stats {
 	);
 }
 
-type GameWithSaves = Game & {
+export type GameWithSaves = Game & {
 	saves: (Save & {
 		state: GameState | null;
 	})[];
@@ -54,7 +54,8 @@ async function getGameData(id: string): Promise<{
 			game: null,
 			errorElement: (
 				<div>
-					User not found. Please <Link href="/signin">log in</Link> again.
+					User not found. Please <Link href="/signin">log in</Link>{" "}
+					again.
 				</div>
 			),
 		};
@@ -86,9 +87,7 @@ async function getGameData(id: string): Promise<{
 	if (isError(game)) {
 		return {
 			game: null,
-			errorElement: (
-				<div>Error fetching game: {String(game.error)}</div>
-			),
+			errorElement: <div>Error fetching game: {String(game.error)}</div>,
 		};
 	}
 	if (!game) {
@@ -124,7 +123,10 @@ export default async function GamePage({
 		: null;
 	return (
 		<>
-			<h1>{game.name}</h1>
+			<div className="flex gap-2 justify-center items-center">
+				<h1 className="mb-0.5">Game</h1>
+				<h3>({game.name})</h3>
+			</div>
 			<section className="stats">
 				<h2>Stats</h2>
 				<ul>

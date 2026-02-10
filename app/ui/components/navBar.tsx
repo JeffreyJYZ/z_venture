@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { ralewayFont } from "../fonts";
+import { usePathname } from "next/navigation";
 
 // Import the Tailwind CSS classes directly if you have set up your environment correctly
 interface NavbarProps {
@@ -26,7 +28,7 @@ function Navbar({
 
 	return (
 		<nav
-			className={`bg-black/70 text-white px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur ${navClasses}`}
+			className={`${ralewayFont.className} bg-black/70 text-white px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur ${navClasses}`}
 		>
 			<div className="flex items-center gap-4 mr-10">
 				<button

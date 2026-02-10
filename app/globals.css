@@ -29,7 +29,7 @@
 		margin: 5px;
 	}
 	a {
-		transition-duration: 0.2s;
+		transition-duration: 0.1s;
 	}
 	a:hover {
 		color: rgb(0, 121, 182);

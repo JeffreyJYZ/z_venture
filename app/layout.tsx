@@ -6,6 +6,8 @@ import { interFont, ralewayFont } from "./ui/fonts";
 import CustomErrorBoundary from "./ui/components/CustomErrorBoundary";
 import CustomTopLoader from "./ui/components/customTopLoader";
 import Image from "next/image";
+import Link from "next/link";
+import Footer from "./ui/components/specifics/layout/footer";
 
 export const metadata: Metadata = {
 	title: "Z Venture",
@@ -23,20 +25,12 @@ export default function RootLayout({
 				<link rel="icon" href="/logoLightRed.png" />
 			</head>
 			<body
-				className={`${interFont.className} ${ralewayFont.className} antialiased min-h-full flex flex-col`}
+				className={`${interFont.className} antialiased min-h-full flex flex-col`}
 			>
 				<CustomErrorBoundary>
 					<CustomTopLoader />
 					<main>{children}</main>
-					<footer className="flex flex-col items-center bg-[#151921] w-full p-10 mt-auto h-full">
-						<Image
-							src="/logoDarkRed.png"
-							alt="Z Venture Logo"
-							className="m-5 justify-self-center"
-							width={150}
-							height={150}
-						/>
-					</footer>
+					<Footer />
 					<SpeedInsights />
 					<Analytics />
 				</CustomErrorBoundary>

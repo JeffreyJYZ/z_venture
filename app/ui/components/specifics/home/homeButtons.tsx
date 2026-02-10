@@ -17,6 +17,7 @@ const BtnStyles: React.CSSProperties = {
 	display: "flex",
 	justifyContent: "center",
 	textDecoration: "none",
+	fontWeight: "bold",
 };
 
 export default function HomeButtons() {

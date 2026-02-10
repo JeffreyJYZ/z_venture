@@ -5,6 +5,7 @@ import { isError } from "./isRetryableError";
 import { cookies } from "next/headers";
 import { Prisma } from "@/prisma/client";
 import type { PrismaClient } from "@/prisma/client";
+import { getUsername } from "./cookies";
 
 type ModelKey = Uncapitalize<Prisma.ModelName>;
 type FindManyResult<M extends Prisma.ModelName> =
@@ -135,4 +136,49 @@ export async function isCurrentTokenExpired(): Promise<boolean> {
 	const sessionToken = cookieStore.get("session")?.value;
 	if (!sessionToken) return true;
 	return await isExpiredToken(sessionToken);
+}
+
+export async function getGameState(gameId: string) {
+	const username = await getUsername();
+	if (isError(username)) return username;
+	if (!username) return { error: "User not logged in" };
+	const lastSave = await withRetry(() =>
+		prisma.save.findFirst({
+			where: {
+				gameId,
+				game: { username },
+			},
+			orderBy: { createdAt: "desc" },
+		}),
+	);
+	if (isError(lastSave)) return lastSave;
+	if (!lastSave) return { error: "No saves found for this game." };
+	const gameState = await withRetry(() =>
+		prisma.gameState.findUnique({
+			where: { saveId: lastSave.id },
+		}),
+	);
+	if (isError(gameState)) return gameState;
+	return gameState;
+}
+
+export async function getLastGameId() {
+	const username = await getUsername();
+	if (isError(username)) return username;
+	if (!username) return { error: "User not logged in" };
+
+	const user = await getUser(username);
+	if (isError(user)) return user;
+	if (!user) return { error: "User not found" };
+	if (!user.lastGameName) return { error: "No last game found for user" };
+
+	const lastGame = await withRetry(() =>
+		prisma.game.findFirst({
+			where: { name: user.lastGameName ?? undefined, username },
+		}),
+	);
+	if (isError(lastGame)) return lastGame;
+	if (!lastGame) return { error: "Last game not found" };
+
+	return lastGame.id;
 }
