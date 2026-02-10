@@ -1,6 +1,6 @@
 import HomeButtons from "@/app/ui/components/specifics/home/homeButtons";
 import Link from "next/link";
-import { isCurrentTokenExpired } from "../utils/dbFuncs";
+import { isCurrentTokenExpired } from "../utils/funcs/dbFuncs";
 
 export default async function Home() {
 	return (

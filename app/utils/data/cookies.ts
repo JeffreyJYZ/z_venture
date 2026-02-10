@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
-import { withRetry } from "./helper";
-import { isError } from "./isRetryableError";
+import { withRetry } from "../funcs/helper";
+import { isError } from "../funcs/isRetryableError";
 
 export type CookieSetOptions = Parameters<ReadonlyRequestCookies["set"]>[2];
 

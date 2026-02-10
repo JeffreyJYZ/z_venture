@@ -1,8 +1,8 @@
 "use server";
 
-import { deleteSessionByToken } from "@/app/utils/dbFuncs";
-import cookiesSetRules from "@/app/utils/cookies";
-import { isError } from "@/app/utils/isRetryableError";
+import { deleteSessionByToken } from "@/app/utils/funcs/dbFuncs";
+import cookiesSetRules from "@/app/utils/data/cookies";
+import { isError } from "@/app/utils/funcs/isRetryableError";
 import { cookies } from "next/headers";
 
 export default async function logout() {

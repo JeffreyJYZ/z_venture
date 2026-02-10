@@ -1,4 +1,4 @@
-import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
+import { isCurrentTokenExpired } from "@/app/utils/funcs/dbFuncs";
 import signIn from "@/app/actions/account/signin";
 import Form from "@/app/ui/components/form";
 import { redirect } from "next/navigation";

@@ -5,7 +5,7 @@ import { isError } from "./isRetryableError";
 import { cookies } from "next/headers";
 import { Prisma } from "@/prisma/client";
 import type { PrismaClient } from "@/prisma/client";
-import { getUsername } from "./cookies";
+import { getUsername } from "../data/cookies";
 
 type ModelKey = Uncapitalize<Prisma.ModelName>;
 type FindManyResult<M extends Prisma.ModelName> =

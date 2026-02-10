@@ -1,11 +1,11 @@
-import { getUser } from "@/app/utils/dbFuncs";
-import { getUsername } from "@/app/utils/cookies";
-import { isError } from "@/app/utils/isRetryableError";
-import getGameById, { getGameByName } from "./utils/getGame";
+import { getUser } from "@/app/utils/funcs/dbFuncs";
+import { getUsername } from "@/app/utils/data/cookies";
+import { isError } from "@/app/utils/funcs/isRetryableError";
+import getGameById, { getGameByName } from "../utils/funcs/getGame";
 import Link from "next/link";
 import { Game, GameState, Save } from "@/prisma/client";
 import React from "react";
-import { Stats } from "./utils/types";
+import { Stats } from "../utils/types/stats";
 
 function isStats(value: unknown): value is Stats {
 	if (!value || typeof value !== "object") return false;

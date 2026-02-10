@@ -3,10 +3,10 @@ import Form from "@/app/ui/components/form";
 import continueGame from "@/app/actions/game/continue";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
-import { getUsername } from "@/app/utils/cookies";
-import { isError } from "@/app/utils/isRetryableError";
-import { withRetry } from "@/app/utils/helper";
+import { isCurrentTokenExpired } from "@/app/utils/funcs/dbFuncs";
+import { getUsername } from "@/app/utils/data/cookies";
+import { isError } from "@/app/utils/funcs/isRetryableError";
+import { withRetry } from "@/app/utils/funcs/helper";
 
 export default async function ContinuePage() {
 	const isExpired = await isCurrentTokenExpired();

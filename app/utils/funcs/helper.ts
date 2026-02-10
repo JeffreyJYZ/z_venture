@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { URLs } from "./urls";
+import { URLs } from "../data/urls";
 import { Prisma } from "@/prisma/client/client";
 import prisma from "@/lib/prisma";
 import { isRetryableError } from "./isRetryableError";

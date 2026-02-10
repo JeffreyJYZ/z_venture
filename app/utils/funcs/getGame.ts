@@ -1,9 +1,9 @@
 "use server";
 
-import { withRetry } from "@/app/utils/helper";
+import { withRetry } from "@/app/utils/funcs/helper";
 import prisma from "@/lib/prisma";
-import { getUsername } from "@/app/utils/cookies";
-import { isError } from "@/app/utils/isRetryableError";
+import { getUsername } from "@/app/utils/data/cookies";
+import { isError } from "@/app/utils/funcs/isRetryableError";
 
 export default async function getGameById(id: string) {
 	const username = await getUsername();

@@ -1,8 +1,8 @@
 import Container from "../ui/components/container";
 import CustomTopLoader from "../ui/components/customTopLoader";
-import { toNavLinks, URLs } from "../utils/urls";
+import { toNavLinks, URLs } from "../utils/data/urls";
 import Navbar from "../ui/components/navBar";
-import { isCurrentTokenExpired } from "../utils/dbFuncs";
+import { isCurrentTokenExpired } from "../utils/funcs/dbFuncs";
 import { cinzelFont } from "../ui/fonts";
 import { unauthorized } from "next/navigation";
 

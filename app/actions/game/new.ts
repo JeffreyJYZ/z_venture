@@ -1,9 +1,9 @@
 "use server";
 
-import { getUsername } from "@/app/utils/cookies";
-import { withRetry } from "@/app/utils/helper";
-import { initGame } from "@/app/utils/inits";
-import { isError } from "@/app/utils/isRetryableError";
+import { getUsername } from "@/app/utils/data/cookies";
+import { withRetry } from "@/app/utils/funcs/helper";
+import { initGame } from "@/app/utils/funcs/inits";
+import { isError } from "@/app/utils/funcs/isRetryableError";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 

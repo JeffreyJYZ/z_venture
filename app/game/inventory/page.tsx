@@ -1,9 +1,13 @@
-import { getGameState, getLastGameId, getUser } from "@/app/utils/dbFuncs";
-import { getGameByName } from "../utils/getGame";
-import { getUsername } from "@/app/utils/cookies";
-import { isError } from "@/app/utils/isRetryableError";
+import {
+	getGameState,
+	getLastGameId,
+	getUser,
+} from "@/app/utils/funcs/dbFuncs";
+import { getGameByName } from "../../utils/funcs/getGame";
+import { getUsername } from "@/app/utils/data/cookies";
+import { isError } from "@/app/utils/funcs/isRetryableError";
 import Link from "next/link";
-import { Inventory } from "../utils/types";
+import { Inventory } from "../../utils/types/inventory";
 
 export default async function InventoryPage() {
 	const lastGameIdResult = await getLastGameId();

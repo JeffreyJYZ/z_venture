@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Navbar from "@/app/ui/components/navBar";
-import { toNavLinks, URLs } from "@/app/utils/urls";
+import { toNavLinks, URLs } from "@/app/utils/data/urls";
 
 describe("NavBar", () => {
 	it("renders without crashing", () => {

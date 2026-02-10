@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Form from "@/app/ui/components/form";
 import signUp from "@/app/actions/account/signUp";
-import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
+import { isCurrentTokenExpired } from "@/app/utils/funcs/dbFuncs";
 import { redirect } from "next/navigation";
 
 export default async function SignUpPage() {

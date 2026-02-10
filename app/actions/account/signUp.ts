@@ -1,10 +1,10 @@
 "use server";
 
-import { createUser, createUserSession } from "@/app/utils/dbFuncs";
-import { isError } from "@/app/utils/isRetryableError";
+import { createUser, createUserSession } from "@/app/utils/funcs/dbFuncs";
+import { isError } from "@/app/utils/funcs/isRetryableError";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
-import cookiesSetRules from "@/app/utils/cookies";
+import cookiesSetRules from "@/app/utils/data/cookies";
 
 export default async function signUp(_: any, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();

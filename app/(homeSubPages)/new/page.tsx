@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Form from "@/app/ui/components/form";
 import newGame from "@/app/actions/game/new";
-import { isCurrentTokenExpired } from "@/app/utils/dbFuncs";
+import { isCurrentTokenExpired } from "@/app/utils/funcs/dbFuncs";
 import ErrorText from "@/app/ui/components/errorText";
 
 export default async function Page({
