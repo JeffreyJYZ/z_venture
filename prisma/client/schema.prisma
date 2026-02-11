@@ -45,7 +45,7 @@ model GameState {
   save         Save     @relation(fields: [saveId], references: [id])
   saveId       String   @unique
   name         String
-  area         String   @default("Base")
+  location     String   @default("Base")
   inventory    Json
   ruppees      Int      @default(0)
   stats        Json

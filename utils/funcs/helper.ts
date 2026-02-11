@@ -62,3 +62,11 @@ export async function withRetry<T>(
 
 	return { error: lastError };
 }
+
+export async function toReadable(str: string) {
+	const newStr = str.split("-");
+	for (const [i, part] of newStr.entries()) {
+		newStr[i] = part.charAt(0).toUpperCase() + part.slice(1);
+	}
+	return newStr.join(" ");
+}

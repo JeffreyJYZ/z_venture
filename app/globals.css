@@ -28,6 +28,9 @@
 		color: var(--background);
 		margin: 5px;
 	}
+	button:hover {
+		cursor: pointer;
+	}
 	a {
 		transition-duration: 0.1s;
 	}

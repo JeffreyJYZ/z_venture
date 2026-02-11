@@ -4600,7 +4600,7 @@ export namespace Prisma {
     id: string | null
     saveId: string | null
     name: string | null
-    area: string | null
+    location: string | null
     ruppees: number | null
   }
 
@@ -4608,7 +4608,7 @@ export namespace Prisma {
     id: string | null
     saveId: string | null
     name: string | null
-    area: string | null
+    location: string | null
     ruppees: number | null
   }
 
@@ -4616,7 +4616,7 @@ export namespace Prisma {
     id: number
     saveId: number
     name: number
-    area: number
+    location: number
     inventory: number
     ruppees: number
     stats: number
@@ -4638,7 +4638,7 @@ export namespace Prisma {
     id?: true
     saveId?: true
     name?: true
-    area?: true
+    location?: true
     ruppees?: true
   }
 
@@ -4646,7 +4646,7 @@ export namespace Prisma {
     id?: true
     saveId?: true
     name?: true
-    area?: true
+    location?: true
     ruppees?: true
   }
 
@@ -4654,7 +4654,7 @@ export namespace Prisma {
     id?: true
     saveId?: true
     name?: true
-    area?: true
+    location?: true
     inventory?: true
     ruppees?: true
     stats?: true
@@ -4753,7 +4753,7 @@ export namespace Prisma {
     id: string
     saveId: string
     name: string
-    area: string
+    location: string
     inventory: JsonValue
     ruppees: number
     stats: JsonValue
@@ -4784,7 +4784,7 @@ export namespace Prisma {
     id?: boolean
     saveId?: boolean
     name?: boolean
-    area?: boolean
+    location?: boolean
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
@@ -4797,7 +4797,7 @@ export namespace Prisma {
     id?: boolean
     saveId?: boolean
     name?: boolean
-    area?: boolean
+    location?: boolean
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
@@ -4810,7 +4810,7 @@ export namespace Prisma {
     id?: boolean
     saveId?: boolean
     name?: boolean
-    area?: boolean
+    location?: boolean
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
@@ -4823,7 +4823,7 @@ export namespace Prisma {
     id?: boolean
     saveId?: boolean
     name?: boolean
-    area?: boolean
+    location?: boolean
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
@@ -4831,7 +4831,7 @@ export namespace Prisma {
     killedBosses?: boolean
   }
 
-  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saveId" | "name" | "area" | "inventory" | "ruppees" | "stats" | "visitedAreas" | "killedBosses", ExtArgs["result"]["gameState"]>
+  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saveId" | "name" | "location" | "inventory" | "ruppees" | "stats" | "visitedAreas" | "killedBosses", ExtArgs["result"]["gameState"]>
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }
@@ -4851,7 +4851,7 @@ export namespace Prisma {
       id: string
       saveId: string
       name: string
-      area: string
+      location: string
       inventory: Prisma.JsonValue
       ruppees: number
       stats: Prisma.JsonValue
@@ -5284,7 +5284,7 @@ export namespace Prisma {
     readonly id: FieldRef<"GameState", 'String'>
     readonly saveId: FieldRef<"GameState", 'String'>
     readonly name: FieldRef<"GameState", 'String'>
-    readonly area: FieldRef<"GameState", 'String'>
+    readonly location: FieldRef<"GameState", 'String'>
     readonly inventory: FieldRef<"GameState", 'Json'>
     readonly ruppees: FieldRef<"GameState", 'Int'>
     readonly stats: FieldRef<"GameState", 'Json'>
@@ -6801,7 +6801,7 @@ export namespace Prisma {
     id: 'id',
     saveId: 'saveId',
     name: 'name',
-    area: 'area',
+    location: 'location',
     inventory: 'inventory',
     ruppees: 'ruppees',
     stats: 'stats',
@@ -7134,7 +7134,7 @@ export namespace Prisma {
     id?: StringFilter<"GameState"> | string
     saveId?: StringFilter<"GameState"> | string
     name?: StringFilter<"GameState"> | string
-    area?: StringFilter<"GameState"> | string
+    location?: StringFilter<"GameState"> | string
     inventory?: JsonFilter<"GameState">
     ruppees?: IntFilter<"GameState"> | number
     stats?: JsonFilter<"GameState">
@@ -7147,7 +7147,7 @@ export namespace Prisma {
     id?: SortOrder
     saveId?: SortOrder
     name?: SortOrder
-    area?: SortOrder
+    location?: SortOrder
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
@@ -7163,7 +7163,7 @@ export namespace Prisma {
     OR?: GameStateWhereInput[]
     NOT?: GameStateWhereInput | GameStateWhereInput[]
     name?: StringFilter<"GameState"> | string
-    area?: StringFilter<"GameState"> | string
+    location?: StringFilter<"GameState"> | string
     inventory?: JsonFilter<"GameState">
     ruppees?: IntFilter<"GameState"> | number
     stats?: JsonFilter<"GameState">
@@ -7176,7 +7176,7 @@ export namespace Prisma {
     id?: SortOrder
     saveId?: SortOrder
     name?: SortOrder
-    area?: SortOrder
+    location?: SortOrder
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
@@ -7196,7 +7196,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"GameState"> | string
     saveId?: StringWithAggregatesFilter<"GameState"> | string
     name?: StringWithAggregatesFilter<"GameState"> | string
-    area?: StringWithAggregatesFilter<"GameState"> | string
+    location?: StringWithAggregatesFilter<"GameState"> | string
     inventory?: JsonWithAggregatesFilter<"GameState">
     ruppees?: IntWithAggregatesFilter<"GameState"> | number
     stats?: JsonWithAggregatesFilter<"GameState">
@@ -7446,7 +7446,7 @@ export namespace Prisma {
   export type GameStateCreateInput = {
     id?: string
     name: string
-    area?: string
+    location?: string
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
@@ -7459,7 +7459,7 @@ export namespace Prisma {
     id?: string
     saveId: string
     name: string
-    area?: string
+    location?: string
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
@@ -7470,7 +7470,7 @@ export namespace Prisma {
   export type GameStateUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
@@ -7483,7 +7483,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     saveId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
@@ -7495,7 +7495,7 @@ export namespace Prisma {
     id?: string
     saveId: string
     name: string
-    area?: string
+    location?: string
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
@@ -7506,7 +7506,7 @@ export namespace Prisma {
   export type GameStateUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
@@ -7518,7 +7518,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     saveId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
@@ -7859,7 +7859,7 @@ export namespace Prisma {
     id?: SortOrder
     saveId?: SortOrder
     name?: SortOrder
-    area?: SortOrder
+    location?: SortOrder
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
@@ -7875,7 +7875,7 @@ export namespace Prisma {
     id?: SortOrder
     saveId?: SortOrder
     name?: SortOrder
-    area?: SortOrder
+    location?: SortOrder
     ruppees?: SortOrder
   }
 
@@ -7883,7 +7883,7 @@ export namespace Prisma {
     id?: SortOrder
     saveId?: SortOrder
     name?: SortOrder
-    area?: SortOrder
+    location?: SortOrder
     ruppees?: SortOrder
   }
 
@@ -8615,7 +8615,7 @@ export namespace Prisma {
   export type GameStateCreateWithoutSaveInput = {
     id?: string
     name: string
-    area?: string
+    location?: string
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
@@ -8626,7 +8626,7 @@ export namespace Prisma {
   export type GameStateUncheckedCreateWithoutSaveInput = {
     id?: string
     name: string
-    area?: string
+    location?: string
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
@@ -8678,7 +8678,7 @@ export namespace Prisma {
   export type GameStateUpdateWithoutSaveInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
@@ -8689,7 +8689,7 @@ export namespace Prisma {
   export type GameStateUncheckedUpdateWithoutSaveInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    area?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue

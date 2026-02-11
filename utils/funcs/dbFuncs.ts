@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 import { Prisma } from "@/prisma/client";
 import type { PrismaClient } from "@/prisma/client";
 import { getUsername } from "../data/cookies";
+import { LocationName } from "../types/locations";
+import { initSave } from "./inits";
 
 type ModelKey = Uncapitalize<Prisma.ModelName>;
 type FindManyResult<M extends Prisma.ModelName> =
@@ -187,4 +189,45 @@ export async function getCurrentUser() {
 	if (isError(username)) return username;
 	if (!username) return { error: "User not logged in" };
 	return await getUser(username);
+}
+
+export async function getPlayerCurrentLocation(gameId: string) {
+	const gameStateResult = await getGameState(gameId);
+	if (isError(gameStateResult)) return gameStateResult;
+	if (!gameStateResult) return { error: "Game state not found" };
+	return gameStateResult.location as LocationName;
+}
+
+export async function updatePlayerLocation(
+	gameId: string,
+	location: LocationName,
+) {
+	const gameStateResult = await getGameState(gameId);
+	if (isError(gameStateResult)) return gameStateResult;
+	if (!gameStateResult) return { error: "Game state not found" };
+	const updateResult = await withRetry(() =>
+		prisma.save.create({
+			data: {
+				auto: true,
+				time: new Date().toISOString(),
+				gameId,
+				state: {
+					create: {
+						...gameStateResult,
+						inventory:
+							gameStateResult.inventory ??
+							initSave().state.create.inventory,
+						stats:
+							gameStateResult.stats ??
+							initSave().state.create.stats,
+						location: location as string,
+						saveId: undefined,
+						id: undefined,
+						name: `[Move to ${location}]`,
+					},
+				},
+			},
+		}),
+	);
+	return updateResult;
 }

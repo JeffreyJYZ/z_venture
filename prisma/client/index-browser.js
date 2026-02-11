@@ -149,7 +149,7 @@ exports.Prisma.GameStateScalarFieldEnum = {
   id: 'id',
   saveId: 'saveId',
   name: 'name',
-  area: 'area',
+  location: 'location',
   inventory: 'inventory',
   ruppees: 'ruppees',
   stats: 'stats',

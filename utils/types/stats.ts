@@ -1,6 +1,6 @@
 export interface Stats {
 	health: number;
-	strength: number;
+	attack: number;
 	agility: number;
 	experience: number;
 }

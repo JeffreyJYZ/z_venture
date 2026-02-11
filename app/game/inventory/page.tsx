@@ -37,12 +37,12 @@ export default async function InventoryPage() {
 	return (
 		<>
 			<h1>Inventory</h1>
-			{inventory.items.length === 0 ? (
+			{Object.keys(inventory.items).length === 0 ? (
 				<p>Your inventory is empty.</p>
 			) : (
 				<ul>
 					{Object.entries(inventory.items).map(
-						([name, amount], i) => (
+						([name, { amount }], i) => (
 							<li key={i}>
 								{name}: {amount}
 							</li>
