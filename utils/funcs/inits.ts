@@ -28,7 +28,7 @@ export function initSave() {
 				},
 				stats: {
 					health: 100,
-					strength: 10,
+					attack: 10,
 					agility: 10,
 					experience: 0,
 				},

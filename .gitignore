@@ -50,4 +50,4 @@ Plan.canvas
 next-env.d.ts
 
 # scripts
-scripts/*/**
+scripts

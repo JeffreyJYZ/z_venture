@@ -5,7 +5,7 @@ const locationsInternal = [
 		name: "Base",
 		description:
 			"Your humble abode, a safe haven from the dangers outside.",
-		position: { x: 0, y: 0 },
+		position: "base",
 		monsters: [],
 	},
 	{

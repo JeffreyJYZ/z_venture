@@ -7,15 +7,31 @@ import { Game, GameState, Save } from "@/prisma/client";
 import React from "react";
 import { Stats } from "../../utils/types/stats";
 
-function isStats(value: unknown): value is Stats {
-	if (!value || typeof value !== "object") return false;
-	const stats = value as Partial<Stats>;
-	return (
-		typeof stats.health === "number" &&
-		typeof stats.strength === "number" &&
-		typeof stats.agility === "number" &&
-		typeof stats.experience === "number"
-	);
+type LegacyStats = Omit<Stats, "attack"> & { strength: number };
+
+function normalizeStats(value: unknown): Stats | null {
+	if (!value || typeof value !== "object") return null;
+	const stats = value as Partial<Stats & LegacyStats>;
+	const attack =
+		typeof stats.attack === "number"
+			? stats.attack
+			: typeof stats.strength === "number"
+				? stats.strength
+				: null;
+	if (
+		typeof stats.health !== "number" ||
+		attack === null ||
+		typeof stats.agility !== "number" ||
+		typeof stats.experience !== "number"
+	) {
+		return null;
+	}
+	return {
+		health: stats.health,
+		attack,
+		agility: stats.agility,
+		experience: stats.experience,
+	};
 }
 
 export type GameWithSaves = Game & {
@@ -99,9 +115,7 @@ export default async function GamePage({
 		);
 	}
 	const currentSave = game.saves[0];
-	const stats = isStats(currentSave.state?.stats)
-		? currentSave.state?.stats
-		: null;
+	const stats = normalizeStats(currentSave.state?.stats);
 	return (
 		<>
 			<div className="flex gap-2 justify-center items-center">

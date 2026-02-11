@@ -11,5 +11,18 @@ export type LocationStrict = (typeof locationsInternal)[number];
 export interface Location {
 	name: LocationName;
 	description: string;
+	position:
+		| {
+				x: number;
+				y: number;
+		  }
+		| "base";
 	monsters: { name: Monster["name"]; level: number }[];
+}
+
+export interface LocationWithPosition extends Location {
+	position: {
+		x: number;
+		y: number;
+	};
 }
