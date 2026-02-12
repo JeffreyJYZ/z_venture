@@ -103,10 +103,9 @@ export async function createUser(
 	password: string,
 	admin: boolean = false,
 ) {
-	const existingUser = await getUser(username);
-	if (isError(existingUser)) return existingUser;
-
-	if (!!existingUser) return { error: "Username already exists" };
+	const isUnique = await isUsernameUnique(username);
+	if (isError(isUnique)) return isUnique;
+	if (!isUnique) return { error: "Username already exists" };
 	return await withRetry(() =>
 		prisma.user.create({
 			data: {
@@ -116,6 +115,39 @@ export async function createUser(
 			},
 		}),
 	);
+}
+
+export async function isUsernameUnique(username: string) {
+	const existingUser = await getUserInsensitive(username);
+	if (isError(existingUser)) return existingUser;
+	return !existingUser;
+}
+
+export async function isGameNameUniqueForUser(
+	username: string,
+	gameName: string,
+) {
+	const existingGame = await withRetry(() =>
+		prisma.game.findFirst({
+			where: {
+				username,
+				name: {
+					equals: gameName,
+					mode: "insensitive",
+				},
+			},
+			select: { id: true },
+		}),
+	);
+	if (isError(existingGame)) return existingGame;
+	return !existingGame;
+}
+
+export async function isGameNameUniqueForCurrentUser(gameName: string) {
+	const username = await getUsername();
+	if (isError(username)) return username;
+	if (!username) return { error: "User not logged in" };
+	return await isGameNameUniqueForUser(username, gameName);
 }
 
 export async function isExpiredToken(token: string): Promise<boolean> {
@@ -209,8 +241,6 @@ export async function updatePlayerLocation(
 		gameStateRes as Partial<Prisma.GameStateUncheckedCreateInput>;
 	delete gameStateResult.saveId;
 	delete gameStateResult.id;
-	delete gameStateResult.location;
-	delete gameStateResult.name;
 	const updateResult = await withRetry(() =>
 		prisma.save.create({
 			data: {

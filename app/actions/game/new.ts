@@ -3,6 +3,7 @@
 import { getUsername } from "@/utils/data/cookies";
 import { withRetry } from "@/utils/funcs/helper";
 import { initGame } from "@/utils/funcs/inits";
+import { isGameNameUniqueForUser } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
@@ -22,6 +23,13 @@ export default async function newGame(_: any, data: FormData) {
 	}
 	if (isError(username)) {
 		return username;
+	}
+	const isUnique = await isGameNameUniqueForUser(username, name);
+	if (isError(isUnique)) {
+		return isUnique;
+	}
+	if (!isUnique) {
+		return { error: "Game name already exists for this user" };
 	}
 	const newGame = initGame(name, username);
 	if (isError(newGame)) {
