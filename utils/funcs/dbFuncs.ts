@@ -202,9 +202,15 @@ export async function updatePlayerLocation(
 	gameId: string,
 	location: LocationName,
 ) {
-	const gameStateResult = await getGameState(gameId);
-	if (isError(gameStateResult)) return gameStateResult;
-	if (!gameStateResult) return { error: "Game state not found" };
+	const gameStateRes = await getGameState(gameId);
+	if (isError(gameStateRes)) return gameStateRes;
+	if (!gameStateRes) return { error: "Game state not found" };
+	let gameStateResult =
+		gameStateRes as Partial<Prisma.GameStateUncheckedCreateInput>;
+	delete gameStateResult.saveId;
+	delete gameStateResult.id;
+	delete gameStateResult.location;
+	delete gameStateResult.name;
 	const updateResult = await withRetry(() =>
 		prisma.save.create({
 			data: {
