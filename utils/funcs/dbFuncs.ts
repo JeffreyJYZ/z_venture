@@ -227,8 +227,6 @@ export async function updatePlayerLocation(
 							gameStateResult.stats ??
 							initSave().state.create.stats,
 						location: location as string,
-						saveId: undefined,
-						id: undefined,
 						name: `[Move to ${location}]`,
 					},
 				},
