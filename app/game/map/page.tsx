@@ -1,6 +1,6 @@
 import Form from "@/app/ui/components/form";
 import Locations from "../../../utils/data/locations";
-import locationAction from "../actions/location";
+import locationAction from "../../actions/game/locationChange";
 import { revalidateAll } from "@/utils/funcs/helper";
 import { isError } from "@/utils/funcs/isRetryableError";
 import { LocationWithPosition } from "@/utils/types/locations";
