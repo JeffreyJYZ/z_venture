@@ -1,21 +1,60 @@
 "use client";
+import { URLs } from "@/utils/data/urls";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Footer() {
 	return (
-		<footer className="flex flex-col items-center bg-[#141111] w-full p-10 mt-auto h-full hover:-translate-y-0.5 duration-200">
-			<Link href={usePathname().slice(0, 5) === "/game" ? "/game" : "/"}>
-				<Image
-					src="/logoDarkRed.png"
-					alt="Z Venture Logo"
-					className="m-5 justify-self-center hover:-translate-y-0.5 duration-200"
-					width={150}
-					height={150}
-					priority
-				/>
-			</Link>
+		<footer className="flex flex-col items-center bg-[#141111] w-full p-10 mt-auto min-h-70">
+			<main className="flex p-7 gap-4">
+				<div>
+					<b>All</b>
+					<ul className="flex flex-wrap flex-col gap-2">
+						{Object.entries(URLs.all).map(([label, url]) => (
+							<li key={url}>
+								<Link
+									href={url}
+									className="text-sm text-white/90 hover:text-white"
+								>
+									{label}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div>
+					<b>Game</b>
+					<ul>
+						{Object.entries(URLs.game).map(([label, url]) => (
+							<li key={url}>
+								<Link
+									href={url}
+									className="text-sm text-white/90 hover:text-white"
+								>
+									{label}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div>
+					<b>Home</b>
+					<ul>
+						{Object.entries(URLs.home).map(([label, url]) => (
+							<li key={url}>
+								<Link
+									href={url}
+									className="text-sm text-white/90 hover:text-white"
+								>
+									{label}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+			</main>
+			<Image src="/logo.png" alt="Footer Logo" width={200} height={200} />
 		</footer>
 	);
 }

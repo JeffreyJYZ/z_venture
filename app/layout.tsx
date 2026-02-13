@@ -5,8 +5,6 @@ import "@/app/globals.css";
 import { interFont, ralewayFont } from "./ui/fonts";
 import CustomErrorBoundary from "./ui/components/CustomErrorBoundary";
 import CustomTopLoader from "./ui/components/customTopLoader";
-import Image from "next/image";
-import Link from "next/link";
 import Footer from "./ui/components/specifics/layout/footer";
 
 export const metadata: Metadata = {
@@ -22,7 +20,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="h-full">
 			<head>
-				<link rel="icon" href="/logoLightRed.png" />
+				<link rel="icon" href="/newNewLogoFavicon.png" />
 			</head>
 			<body
 				className={`${interFont.className} antialiased min-h-full flex flex-col`}
@@ -30,7 +28,6 @@ export default function RootLayout({
 				<CustomErrorBoundary>
 					<CustomTopLoader />
 					<main>{children}</main>
-					<Footer />
 					<SpeedInsights />
 					<Analytics />
 				</CustomErrorBoundary>

@@ -1,0 +1,15 @@
+.sectionHeading {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	color: #ffdfdf;
+}
+
+.pageSection {
+	padding: 10px;
+}
+
+.savesTable {
+	border-collapse: separate;
+	border-spacing: 10px 5px;
+}

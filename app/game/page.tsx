@@ -5,7 +5,9 @@ import getGameById, { getGameByName } from "../../utils/funcs/getGame";
 import Link from "next/link";
 import { Game, GameState, Save } from "@/prisma/client";
 import React from "react";
-import { Stats } from "../../utils/types/stats";
+import { Stats } from "@/utils/types/stats";
+import { Inventory } from "@/utils/types/inventory";
+import styles from "./gamePage.module.css";
 
 type LegacyStats = Omit<Stats, "attack"> & { strength: number };
 
@@ -116,26 +118,71 @@ export default async function GamePage({
 	}
 	const currentSave = game.saves[0];
 	const stats = normalizeStats(currentSave.state?.stats);
+	const inventoryItems = Object.entries(
+		(currentSave.state?.inventory as unknown as Inventory | null)?.items ||
+			{},
+	);
 	return (
 		<>
 			<div className="flex gap-2 justify-center items-center">
 				<h1 className="mb-0.5">Game</h1>
 				<h3>({game.name})</h3>
 			</div>
-			<section className="stats">
-				<h2>Stats</h2>
-				<ul>
-					{stats ? (
-						Object.entries(stats).map(([name, value]) => (
-							<li key={name}>
-								{name}: {String(value)}
+			<main className="flex gap-5 flex-wrap justify-start">
+				<section className={styles.pageSection}>
+					<h2 className={styles.sectionHeading}>Stats</h2>
+					<ul>
+						{stats ? (
+							Object.entries(stats).map(([name, value]) => (
+								<li key={name}>
+									{name}: {String(value)}
+								</li>
+							))
+						) : (
+							<li>Stats unavailable.</li>
+						)}
+					</ul>
+				</section>
+				<section className={styles.pageSection}>
+					<h2 className={styles.sectionHeading}>Inventory</h2>
+					<ul>
+						{inventoryItems.length > 0 ? (
+							inventoryItems.map(([name, { amount }]) => (
+								<li key={name}>
+									{name}: {amount}
+								</li>
+							))
+						) : (
+							<li className="text-sm">
+								Your inventory is empty.
 							</li>
-						))
-					) : (
-						<li>Stats unavailable.</li>
-					)}
-				</ul>
-			</section>
+						)}
+					</ul>
+				</section>
+				<section className={styles.pageSection}>
+					<h2 className={styles.sectionHeading}>Saves</h2>
+					<table
+						className={`${styles.savesTable} table-auto w-full text-left`}
+					>
+						<tbody className="gap-2">
+							{game.saves.map((save) => (
+								<tr key={save.id} className="gap-2">
+									<td>
+										{new Date(
+											save.createdAt,
+										).toLocaleString()}
+									</td>
+									<td>{save.state?.name}</td>
+									<td>
+										{save.id === currentSave.id &&
+											"(current)"}
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</section>
+			</main>
 		</>
 	);
 }
