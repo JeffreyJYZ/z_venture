@@ -2,9 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { ralewayFont } from "../fonts";
-import { usePathname } from "next/navigation";
 
-// Import the Tailwind CSS classes directly if you have set up your environment correctly
 interface NavbarProps {
 	links: { label: string; to: string }[];
 	title?: React.ReactNode;

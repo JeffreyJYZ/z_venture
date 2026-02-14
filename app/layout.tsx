@@ -20,7 +20,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="h-full">
 			<head>
-				<link rel="icon" href="/newNewLogoFavicon.png" />
+				<link rel="icon" href="./favicon.ico" />
 			</head>
 			<body
 				className={`${interFont.className} antialiased min-h-full flex flex-col`}
