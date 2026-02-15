@@ -1,7 +1,7 @@
 "use client";
 
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import ErrorText from "./errorText";
+import Popup from "./popup";
 
 interface CustomErrorBoundaryProps {
 	children: React.ReactNode;
@@ -25,7 +25,9 @@ export default function CustomErrorBoundary({
 							the page or contact support if the issue persists.
 						</p>
 						{error?.message && (
-							<ErrorText>{String(error.message)}</ErrorText>
+							<p className="text-red-500">
+								{String(error.message)}
+							</p>
 						)}
 						{reset ? (
 							<button

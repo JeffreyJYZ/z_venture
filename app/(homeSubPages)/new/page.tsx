@@ -2,7 +2,7 @@ import Link from "next/link";
 import Form from "@/app/ui/components/form";
 import newGame from "@/app/actions/game/new";
 import { isCurrentTokenExpired } from "@/utils/funcs/dbFuncs";
-import ErrorText from "@/app/ui/components/errorText";
+import Popup from "@/app/ui/components/popup";
 
 export default async function Page({
 	searchParams,
@@ -15,15 +15,15 @@ export default async function Page({
 			{from &&
 			["signin", "signup"].includes(from) &&
 			reason === "alr-signed-in" ? (
-				<ErrorText>
+				<Popup>
 					You are already signed in. Start a new game or{" "}
 					<Link href="/continue">continue</Link> your adventure.
-				</ErrorText>
+				</Popup>
 			) : from === "continue" && reason === "no-saved-games" ? (
-				<ErrorText>
+				<Popup>
 					You don't have any saved games to continue. Start a new
 					adventure!
-				</ErrorText>
+				</Popup>
 			) : null}
 			<h1>Start a New Adventure</h1>
 			{!(await isCurrentTokenExpired()) ? (
@@ -37,9 +37,9 @@ export default async function Page({
 				</Form>
 			) : (
 				<div className="flex flex-col gap-3">
-					<ErrorText>
+					<p className="text-red-500">
 						Please sign in or sign up to start a game.
-					</ErrorText>
+					</p>
 					<Link href="/signin">Go to Sign In</Link>
 					<Link href="/signup">Create an Account</Link>
 				</div>

@@ -2,10 +2,11 @@ import { isCurrentTokenExpired } from "@/utils/funcs/dbFuncs";
 import signIn from "@/app/actions/account/signin";
 import Form from "@/app/ui/components/form";
 import { redirect } from "next/navigation";
+import WarningText from "@/app/ui/components/specifics/signin-signup/warningText";
 
 export default async function SignInPage() {
 	if (!(await isCurrentTokenExpired())) {
-		redirect("/new?from=signin&reason=alr-signed-in");
+		return <WarningText />;
 	}
 	return (
 		<>

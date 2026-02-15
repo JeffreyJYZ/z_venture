@@ -10,6 +10,7 @@ import {
 import { isError } from "@/utils/funcs/isRetryableError";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function signIn(_: any, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();
@@ -80,5 +81,5 @@ export default async function signIn(_: any, data: FormData) {
 	if (!newSession) return { error: "Could not create session" };
 
 	cookieStore.set("session", newSession.token, cookiesSetRules);
-	return "success";
+	redirect(currentUser.lastGameName ? "/continue" : "/new");
 }

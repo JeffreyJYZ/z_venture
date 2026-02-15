@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
-import ErrorText from "./errorText";
 import { isError } from "@/utils/funcs/isRetryableError";
+import Popup from "./popup";
 
 export default function Form({
 	actionParam,
@@ -64,7 +64,7 @@ export default function Form({
 			>
 				{isAnyPending || pending ? sbmtBtnLoadingText : sbmtBtnText}
 			</button>
-			<ErrorText>{errorMessage}</ErrorText>
+			<Popup>{errorMessage}</Popup>
 		</form>
 	);
 }

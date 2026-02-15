@@ -5,6 +5,7 @@ import { isError } from "@/utils/funcs/isRetryableError";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import cookiesSetRules from "@/utils/data/cookies";
+import { redirect } from "next/navigation";
 
 export default async function signUp(_: any, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();
@@ -28,5 +29,5 @@ export default async function signUp(_: any, data: FormData) {
 	if (!cookieStore || typeof cookieStore.set !== "function")
 		return { error: "Could not access cookies" };
 	cookieStore.set("session", newSession.token, cookiesSetRules);
-	return "success";
+	redirect(newUser.lastGameName ? "/continue" : "/new");
 }
