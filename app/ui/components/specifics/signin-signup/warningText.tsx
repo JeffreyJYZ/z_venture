@@ -1,4 +1,5 @@
 "use client";
+import logout from "@/app/actions/account/logout";
 import Link from "next/link";
 
 export default function WarningText() {
@@ -6,8 +7,8 @@ export default function WarningText() {
 		<main className="text-red-500">
 			<h1>You are already signed in</h1>
 			<p>
-				Please <Link href="/signout">sign out</Link> before creating a
-				new account.
+				Please <a onClick={logout}>log out</a> before creating a new
+				account.
 			</p>
 			<p>
 				Or <Link href="/continue">continue</Link> an existing game

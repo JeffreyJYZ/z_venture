@@ -29,7 +29,7 @@ export default async function GameLayout({
 				title={
 					<div className="flex gap-5 items-center">
 						<Image
-							src="logoCmpct.png"
+							src="/logoCmpct.png"
 							alt="Game Logo"
 							width={50}
 							height={50}
