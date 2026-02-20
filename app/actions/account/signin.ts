@@ -23,10 +23,10 @@ export default async function signIn(_: any, data: FormData) {
 	}
 
 	let currentUser = await getUser(username);
-	if (isError(currentUser)) return currentUser;
+	if (isError(currentUser)) return { error: String(currentUser.error) };
 	if (!currentUser) {
 		const fallbackUser = await getUserInsensitive(username);
-		if (isError(fallbackUser)) return fallbackUser;
+		if (isError(fallbackUser)) return { error: String(fallbackUser.error) };
 		currentUser = fallbackUser;
 	}
 	if (!currentUser) {
@@ -51,14 +51,14 @@ export default async function signIn(_: any, data: FormData) {
 				currentUser.username,
 				upgradedHash,
 			);
-			if (isError(upgraded)) return upgraded;
+			if (isError(upgraded)) return { error: String(upgraded.error) };
 		} else {
 			return { error: "Incorrect password or username" };
 		}
 	}
 
 	const sessions = await getUserSessions(username);
-	if (isError(sessions)) return sessions;
+	if (isError(sessions)) return { error: String(sessions.error) };
 	const cookieStore = await cookies();
 	if (!cookieStore || typeof cookieStore.set !== "function")
 		return {
@@ -70,12 +70,12 @@ export default async function signIn(_: any, data: FormData) {
 		const timeLeftMs = newSession.expiresAt.getTime() - Date.now();
 		if (timeLeftMs <= fiveDaysMs) {
 			const created = await createUserSession(username);
-			if (isError(created)) return created;
+			if (isError(created)) return { error: String(created.error) };
 			newSession = created;
 		}
 	} else {
 		const created = await createUserSession(username);
-		if (isError(created)) return created;
+		if (isError(created)) return { error: String(created.error) };
 		newSession = created;
 	}
 	if (!newSession) return { error: "Could not create session" };

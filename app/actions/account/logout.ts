@@ -12,7 +12,7 @@ export default async function logout() {
 
 	if (sessionToken) {
 		const result = await deleteSessionByToken(sessionToken);
-		if (isError(result)) return result;
+		if (isError(result)) return { error: String(result.error) };
 	}
 
 	// Clear cookie regardless of DB state so the client is signed out.

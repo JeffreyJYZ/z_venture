@@ -22,18 +22,18 @@ export default async function newGame(_: any, data: FormData) {
 		return { error: "User not authenticated" };
 	}
 	if (isError(username)) {
-		return username;
+		return { error: String(username.error) };
 	}
 	const isUnique = await isGameNameUniqueForUser(username, name);
 	if (isError(isUnique)) {
-		return isUnique;
+		return { error: String(isUnique.error) };
 	}
 	if (!isUnique) {
 		return { error: "Game name already exists for this user" };
 	}
 	const newGame = initGame(name, username);
 	if (isError(newGame)) {
-		return newGame;
+		return { error: String(newGame.error) };
 	}
 	let result = await withRetry(() => prisma.game.create({ data: newGame }));
 	if (isError(result)) {

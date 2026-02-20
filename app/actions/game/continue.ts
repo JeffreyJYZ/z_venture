@@ -15,7 +15,7 @@ export default async function continueGame(_: any, data: FormData) {
 		return { error: "User not authenticated" };
 	}
 	if (isError(username)) {
-		return username;
+		return { error: String(username.error) };
 	}
 	const game = await withRetry(() =>
 		prisma.game.findMany({

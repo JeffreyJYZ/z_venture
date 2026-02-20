@@ -5,11 +5,31 @@ import { Prisma } from "@/prisma/client/client";
 import prisma from "@/lib/prisma";
 import { isRetryableError } from "./isRetryableError";
 
-export async function tryFn<T>(fn: () => T): Promise<T | { error: unknown }> {
+function normalizeError(error: unknown): string {
+	if (typeof error === "string" && error.trim()) return error;
+	if (error instanceof Error && error.message?.trim()) return error.message;
+	if (error && typeof error === "object") {
+		const maybeMessage = (error as { message?: unknown }).message;
+		if (typeof maybeMessage === "string" && maybeMessage.trim()) {
+			return maybeMessage;
+		}
+		try {
+			const serialized = JSON.stringify(error);
+			if (serialized && serialized !== "{}") return serialized;
+		} catch {}
+	}
+
+	const fallback = String(error);
+	return fallback && fallback !== "[object Object]"
+		? fallback
+		: "Unknown error";
+}
+
+export async function tryFn<T>(fn: () => T): Promise<T | { error: string }> {
 	try {
 		return await fn();
 	} catch (error) {
-		return { error };
+		return { error: normalizeError(error) };
 	}
 }
 
@@ -34,7 +54,7 @@ export async function withRetry<T>(
 		baseDelayMs: 300,
 		throw: false,
 	},
-): Promise<T | { error: unknown }> {
+): Promise<T | { error: string }> {
 	const retries = options?.retries ?? 5;
 	const baseDelayMs = options?.baseDelayMs ?? 300;
 
@@ -50,7 +70,7 @@ export async function withRetry<T>(
 
 			if (!isRetryableError(error) || attempt >= retries) {
 				if (options.throw) throw error;
-				return { error };
+				return { error: normalizeError(error) };
 			}
 			const delay =
 				baseDelayMs * 2 ** (attempt - 1) +
@@ -60,7 +80,7 @@ export async function withRetry<T>(
 		}
 	}
 
-	return { error: lastError };
+	return { error: normalizeError(lastError) };
 }
 
 export async function toReadable(str: string) {

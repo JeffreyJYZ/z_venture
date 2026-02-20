@@ -19,11 +19,11 @@ export default async function signUp(_: any, data: FormData) {
 
 	const newUser = await createUser(username, await bcrypt.hash(password, 13));
 	if (isError(newUser)) {
-		return newUser;
+		return { error: String(newUser.error) };
 	}
 	const newSession = await createUserSession(username);
 	if (isError(newSession)) {
-		return newSession;
+		return { error: String(newSession.error) };
 	}
 	const cookieStore = await cookies();
 	if (!cookieStore || typeof cookieStore.set !== "function")
