@@ -1,6 +1,5 @@
-import Form from "@/app/ui/components/form";
-import Locations from "../../../utils/data/locations";
-import locationAction from "../../actions/game/locationChange";
+import Locations from "@/utils/data/locations";
+import locationAction from "@/app/actions/game/locationChange";
 import { revalidateAll } from "@/utils/funcs/helper";
 import { isError } from "@/utils/funcs/isRetryableError";
 import { LocationWithPosition } from "@/utils/types/locations";
@@ -72,7 +71,7 @@ export default async function MapPage() {
 						type="submit"
 						disabled={currentLocationName === "Base"}
 						className={
-							"rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 duration-200 w-full mb-4 " +
+							"display rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 duration-200 w-full mb-4 " +
 							(currentLocationName === "Base"
 								? "text-gray-500 opacity-50 cursor-not-allowed"
 								: "")
@@ -107,9 +106,9 @@ export default async function MapPage() {
 							<button
 								type="submit"
 								className={
-									"rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 duration-200 w-full" +
+									"display rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 duration-200 w-full" +
 									(currentLocationName === location?.name
-										? "text-gray-500 opacity-50 cursor-not-allowed"
+										? " text-gray-500 opacity-50 cursor-not-allowed"
 										: "")
 								}
 							>

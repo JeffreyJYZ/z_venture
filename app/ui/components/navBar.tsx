@@ -1,32 +1,31 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { ralewayFont } from "../fonts";
 
 interface NavbarProps {
 	links: { label: string; to: string }[];
 	title?: React.ReactNode;
 	linkClasses?: string | string[];
-	navClasses?: string | string[];
+	className?: string | string[];
 }
 
 function Navbar({
 	links,
 	title = "App",
 	linkClasses,
-	navClasses,
+	className,
 }: NavbarProps): React.ReactElement {
 	const [isOpen, setIsOpen] = useState(false);
 	linkClasses = Array.isArray(linkClasses)
 		? linkClasses.join(" ")
 		: linkClasses || "";
-	navClasses = Array.isArray(navClasses)
-		? navClasses.join(" ")
-		: navClasses || "";
+	className = Array.isArray(className)
+		? className.join(" ")
+		: className || "";
 
 	return (
 		<nav
-			className={`${ralewayFont.className} bg-black/70 text-white px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur ${navClasses}`}
+			className={`display bg-black/70 text-white px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur ${className}`}
 		>
 			<div className="flex items-center gap-4 mr-10">
 				<button

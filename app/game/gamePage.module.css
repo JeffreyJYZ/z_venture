@@ -3,6 +3,7 @@
 	font-weight: bold;
 	margin-bottom: 1rem;
 	color: #ffdfdf;
+	font-family: var(--font-display), serif;
 }
 
 .pageSection {

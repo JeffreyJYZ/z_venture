@@ -2,11 +2,12 @@
 import { URLs } from "@/utils/data/urls";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
 	return (
-		<footer className="flex flex-col items-center bg-[#141111] w-full p-10 mt-auto min-h-70">
+		<footer
+			className={`flex flex-col items-center bg-[#141111] w-full p-10 mt-auto min-h-70 ${className}`}
+		>
 			<main className="flex p-7 gap-4">
 				<div>
 					<b>All</b>

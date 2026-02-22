@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 import { getUsername } from "@/utils/data/cookies";
 import { isError } from "@/utils/funcs/isRetryableError";
 
-export default async function getGameById(id: string) {
+export async function getGameById(id: string) {
 	const username = await getUsername();
 	if (!username) {
 		return { error: "User not authenticated" };

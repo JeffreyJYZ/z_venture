@@ -5,10 +5,10 @@ import {
 	getLastGameId,
 	isCurrentTokenExpired,
 } from "../../utils/funcs/dbFuncs";
-import { cinzelFont } from "../ui/fonts";
+import { default as fonts } from "../ui/fonts";
 import { unauthorized } from "next/navigation";
 import { isError } from "../../utils/funcs/isRetryableError";
-import getGameById from "@/utils/funcs/getGame";
+import { getGameById } from "@/utils/funcs/getGame";
 import Image from "next/image";
 
 export default async function GameLayout({
@@ -37,9 +37,10 @@ export default async function GameLayout({
 						{`Z Venture (${GameName ?? "[Unknown Game]"})`}
 					</div>
 				}
+				className="display"
 			/>
 			<Container
-				className={"flex flex-col p-5 gap-5 " + cinzelFont.className}
+				className={"flex flex-col p-5 gap-5 " + fonts.body.className}
 			>
 				{children}
 			</Container>

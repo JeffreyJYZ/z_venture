@@ -3,4 +3,5 @@ export interface Stats {
 	attack: number;
 	agility: number;
 	experience: number;
+	defense: number;
 }

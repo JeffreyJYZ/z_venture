@@ -1,29 +1,20 @@
-import {
-	Raleway,
-	Inter,
-	Roboto,
-	Poppins,
-	Cinzel_Decorative,
-} from "next/font/google";
+import { Nunito_Sans, Cinzel } from "next/font/google";
 
-export const ralewayFont = Raleway({
+export const cinzelFont = Cinzel({
 	subsets: ["latin"],
+	weight: ["400", "500", "600", "700", "800", "900"],
+	variable: "--font-display",
 });
 
-export const interFont = Inter({
+export const nunitoSansFont = Nunito_Sans({
 	subsets: ["latin"],
+	weight: ["200", "300", "400", "500", "600", "700", "800", "900", "1000"],
+	variable: "--font-body",
 });
 
-export const robotoFont = Roboto({
-	subsets: ["latin"],
-});
+const fonts = {
+	body: nunitoSansFont,
+	display: cinzelFont,
+};
 
-export const poppinsFont = Poppins({
-	subsets: ["latin"],
-	weight: ["200", "400", "700", "900"],
-});
-
-export const cinzelFont = Cinzel_Decorative({
-	subsets: ["latin"],
-	weight: ["400", "700", "900"],
-});
+export default fonts;

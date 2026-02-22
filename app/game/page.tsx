@@ -1,13 +1,14 @@
-import { getCurrentUser, getUser } from "@/utils/funcs/dbFuncs";
-import { getUsername } from "@/utils/data/cookies";
+import { getCurrentUser } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
-import getGameById, { getGameByName } from "../../utils/funcs/getGame";
+import { getGameById, getGameByName } from "@/utils/funcs/getGame";
 import Link from "next/link";
 import { Game, GameState, Save } from "@/prisma/client";
 import React from "react";
 import { Stats } from "@/utils/types/stats";
 import { Inventory } from "@/utils/types/inventory";
 import styles from "./gamePage.module.css";
+import locations, { locationsInternal } from "@/utils/data/locations";
+import { LocationName } from "@/utils/types/locations";
 
 type LegacyStats = Omit<Stats, "attack"> & { strength: number };
 
@@ -33,6 +34,7 @@ function normalizeStats(value: unknown): Stats | null {
 		attack,
 		agility: stats.agility,
 		experience: stats.experience,
+		defense: stats.defense ? stats.defense : 0,
 	};
 }
 
@@ -122,6 +124,10 @@ export default async function GamePage({
 		(currentSave.state?.inventory as unknown as Inventory | null)?.items ||
 			{},
 	);
+	const currentLocationName = currentSave.state?.location as LocationName;
+	const currentLocation = locations.find(
+		(loc) => loc.name === currentLocationName,
+	);
 	return (
 		<>
 			<div className="flex gap-2 justify-center items-center">
@@ -183,6 +189,44 @@ export default async function GamePage({
 					</table>
 				</section>
 			</main>
+			{currentLocation && (
+				<>
+					<hr className="border-2 border-black/50 w-full" />
+					<section className="flex flex-col gap-2 m-5 self-start">
+						<h2 className={styles.sectionHeading}>
+							{currentLocation.name}
+						</h2>
+						<p className="font-semibold">
+							{currentLocation.description}
+						</p>
+						<section>
+							<h3 className="text-xl text-[#ffdfdf] font-bold my-3">
+								Monsters
+							</h3>
+							<ul>
+								{currentLocation.monsters.length ? (
+									currentLocation.monsters.map((monster) => (
+										<li
+											key={monster.name}
+											className="flex gap-2 items-center"
+										>
+											<p>
+												<b>{monster.name}</b>:{" "}
+												<i>level</i> {monster.level}
+											</p>
+											<button className="hover:bg-red-500 duration-1000 ease-in-out">
+												Fight
+											</button>
+										</li>
+									))
+								) : (
+									<li>No monsters here!</li>
+								)}
+							</ul>
+						</section>
+					</section>
+				</>
+			)}
 		</>
 	);
 }

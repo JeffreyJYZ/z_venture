@@ -1,7 +1,7 @@
 import Container from "../ui/components/container";
 import { toNavLinks, URLs } from "../../utils/data/urls";
 import Navbar from "../ui/components/navBar";
-import { ralewayFont } from "../ui/fonts";
+import fonts from "../ui/fonts";
 import Footer from "../ui/components/specifics/layout/footer";
 import Image from "next/image";
 
@@ -25,9 +25,10 @@ export default async function Base({
 						Z Venture
 					</div>
 				}
+				className="body"
 			/>
 			<Container
-				className={"flex-col gap-5 flex-wrap " + ralewayFont.className}
+				className={"flex-col gap-5 flex-wrap " + fonts.body.className}
 			>
 				{children}
 			</Container>
