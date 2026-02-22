@@ -36,8 +36,8 @@ yarn-error.log*
 # obsidian
 .obsidian
 .trash
-Plan.md
-Plan.canvas
+*.plan.md
+*.plan.canvas
 
 # vscode
 .vscode
