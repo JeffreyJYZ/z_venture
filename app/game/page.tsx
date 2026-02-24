@@ -9,6 +9,7 @@ import { Inventory } from "@/utils/types/inventory";
 import styles from "./gamePage.module.css";
 import locations, { locationsInternal } from "@/utils/data/locations";
 import { LocationName } from "@/utils/types/locations";
+import { unauthorized } from "next/navigation";
 
 type LegacyStats = Omit<Stats, "attack"> & { strength: number };
 
@@ -44,57 +45,30 @@ export type GameWithSaves = Game & {
 	})[];
 };
 
-async function getGameData(id: string): Promise<{
-	game: GameWithSaves | null;
-	errorElement: React.ReactElement | null;
-}> {
+async function getGameData(id: string): Promise<GameWithSaves> {
 	let game: GameWithSaves | { error: unknown } | null = null;
 	const currentUser = await getCurrentUser();
 	if (!currentUser) {
-		return {
-			game: null,
-			errorElement: (
-				<div>
-					User not found. Please <Link href="/signin">log in</Link>{" "}
-					again.
-				</div>
-			),
-		};
+		unauthorized();
 	}
 	if (isError(currentUser)) {
-		return {
-			game: null,
-			errorElement: (
-				<div>Error fetching user: {String(currentUser.error)}</div>
-			),
-		};
+		throw new Error("Error fetching user: " + String(currentUser.error));
 	}
 	if (!id) {
 		if (!currentUser.lastGameName) {
-			return {
-				game: null,
-				errorElement: (
-					<div>
-						No game found. Please{" "}
-						<Link href="/new">start a new game.</Link>
-					</div>
-				),
-			};
+			unauthorized();
 		}
 		game = await getGameByName(currentUser.lastGameName);
 	} else {
 		game = await getGameById(id);
 	}
 	if (isError(game)) {
-		return {
-			game: null,
-			errorElement: <div>Error fetching game: {String(game.error)}</div>,
-		};
+		throw new Error("Error fetching game: " + String(game.error));
 	}
 	if (!game) {
-		return { game: null, errorElement: <div>Cannot find game.</div> };
+		throw new Error("Game not found");
 	}
-	return { game, errorElement: null };
+	return game;
 }
 
 export default async function GamePage({
@@ -103,10 +77,7 @@ export default async function GamePage({
 	searchParams: Promise<{ id?: string }>;
 }) {
 	const id = decodeURIComponent((await searchParams).id?.trim() || "");
-	const { game, errorElement } = await getGameData(id);
-	if (errorElement) {
-		return errorElement;
-	}
+	const game = await getGameData(id);
 	if (!game) {
 		return <div>Cannot find game.</div>;
 	}
@@ -171,7 +142,7 @@ export default async function GamePage({
 						className={`${styles.savesTable} table-auto w-full text-left`}
 					>
 						<tbody className="gap-2">
-							{game.saves.map((save) => (
+							{game.saves.slice(0, 5).map((save) => (
 								<tr key={save.id} className="gap-2">
 									<td>
 										{new Date(

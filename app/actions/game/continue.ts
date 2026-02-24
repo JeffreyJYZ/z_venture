@@ -42,5 +42,5 @@ export default async function continueGame(_: any, data: FormData) {
 			error: "Failed to update user. Error: " + String(resultt.error),
 		};
 	}
-	redirect(`/game?id=${encodeURIComponent(game[0].id)}`);
+	redirect("/game");
 }

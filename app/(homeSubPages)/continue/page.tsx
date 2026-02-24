@@ -39,23 +39,28 @@ export default async function ContinuePage() {
 		<>
 			<h1>Continue</h1>
 			{games.length ? (
-				<Form actionParam={continueGame} sbmtBtnText="Continue">
-					<select
-						name="gameName"
-						defaultValue=""
-						className="w-full rounded-lg border border-slate-700 bg-slate-900 px-2 py-2 text-slate-100 shadow-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-600"
-						required
-					>
-						<option value="" disabled>
-							Select a game
-						</option>
-						{games.map(({ name }) => (
-							<option key={name} value={name}>
-								{name}
+				<>
+					<Link href="/game">
+						<button type="button">Previous</button>
+					</Link>
+					<Form actionParam={continueGame} sbmtBtnText="Continue">
+						<select
+							name="gameName"
+							defaultValue=""
+							className="w-full rounded-lg border border-slate-700 bg-slate-900 px-2 py-2 text-slate-100 shadow-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-600"
+							required
+						>
+							<option value="" disabled>
+								Select a game
 							</option>
-						))}
-					</select>
-				</Form>
+							{games.map(({ name }) => (
+								<option key={name} value={name}>
+									{name}
+								</option>
+							))}
+						</select>
+					</Form>
+				</>
 			) : (
 				await (async function () {
 					redirect("/new?from=continue&reason=no-saved-games");

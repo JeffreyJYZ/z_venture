@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-interface NavbarProps {
-	links: { label: string; to: string }[];
+export interface NavbarProps {
+	links: { label: React.ReactNode; to: string }[];
 	title?: React.ReactNode;
 	linkClasses?: string | string[];
 	className?: string | string[];
+	actions?: React.ReactNode;
 }
 
 function Navbar({
@@ -14,6 +15,7 @@ function Navbar({
 	title = "App",
 	linkClasses,
 	className,
+	actions,
 }: NavbarProps): React.ReactElement {
 	const [isOpen, setIsOpen] = useState(false);
 	linkClasses = Array.isArray(linkClasses)
@@ -22,6 +24,18 @@ function Navbar({
 	className = Array.isArray(className)
 		? className.join(" ")
 		: className || "";
+
+	const renderedLinks = links
+		.filter((link) => typeof link.to === "string" && link.to.length > 0)
+		.map(({ label, to }, index) => (
+			<Link
+				key={`${to}-${index}`}
+				href={to}
+				className={`text-sm font-medium text-white/90 h:text-white ${linkClasses}`}
+			>
+				{label}
+			</Link>
+		));
 
 	return (
 		<nav
@@ -59,15 +73,8 @@ function Navbar({
 			</div>
 
 			<div className="hidden md:flex items-center gap-6 flex-wrap">
-				{links.map(({ label, to }) => (
-					<Link
-						key={to}
-						href={to}
-						className={`text-sm font-medium text-white/90 h:text-white ${linkClasses}`}
-					>
-						{label}
-					</Link>
-				))}
+				{renderedLinks}
+				{actions}
 			</div>
 
 			<div
@@ -77,16 +84,10 @@ function Navbar({
 				} overflow-hidden`}
 			>
 				<ul className="px-6 py-4 space-y-3 text-sm font-medium">
-					{links.map(({ label, to }) => (
-						<li key={to}>
-							<Link
-								href={to}
-								className={`block text-white/90 h:text-white ${linkClasses}`}
-							>
-								{label}
-							</Link>
-						</li>
+					{renderedLinks.map((link, index) => (
+						<li key={index}>{link}</li>
 					))}
+					{actions ? <li>{actions}</li> : null}
 				</ul>
 			</div>
 		</nav>

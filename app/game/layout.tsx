@@ -1,6 +1,6 @@
 import Container from "../ui/components/container";
 import { toNavLinks, URLs } from "../../utils/data/urls";
-import Navbar from "../ui/components/navBar";
+import Navbar, { NavbarProps } from "../ui/components/navBar";
 import {
 	getLastGameId,
 	isCurrentTokenExpired,
@@ -22,10 +22,16 @@ export default async function GameLayout({
 	const game = await getGameById(gameId);
 	if (isError(game)) throw game.error;
 	const GameName = game?.name;
+	const urls = toNavLinks(URLs.game) as NavbarProps["links"];
 	return (
 		<>
 			<Navbar
-				links={toNavLinks(URLs.game)}
+				links={urls}
+				actions={
+					<form action="/game/api/save" method="post">
+						<button type="submit">Save</button>
+					</form>
+				}
 				title={
 					<div className="flex gap-5 items-center">
 						<Image
