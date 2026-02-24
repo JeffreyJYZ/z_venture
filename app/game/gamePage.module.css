@@ -14,3 +14,15 @@
 	border-collapse: separate;
 	border-spacing: 10px 5px;
 }
+
+.fightButton {
+	transition:
+		background-color 0.25s ease-in-out,
+		color 0.25s ease-in-out;
+	background-color: lightcoral;
+}
+
+.fightButton:hover {
+	background-color: #5e0000;
+	color: #ffffff;
+}

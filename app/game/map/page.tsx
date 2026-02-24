@@ -66,14 +66,15 @@ export default async function MapPage() {
 						}
 						await revalidateAll();
 					}}
+					className="justify-self-center"
 				>
 					<button
 						type="submit"
 						disabled={currentLocationName === "Base"}
 						className={
-							"display rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 duration-200 w-full mb-4 " +
+							"text-white bg-black border-4 border-red-800 rounded-2xl px-10 py-7" +
 							(currentLocationName === "Base"
-								? "text-gray-500 opacity-50 cursor-not-allowed"
+								? " opacity-50 cursor-not-allowed"
 								: "")
 						}
 					>
@@ -106,7 +107,7 @@ export default async function MapPage() {
 							<button
 								type="submit"
 								className={
-									"display rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 duration-200 w-full" +
+									"display rounded-xl bg-black text-white px-3 py-4 min-h-18 h:-translate-y-0.5 h:bg-gray-800 transition-all duration-200 w-full" +
 									(currentLocationName === location?.name
 										? " text-gray-500 opacity-50 cursor-not-allowed"
 										: "")

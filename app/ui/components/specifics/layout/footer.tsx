@@ -16,7 +16,7 @@ export default function Footer({ className }: { className?: string }) {
 							<li key={url}>
 								<Link
 									href={url}
-									className="text-sm text-white/90 hover:text-white"
+									className="text-sm text-white/90 h:text-white"
 								>
 									{label}
 								</Link>
@@ -31,7 +31,7 @@ export default function Footer({ className }: { className?: string }) {
 							<li key={url}>
 								<Link
 									href={url}
-									className="text-sm text-white/90 hover:text-white"
+									className="text-sm text-white/90 h:text-white"
 								>
 									{label}
 								</Link>
@@ -46,7 +46,7 @@ export default function Footer({ className }: { className?: string }) {
 							<li key={url}>
 								<Link
 									href={url}
-									className="text-sm text-white/90 hover:text-white"
+									className="text-sm text-white/90 h:text-white"
 								>
 									{label}
 								</Link>

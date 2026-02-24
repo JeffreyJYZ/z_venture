@@ -214,7 +214,9 @@ export default async function GamePage({
 												<b>{monster.name}</b>:{" "}
 												<i>level</i> {monster.level}
 											</p>
-											<button className="hover:bg-red-500 duration-1000 ease-in-out">
+											<button
+												className={styles.fightButton}
+											>
 												Fight
 											</button>
 										</li>

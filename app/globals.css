@@ -1,7 +1,6 @@
-@layer theme, base, components, utilities;
+@import "tailwindcss";
 
-@import "tailwindcss/theme" layer(theme);
-@import "tailwindcss/preflight" layer(base);
+@custom-variant h (&:hover);
 
 @layer base {
 	:root {
@@ -18,6 +17,9 @@
 	}
 	.display {
 		font-family: var(--font-display), serif;
+	}
+	.apple {
+		font-family: var(--font-apple), sans-serif;
 	}
 	h1 {
 		font-size: 50px;
@@ -47,5 +49,3 @@
 		text-decoration: underline;
 	}
 }
-
-@import "tailwindcss/utilities.css" layer(utilities);

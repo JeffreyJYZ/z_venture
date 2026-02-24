@@ -30,7 +30,7 @@ function Navbar({
 			<div className="flex items-center gap-4 mr-10">
 				<button
 					onClick={() => setIsOpen(!isOpen)}
-					className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-white hover:bg-white/10"
+					className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 h:text-white h:bg-white/10"
 					aria-label="Toggle navigation"
 					aria-expanded={isOpen}
 					aria-controls="main-navigation"
@@ -63,7 +63,7 @@ function Navbar({
 					<Link
 						key={to}
 						href={to}
-						className={`text-sm font-medium text-white/90 hover:text-white ${linkClasses}`}
+						className={`text-sm font-medium text-white/90 h:text-white ${linkClasses}`}
 					>
 						{label}
 					</Link>
@@ -81,7 +81,7 @@ function Navbar({
 						<li key={to}>
 							<Link
 								href={to}
-								className={`block text-white/90 hover:text-white ${linkClasses}`}
+								className={`block text-white/90 h:text-white ${linkClasses}`}
 							>
 								{label}
 							</Link>

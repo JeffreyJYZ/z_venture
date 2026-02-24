@@ -1,4 +1,14 @@
 import { Nunito_Sans, Cinzel } from "next/font/google";
+import LocalFont from "next/font/local";
+
+export const SF_Pro_Display = LocalFont({
+	src: [
+		{
+			path: "C:\\disk-files\\Fonts\\SF_Pro\\woff2\\SFProText-Regular.woff2",
+		},
+	],
+	variable: "--font-apple",
+});
 
 export const cinzelFont = Cinzel({
 	subsets: ["latin"],
