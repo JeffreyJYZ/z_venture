@@ -14,7 +14,7 @@ export default async function SignUpPage() {
 			<h1>Sign Up</h1>
 			<Form
 				actionParam={signUp}
-				formClasses={["flex", "flex-col", "gap-3"]}
+				className={["flex", "flex-col", "gap-3"]}
 				sbmtBtnText="Create Account"
 				sbmtBtnLoadingText="Creating your account..."
 			>

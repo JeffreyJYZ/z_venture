@@ -13,7 +13,7 @@ export default async function SignInPage() {
 			<h1>Sign In</h1>
 			<Form
 				actionParam={signIn}
-				formClasses={["flex", "flex-col", "gap-3"]}
+				className={["flex", "flex-col", "gap-3"]}
 				sbmtBtnText="Sign In"
 				sbmtBtnLoadingText="Signing in..."
 			>

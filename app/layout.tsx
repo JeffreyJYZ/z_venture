@@ -22,7 +22,7 @@ export default function RootLayout({
 				<link rel="icon" href="./favicon.ico" />
 			</head>
 			<body
-				className={`${fonts.body.variable} ${fonts.display.variable} body antialiased min-h-full flex flex-col`}
+				className={`${fonts.body.variable} ${fonts.display.variable} body antialiased min-h-full flex flex-col duration-200`}
 			>
 				<CustomTopLoader />
 				<main>{children}</main>

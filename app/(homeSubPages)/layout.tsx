@@ -28,7 +28,10 @@ export default async function Base({
 				className="body"
 			/>
 			<Container
-				className={"flex-col gap-5 flex-wrap " + fonts.body.className}
+				className={
+					"flex-col gap-5 flex-wrap min-h-full " +
+					fonts.body.className
+				}
 			>
 				{children}
 			</Container>

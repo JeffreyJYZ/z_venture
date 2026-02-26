@@ -3,7 +3,7 @@ import Form from "@/app/ui/components/form";
 import continueGame from "@/app/actions/game/continue";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { isCurrentTokenExpired } from "@/utils/funcs/dbFuncs";
+import { getLastGameId, isCurrentTokenExpired } from "@/utils/funcs/dbFuncs";
 import { getUsername } from "@/utils/data/cookies";
 import { isError } from "@/utils/funcs/isRetryableError";
 import { withRetry } from "@/utils/funcs/helper";
@@ -40,9 +40,6 @@ export default async function ContinuePage() {
 			<h1>Continue</h1>
 			{games.length ? (
 				<>
-					<Link href="/game">
-						<button type="button">Previous</button>
-					</Link>
 					<Form actionParam={continueGame} sbmtBtnText="Continue">
 						<select
 							name="gameName"
@@ -53,8 +50,12 @@ export default async function ContinuePage() {
 							<option value="" disabled>
 								Select a game
 							</option>
-							{games.map(({ name }) => (
-								<option key={name} value={name}>
+							{games.map(async ({ name }) => (
+								<option
+									key={name}
+									value={name}
+									selected={(await getLastGameId()) === name}
+								>
 									{name}
 								</option>
 							))}

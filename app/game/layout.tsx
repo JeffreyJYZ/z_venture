@@ -10,6 +10,7 @@ import { unauthorized } from "next/navigation";
 import { isError } from "../../utils/funcs/isRetryableError";
 import { getGameById } from "@/utils/funcs/getGame";
 import Image from "next/image";
+import SaveHotkey from "../ui/components/saveHotkey";
 
 export default async function GameLayout({
 	children,
@@ -25,6 +26,7 @@ export default async function GameLayout({
 	const urls = toNavLinks(URLs.game) as NavbarProps["links"];
 	return (
 		<>
+			<SaveHotkey />
 			<Navbar
 				links={urls}
 				actions={

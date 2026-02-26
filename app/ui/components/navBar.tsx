@@ -2,6 +2,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
+/**
+ * NavbarProps defines the properties for the Navbar component.
+ * @property links: An array of objects containing the label and destination for each navigation link.
+ * @property title: An optional title to display on the navbar.
+ * @property linkClasses: Optional additional CSS classes to apply to each link.
+ * @property className: Optional additional CSS classes to apply to the navbar container.
+ * @property actions: Optional React nodes to display as actions on the navbar (e.g., buttons).
+ */
 export interface NavbarProps {
 	links: { label: React.ReactNode; to: string }[];
 	title?: React.ReactNode;
@@ -10,6 +18,12 @@ export interface NavbarProps {
 	actions?: React.ReactNode;
 }
 
+/**
+ * A responsive navigation bar component that supports a title, links, and actions.
+ * On smaller screens, the links collapse into a hamburger menu.
+ * @param {NavbarProps} props - The properties for the Navbar component.
+ * @returns {React.ReactElement} The rendered Navbar component.
+ */
 function Navbar({
 	links,
 	title = "App",

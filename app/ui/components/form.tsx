@@ -3,12 +3,28 @@ import { useActionState, useEffect } from "react";
 import { isError } from "@/utils/funcs/isRetryableError";
 import Popup from "./popup";
 
+/**
+ * Form is a reusable component that handles form submission with loading state and error handling.
+ * It accepts an action function that processes the form data and manages the pending state to disable interactions during submission.
+ * The component also displays error messages in a popup if the action results in an error.
+ * @param actionParam - A function that takes form data and returns a promise, representing the action to perform on form submission.
+ * @param children - The form fields and content to be rendered inside the form.
+ * @param sbmtBtnText - The text to display on the submit button when not pending. Defaults to "Submit".
+ * @param sbmtBtnLoadingText - The text to display on the submit button when pending. Defaults to "Loading...".
+ * @param className - Additional CSS classes to apply to the form element.
+ * @param formStyles - Inline styles to apply to the form element.
+ * @param sbmtBtnStyles - Inline styles to apply to the submit button.
+ * @param sbmtBtnClasses - Additional CSS classes to apply to the submit button.
+ * @param isAnyPending - A boolean indicating if any form submission is currently pending, used to disable interactions.
+ * @param setIsAnyPending - A function to update the pending state, allowing parent components to manage the loading state across multiple forms.
+ * @returns The rendered Form component with the specified behavior and styling.
+ */
 export default function Form({
 	actionParam,
 	children,
 	sbmtBtnText = "Submit",
 	sbmtBtnLoadingText = "Loading...",
-	formClasses = [],
+	className = [],
 	formStyles = {},
 	sbmtBtnStyles = {},
 	sbmtBtnClasses = [],
@@ -19,7 +35,7 @@ export default function Form({
 	children?: React.ReactNode;
 	sbmtBtnText?: string;
 	sbmtBtnLoadingText?: string;
-	formClasses?: string[];
+	className?: string[];
 	formStyles?: React.CSSProperties;
 	sbmtBtnStyles?: React.CSSProperties;
 	sbmtBtnClasses?: string[];
@@ -51,7 +67,7 @@ export default function Form({
 			onSubmit={handleSubmit}
 			className={
 				"flex flex-col gap-5 justify-center justify-self-center " +
-				formClasses.join(" ")
+				className.join(" ")
 			}
 			style={formStyles}
 		>
