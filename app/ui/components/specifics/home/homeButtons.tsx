@@ -31,10 +31,15 @@ const BtnStyles: React.CSSProperties = {
 /**
  * HomeButtons is a component that renders a set of buttons for navigating to different sections of the application.
  * It disables interaction and reduces opacity when any button is pending an action.
+ * @param session - A boolean indicating whether the user has an active session (is signed in).
  * @returns The rendered HomeButtons component with links to "Continue", "New", and "Last Game".
  * Each button is styled with consistent styles defined in BtnStyles.
  */
-export default function HomeButtons(): React.ReactElement {
+export default function HomeButtons({
+	session,
+}: {
+	session: boolean;
+}): React.ReactElement {
 	const [anyPending, setAnyPending] = useState(false);
 	return (
 		<section
@@ -44,15 +49,28 @@ export default function HomeButtons(): React.ReactElement {
 			}
 			onClick={() => setAnyPending(true)}
 		>
-			<Link href="/continue" style={BtnStyles}>
-				Continue
-			</Link>
-			<Link href="/new" style={BtnStyles}>
-				New
-			</Link>
-			<Link href="/game" style={BtnStyles}>
-				Last Game
-			</Link>
+			{session ? (
+				<>
+					<Link href="/continue" style={BtnStyles}>
+						Continue
+					</Link>
+					<Link href="/new" style={BtnStyles}>
+						New
+					</Link>
+					<Link href="/game" style={BtnStyles}>
+						Last Game
+					</Link>
+				</>
+			) : (
+				<>
+					<Link href={"/signin"} style={BtnStyles}>
+						Sign In
+					</Link>
+					<Link href={"/signup"} style={BtnStyles}>
+						Sign Up
+					</Link>
+				</>
+			)}
 		</section>
 	);
 }
