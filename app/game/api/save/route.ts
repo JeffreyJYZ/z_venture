@@ -1,4 +1,5 @@
-import { getGameState, getLastGameId } from "@/utils/funcs/dbFuncs";
+import { getCurrentGameState } from "@/utils/funcs/dbFuncs";
+import { getLastGameId } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
 import prisma from "@/lib/prisma";
 import { GameState } from "@/prisma/client/client";
@@ -28,15 +29,7 @@ export async function POST(request: Request) {
 
 		const name = typeof rawName === "string" ? rawName.trim() : "Save";
 
-		const currentGameId = await getLastGameId();
-		if (isError(currentGameId)) {
-			return NextResponse.json(
-				{ error: "Error fetching current game ID" },
-				{ status: 401 },
-			);
-		}
-
-		const currentGameState = await getGameState(currentGameId);
+		const currentGameState = await getCurrentGameState();
 		if (isError(currentGameState) || !currentGameState) {
 			return NextResponse.json(
 				{ error: "Error fetching current game state" },
@@ -50,6 +43,13 @@ export async function POST(request: Request) {
 		delete newGameState.id;
 		delete newGameState.saveId;
 
+		const currentGameId = await getLastGameId();
+		if (isError(currentGameId) || !currentGameId) {
+			return NextResponse.json(
+				{ error: "Error fetching current game ID" },
+				{ status: 400 },
+			);
+		}
 		const save = await prisma.save.create({
 			data: {
 				gameId: currentGameId,

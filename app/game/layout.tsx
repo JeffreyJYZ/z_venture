@@ -1,14 +1,12 @@
 import Container from "../ui/components/container";
 import { toNavLinks, URLs } from "../../utils/data/urls";
 import Navbar, { NavbarProps } from "../ui/components/navBar";
-import {
-	getLastGameId,
-	isCurrentTokenExpired,
-} from "../../utils/funcs/dbFuncs";
+import { getLastGameId } from "../../utils/funcs/dbFuncs";
+import { isCurrentTokenExpired } from "../../utils/funcs/dbFuncs";
 import { default as fonts } from "../ui/fonts";
 import { unauthorized } from "next/navigation";
 import { isError } from "../../utils/funcs/isRetryableError";
-import { getGameById } from "@/utils/funcs/getGame";
+import { getGameById } from "@/utils/funcs/dbFuncs";
 import Image from "next/image";
 import SaveHotkey from "../ui/components/saveHotkey";
 

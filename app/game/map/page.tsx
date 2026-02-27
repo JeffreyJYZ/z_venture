@@ -4,7 +4,7 @@ import { revalidateAll } from "@/utils/funcs/helper";
 import { isError } from "@/utils/funcs/isRetryableError";
 import { LocationWithPosition } from "@/utils/types/locations";
 import { redirect } from "next/navigation";
-import { getGameState, getLastGameId } from "@/utils/funcs/dbFuncs";
+import { getCurrentGameState } from "@/utils/funcs/dbFuncs";
 
 const locations = Locations.filter(
 	(location) => location.position !== "base",
@@ -28,25 +28,11 @@ const gridRows = Array.from({ length: maxY + 1 }, (_, y) =>
 );
 
 export default async function MapPage() {
-	const lastGameId = await getLastGameId();
-	if (isError(lastGameId)) {
-		const message =
-			lastGameId.error instanceof Error
-				? lastGameId.error.message
-				: typeof lastGameId.error === "object" &&
-					  lastGameId.error &&
-					  "message" in lastGameId.error &&
-					  typeof (lastGameId.error as { message?: unknown })
-							.message === "string"
-					? (lastGameId.error as { message: string }).message
-					: JSON.stringify(lastGameId.error);
-
-		throw new Error("Error fetching last game ID: " + message);
-	}
-	const gameState = await getGameState(lastGameId);
-	if (isError(gameState)) {
+	const gameState = await getCurrentGameState();
+	if (isError(gameState) || !gameState) {
 		throw new Error(
-			"Error fetching game state: " + String(gameState.error),
+			"Error fetching current game state" +
+				(isError(gameState) ? " " + gameState.error : ""),
 		);
 	}
 	const currentLocationName = gameState?.location;

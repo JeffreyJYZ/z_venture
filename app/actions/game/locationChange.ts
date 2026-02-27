@@ -1,5 +1,6 @@
 "use server";
-import { getLastGameId, updatePlayerLocation } from "@/utils/funcs/dbFuncs";
+import { getLastGameId } from "@/utils/funcs/dbFuncs";
+import { updatePlayerLocation } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
 import { LocationName } from "@/utils/types/locations";
 

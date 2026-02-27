@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
-import { getGameById, getGameByName } from "@/utils/funcs/getGame";
+import { getGameById, getGameByName } from "@/utils/funcs/dbFuncs";
 import Link from "next/link";
 import { Game, GameState, Save } from "@/prisma/client";
 import React from "react";

@@ -1,26 +1,12 @@
-import { getGameState, getLastGameId, getUser } from "@/utils/funcs/dbFuncs";
+import { getCurrentGameState } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
 import Link from "next/link";
 import { Inventory } from "@/utils/types/inventory";
 
 export default async function InventoryPage() {
-	const lastGameIdResult = await getLastGameId();
-	if (isError(lastGameIdResult)) {
-		return (
-			<div>
-				Error fetching last game: {String(lastGameIdResult.error)}.
-				Please <Link href="/new">start a new game.</Link>
-			</div>
-		);
-	}
-	const state = await getGameState(lastGameIdResult);
+	const state = await getCurrentGameState();
 	if (isError(state)) {
-		return (
-			<div>
-				Error fetching game state: {String(state.error)}. Please{" "}
-				<Link href="/new">start a new game.</Link> Or refresh the page.
-			</div>
-		);
+		throw new Error("Error fetching current game state: " + state.error);
 	}
 	if (!state) {
 		return (
