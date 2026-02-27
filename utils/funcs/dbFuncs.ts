@@ -1,5 +1,3 @@
-"use server";
-
 import prisma from "@/lib/prisma";
 import { withRetry } from "./helper";
 import { Prisma } from "@/prisma/client";
