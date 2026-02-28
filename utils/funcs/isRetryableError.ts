@@ -1,11 +1,13 @@
-import { Prisma } from "@/prisma/client";
-
 export function isRetryableError(error: unknown): boolean {
 	if (!error || typeof error !== "object") return false;
+	const maybeError = error as {
+		code?: unknown;
+		name?: unknown;
+	};
 
 	// Node / DNS errors
-	if ("code" in error) {
-		const code = (error as any).code;
+	if ("code" in maybeError) {
+		const code = maybeError.code;
 		if (
 			code === "EAI_AGAIN" || // DNS lookup failed
 			code === "ECONNRESET" ||
@@ -17,18 +19,18 @@ export function isRetryableError(error: unknown): boolean {
 	}
 
 	// Prisma known transient errors
-	if (error instanceof Prisma.PrismaClientKnownRequestError) {
+	if (typeof maybeError.code === "string") {
 		return [
 			"P1001", // Can't reach DB
 			"P1002", // Timeout
 			"P1017", // Server closed connection
-		].includes(error.code);
+		].includes(maybeError.code);
 	}
 
 	// Prisma unknown / panic errors (often transient)
 	if (
-		error instanceof Prisma.PrismaClientUnknownRequestError ||
-		error instanceof Prisma.PrismaClientRustPanicError
+		maybeError.name === "PrismaClientUnknownRequestError" ||
+		maybeError.name === "PrismaClientRustPanicError"
 	) {
 		return true;
 	}
