@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { isError } from "@/utils/funcs/isRetryableError";
 import Popup from "./popup";
 
@@ -43,6 +43,7 @@ export default function Form({
 	setIsAnyPending?: (pending: boolean) => void;
 }) {
 	const [state, action, pending] = useActionState(actionParam, null);
+	const errorRegionRef = useRef<HTMLDivElement | null>(null);
 
 	const handleSubmit = () => {
 		setIsAnyPending?.(true);
@@ -61,10 +62,21 @@ export default function Form({
 				? String(state.error)
 				: "";
 
+	useEffect(() => {
+		if (!errorMessage) return;
+
+		errorRegionRef.current?.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest",
+		});
+		errorRegionRef.current?.focus();
+	}, [errorMessage]);
+
 	return (
 		<form
 			action={action}
 			onSubmit={handleSubmit}
+			aria-busy={isAnyPending || pending}
 			className={
 				"flex flex-col gap-5 justify-center justify-self-center " +
 				className.join(" ")
@@ -75,12 +87,15 @@ export default function Form({
 			<button
 				type="submit"
 				disabled={isAnyPending || pending}
+				aria-disabled={isAnyPending || pending}
 				style={sbmtBtnStyles}
 				className={sbmtBtnClasses.join(" ")}
 			>
 				{isAnyPending || pending ? sbmtBtnLoadingText : sbmtBtnText}
 			</button>
-			<Popup>{errorMessage}</Popup>
+			<div ref={errorRegionRef} tabIndex={-1}>
+				<Popup>{errorMessage}</Popup>
+			</div>
 		</form>
 	);
 }

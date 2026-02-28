@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 /**
  * NavbarProps defines the properties for the Navbar component.
@@ -35,6 +36,9 @@ function Navbar({
 	actions,
 }: NavbarProps): React.ReactElement {
 	const [isOpen, setIsOpen] = useState(false);
+	const pathname = usePathname();
+	const navRef = useRef<HTMLElement | null>(null);
+	const menuRef = useRef<HTMLDivElement | null>(null);
 	linkClasses = Array.isArray(linkClasses)
 		? linkClasses.join(" ")
 		: linkClasses || "";
@@ -54,8 +58,82 @@ function Navbar({
 			</Link>
 		));
 
+	useEffect(() => {
+		setIsOpen(false);
+	}, [pathname]);
+
+	useEffect(() => {
+		const onPointerDown = (event: MouseEvent | TouchEvent) => {
+			if (!isOpen || !navRef.current) return;
+			const target = event.target as Node;
+			if (!navRef.current.contains(target)) {
+				setIsOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", onPointerDown);
+		document.addEventListener("touchstart", onPointerDown);
+
+		return () => {
+			document.removeEventListener("mousedown", onPointerDown);
+			document.removeEventListener("touchstart", onPointerDown);
+		};
+	}, [isOpen]);
+
+	useEffect(() => {
+		if (!isOpen) {
+			document.body.style.overflow = "";
+			return;
+		}
+
+		document.body.style.overflow = "hidden";
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [isOpen]);
+
+	useEffect(() => {
+		if (!isOpen || !menuRef.current) return;
+
+		const focusable = menuRef.current.querySelectorAll<HTMLElement>(
+			'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
+		);
+
+		if (focusable.length > 0) {
+			focusable[0].focus();
+		}
+
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				setIsOpen(false);
+				return;
+			}
+
+			if (event.key !== "Tab") return;
+			if (focusable.length === 0) return;
+
+			const first = focusable[0];
+			const last = focusable[focusable.length - 1];
+			const current = document.activeElement;
+
+			if (!event.shiftKey && current === last) {
+				event.preventDefault();
+				first.focus();
+			}
+
+			if (event.shiftKey && current === first) {
+				event.preventDefault();
+				last.focus();
+			}
+		};
+
+		document.addEventListener("keydown", onKeyDown);
+		return () => document.removeEventListener("keydown", onKeyDown);
+	}, [isOpen]);
+
 	return (
 		<nav
+			ref={navRef}
 			className={`display bg-black/70 text-white px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur ${className}`}
 		>
 			<div className="flex items-center gap-4 mr-10">
@@ -87,9 +165,10 @@ function Navbar({
 						{logo ? (
 							<Image
 								src="/logoCmpct.png"
-								alt="Logo"
+								alt=""
 								width={40}
 								height={40}
+								aria-hidden="true"
 							/>
 						) : null}
 						{title}
@@ -104,6 +183,7 @@ function Navbar({
 
 			<div
 				id="main-navigation"
+				ref={menuRef}
 				className={`md:hidden absolute left-0 right-0 top-full bg-black/95 border-b border-white/10 transition-all duration-200 ${
 					isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
 				} overflow-hidden`}

@@ -7,9 +7,24 @@ import bcrypt from "bcryptjs";
 import cookiesSetRules from "@/utils/data/cookies";
 import { redirect } from "next/navigation";
 import { isValidString } from "@/utils/funcs/helper";
+import { consumeRateLimit, getClientIdentifier } from "@/utils/funcs/rateLimit";
+import { headers } from "next/headers";
 
 export default async function signUp(_: any, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();
+	const headerStore = await headers();
+	const clientIdentifier = getClientIdentifier(headerStore);
+	const { allowed } = consumeRateLimit({
+		key: `signup:${clientIdentifier}:${username.toLowerCase()}`,
+		limit: 5,
+		windowMs: 1000 * 60 * 15,
+	});
+	if (!allowed) {
+		return {
+			error: "Too many sign-up attempts. Try again in a few minutes.",
+		};
+	}
+
 	if (!isValidString(username)) {
 		return { error: "Invalid username" };
 	}

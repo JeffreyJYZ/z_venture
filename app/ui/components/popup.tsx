@@ -28,6 +28,19 @@ export default function Popup({
 		setOpen(hasContent);
 	}, [hasContent]);
 
+	useEffect(() => {
+		if (!open || !closable) return;
+
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				setOpen(false);
+			}
+		};
+
+		window.addEventListener("keydown", onKeyDown);
+		return () => window.removeEventListener("keydown", onKeyDown);
+	}, [open, closable]);
+
 	if (!hasContent || !open) {
 		return null;
 	}
@@ -35,6 +48,8 @@ export default function Popup({
 	return (
 		<div
 			role="alert"
+			aria-live="polite"
+			aria-atomic="true"
 			className="w-full rounded-3xl border border-none bg-red-500 p-3 text-(--foreground)"
 		>
 			<div className="flex items-start justify-between gap-3">
@@ -45,7 +60,7 @@ export default function Popup({
 					<button
 						type="button"
 						onClick={() => setOpen(false)}
-						className="m-0 min-h-0 rounded bg-transparent px-2 py-0 leading-none text-(--foreground)"
+						className="m-0 min-h-0 rounded bg-transparent px-2 py-0 leading-none text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-950"
 						aria-label="Close error Popup"
 					>
 						×

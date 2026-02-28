@@ -5,9 +5,30 @@ import prisma from "@/lib/prisma";
 import { GameState } from "@/prisma/client/client";
 import { Prisma } from "@/prisma/client";
 import { NextResponse } from "next/server";
+import { consumeRateLimit, getClientIdentifier } from "@/utils/funcs/rateLimit";
 
 export async function POST(request: Request) {
 	try {
+		const clientIdentifier = getClientIdentifier(request.headers);
+		const rateLimit = consumeRateLimit({
+			key: `save:${clientIdentifier}`,
+			limit: 60,
+			windowMs: 1000 * 60,
+		});
+		if (!rateLimit.allowed) {
+			return NextResponse.json(
+				{ error: "Too many save requests. Try again shortly." },
+				{
+					status: 429,
+					headers: {
+						"Retry-After": String(
+							Math.ceil(rateLimit.retryAfterMs / 1000),
+						),
+					},
+				},
+			);
+		}
+
 		const contentType = request.headers.get("content-type") ?? "";
 		const accept = request.headers.get("accept") ?? "";
 		const isFormSubmission =
@@ -73,8 +94,14 @@ export async function POST(request: Request) {
 			{ status: 201 },
 		);
 	} catch (error) {
+		console.error("Save creation failed", error);
 		return NextResponse.json(
-			{ error: "Failed to create save", details: String(error) },
+			{
+				error:
+					process.env.NODE_ENV === "production"
+						? "Failed to create save"
+						: `Failed to create save: ${String(error)}`,
+			},
 			{ status: 500 },
 		);
 	}

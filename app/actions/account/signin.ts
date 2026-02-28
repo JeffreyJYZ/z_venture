@@ -8,8 +8,9 @@ import {
 	updateUserPassword,
 } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
+import { consumeRateLimit, getClientIdentifier } from "@/utils/funcs/rateLimit";
 import bcrypt from "bcryptjs";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function signIn(_: any, data: FormData) {
@@ -17,24 +18,34 @@ export default async function signIn(_: any, data: FormData) {
 	const passwordRaw = String(data.get("password") ?? "");
 	const passwordTrimmed = passwordRaw.trim();
 	const password = passwordRaw;
+	const genericAuthError = "Incorrect username or password";
 
 	if (!username || !password) {
-		return { error: "Username and password are required" };
+		return { error: genericAuthError };
+	}
+
+	const headerStore = await headers();
+	const clientIdentifier = getClientIdentifier(headerStore);
+	const { allowed } = consumeRateLimit({
+		key: `signin:${clientIdentifier}:${username.toLowerCase()}`,
+		limit: 8,
+		windowMs: 1000 * 60 * 10,
+	});
+	if (!allowed) {
+		return {
+			error: "Too many sign-in attempts. Try again in a few minutes.",
+		};
 	}
 
 	let currentUser = await getUser(username);
-	if (isError(currentUser))
-		return { error: "Error fetching user: " + String(currentUser.error) };
+	if (isError(currentUser)) return { error: genericAuthError };
 	if (!currentUser) {
 		const fallbackUser = await getUserInsensitive(username);
-		if (isError(fallbackUser))
-			return {
-				error: "Error fetching user: " + String(fallbackUser.error),
-			};
+		if (isError(fallbackUser)) return { error: genericAuthError };
 		currentUser = fallbackUser;
 	}
 	if (!currentUser) {
-		return { error: "Incorrect username" };
+		return { error: genericAuthError };
 	}
 
 	let matches = await bcrypt.compare(password, currentUser.password);
@@ -55,34 +66,34 @@ export default async function signIn(_: any, data: FormData) {
 				currentUser.username,
 				upgradedHash,
 			);
-			if (isError(upgraded)) return { error: String(upgraded.error) };
+			if (isError(upgraded)) return { error: genericAuthError };
 		} else {
-			return { error: "Incorrect password or username" };
+			return { error: genericAuthError };
 		}
 	}
 
-	const sessions = await getUserSessions(username);
-	if (isError(sessions)) return { error: String(sessions.error) };
+	const sessions = await getUserSessions(currentUser.username);
+	if (isError(sessions)) return { error: genericAuthError };
 	const cookieStore = await cookies();
 	if (!cookieStore || typeof cookieStore.set !== "function")
 		return {
-			error: "Could not access cookies! Please check your security settings.",
+			error: genericAuthError,
 		};
 	let newSession = sessions?.length > 0 ? sessions[0] : null;
 	if (newSession) {
 		const fiveDaysMs = 1000 * 60 * 60 * 24 * 5;
 		const timeLeftMs = newSession.expiresAt.getTime() - Date.now();
 		if (timeLeftMs <= fiveDaysMs) {
-			const created = await createUserSession(username);
-			if (isError(created)) return { error: String(created.error) };
+			const created = await createUserSession(currentUser.username);
+			if (isError(created)) return { error: genericAuthError };
 			newSession = created;
 		}
 	} else {
-		const created = await createUserSession(username);
-		if (isError(created)) return { error: String(created.error) };
+		const created = await createUserSession(currentUser.username);
+		if (isError(created)) return { error: genericAuthError };
 		newSession = created;
 	}
-	if (!newSession) return { error: "Could not create session" };
+	if (!newSession) return { error: genericAuthError };
 
 	cookieStore.set("session", newSession.token, cookiesSetRules);
 	redirect(currentUser.lastGameName ? "/continue" : "/new");
