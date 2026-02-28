@@ -1,15 +1,16 @@
 import Link from "next/link";
 import Container from "./ui/components/container";
+import Navbar from "./ui/components/navBar";
+import { toNavLinks, URLs } from "@/utils/data/urls";
 
 export default function Unauthorized() {
 	return (
-		<Container>
-			<h1>Unauthorized</h1>
-			<p>You are unauthorized to access this page.</p>
-			<div className="flex gap-5">
-				<Link href="/signin">Sign In</Link>
-				<Link href="/">Home</Link>
-			</div>
-		</Container>
+		<>
+			<Navbar links={toNavLinks(URLs.all)} title="UNAUTHORISED" />
+			<Container>
+				<h1>Unauthorized</h1>
+				<p>You are unauthorized to access this page.</p>
+			</Container>
+		</>
 	);
 }

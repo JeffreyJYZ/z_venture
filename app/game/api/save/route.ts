@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 			contentType.includes("application/x-www-form-urlencoded") ||
 			contentType.includes("multipart/form-data") ||
 			accept.includes("text/html");
-		let rawName: unknown = "Save" + new Date().toLocaleString();
+		let rawName: unknown = "Manual Save";
 
 		if (contentType.includes("application/json")) {
 			const body = (await request.json()) as { name?: unknown };
@@ -27,7 +27,8 @@ export async function POST(request: Request) {
 			rawName = formData.get("name");
 		}
 
-		const name = typeof rawName === "string" ? rawName.trim() : "Save";
+		const name =
+			typeof rawName === "string" ? rawName.trim() : "Manual Save";
 
 		const currentGameState = await getCurrentGameState();
 		if (isError(currentGameState) || !currentGameState) {
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
 
 		const newGameState: Partial<GameState> =
 			structuredClone(currentGameState);
-		newGameState.name = name || "Save" + new Date().toISOString();
+		newGameState.name = name || "Manual Save";
 		delete newGameState.id;
 		delete newGameState.saveId;
 

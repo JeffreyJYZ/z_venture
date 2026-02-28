@@ -1,7 +1,7 @@
 "use server";
 
 import { getUsername } from "@/utils/data/cookies";
-import { withRetry } from "@/utils/funcs/helper";
+import { isValidString, withRetry } from "@/utils/funcs/helper";
 import { initGame } from "@/utils/funcs/inits";
 import { isGameNameUniqueForUser } from "@/utils/funcs/dbFuncs";
 import { isError } from "@/utils/funcs/isRetryableError";
@@ -17,6 +17,7 @@ export default async function newGame(_: any, data: FormData) {
 	if (!name) {
 		return { error: "Name is required" };
 	}
+	if (!isValidString(name)) return { error: "Invalid Name" };
 	const username = await getUsername();
 	if (!username) {
 		return { error: "User not authenticated" };

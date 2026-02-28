@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @custom-variant h (&:hover);
+@custom-variant f (&:focus);
 
 @layer base {
 	:root {

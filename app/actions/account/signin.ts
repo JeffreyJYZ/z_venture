@@ -23,10 +23,14 @@ export default async function signIn(_: any, data: FormData) {
 	}
 
 	let currentUser = await getUser(username);
-	if (isError(currentUser)) return { error: String(currentUser.error) };
+	if (isError(currentUser))
+		return { error: "Error fetching user: " + String(currentUser.error) };
 	if (!currentUser) {
 		const fallbackUser = await getUserInsensitive(username);
-		if (isError(fallbackUser)) return { error: String(fallbackUser.error) };
+		if (isError(fallbackUser))
+			return {
+				error: "Error fetching user: " + String(fallbackUser.error),
+			};
 		currentUser = fallbackUser;
 	}
 	if (!currentUser) {

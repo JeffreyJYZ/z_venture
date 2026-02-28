@@ -1,13 +1,12 @@
 import Container from "../ui/components/container";
 import { toNavLinks, URLs } from "../../utils/data/urls";
 import Navbar, { NavbarProps } from "../ui/components/navBar";
-import { getLastGameId } from "../../utils/funcs/dbFuncs";
+import { getCurrentGame, getLastGameId } from "../../utils/funcs/dbFuncs";
 import { isCurrentTokenExpired } from "../../utils/funcs/dbFuncs";
 import { default as fonts } from "../ui/fonts";
 import { unauthorized } from "next/navigation";
 import { isError } from "../../utils/funcs/isRetryableError";
 import { getGameById } from "@/utils/funcs/dbFuncs";
-import Image from "next/image";
 import SaveHotkey from "../ui/components/saveHotkey";
 
 export default async function GameLayout({
@@ -16,12 +15,15 @@ export default async function GameLayout({
 	children: React.ReactNode;
 }) {
 	if (await isCurrentTokenExpired()) unauthorized();
-	const gameId = await getLastGameId();
-	if (isError(gameId)) throw gameId.error;
-	const game = await getGameById(gameId);
-	if (isError(game)) throw game.error;
-	const GameName = game?.name;
-	const urls = toNavLinks(URLs.game) as NavbarProps["links"];
+	const game = await getCurrentGame();
+	if (!game) unauthorized();
+	const urls = toNavLinks(URLs.game);
+	let GameName;
+	if (!isError(game)) {
+		GameName = game.name;
+	} else {
+		throw new Error("Failed to fetch current game. Error: " + game.error);
+	}
 	return (
 		<>
 			<SaveHotkey />
@@ -32,17 +34,7 @@ export default async function GameLayout({
 						<button type="submit">Save</button>
 					</form>
 				}
-				title={
-					<div className="flex gap-5 items-center">
-						<Image
-							src="/logoCmpct.png"
-							alt="Game Logo"
-							width={50}
-							height={50}
-						/>
-						{`Z Venture (${GameName ?? "[Unknown Game]"})`}
-					</div>
-				}
+				title={`Z Venture (${GameName})`}
 				className="display"
 			/>
 			<Container

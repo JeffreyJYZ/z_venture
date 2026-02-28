@@ -1,11 +1,10 @@
-"use server";
 import { revalidatePath } from "next/cache";
 import { URLs } from "../data/urls";
 import { Prisma } from "@/prisma/client/client";
 import prisma from "@/lib/prisma";
 import { isRetryableError } from "./isRetryableError";
 
-function normalizeError(error: unknown): string {
+export function normalizeError(error: unknown): string {
 	if (typeof error === "string" && error.trim()) return error;
 	if (error instanceof Error && error.message?.trim()) return error.message;
 	if (error && typeof error === "object") {
@@ -37,7 +36,7 @@ export async function sleep(ms: number) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function revalidateAll() {
+export function revalidateAll() {
 	for (const url of Object.values(URLs.all)) {
 		revalidatePath(url);
 	}
@@ -83,10 +82,14 @@ export async function withRetry<T>(
 	return { error: normalizeError(lastError) };
 }
 
-export async function toReadable(str: string) {
+export function toReadable(str: string) {
 	const newStr = str.split("-");
 	for (const [i, part] of newStr.entries()) {
 		newStr[i] = part.charAt(0).toUpperCase() + part.slice(1);
 	}
 	return newStr.join(" ");
+}
+
+export function isValidString(str: string): boolean {
+	return /^[a-zA-Z0-9\_\-]+$/.test(str);
 }

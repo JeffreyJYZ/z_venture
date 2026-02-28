@@ -6,9 +6,13 @@ import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import cookiesSetRules from "@/utils/data/cookies";
 import { redirect } from "next/navigation";
+import { isValidString } from "@/utils/funcs/helper";
 
 export default async function signUp(_: any, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();
+	if (!isValidString(username)) {
+		return { error: "Invalid username" };
+	}
 	const password = String(data.get("password") ?? "").trim();
 	const confirmPassword = String(data.get("cfmPassword") ?? "").trim();
 	if (!username || !password || !confirmPassword) {

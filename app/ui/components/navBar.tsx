@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /**
  * NavbarProps defines the properties for the Navbar component.
@@ -13,6 +14,7 @@ import Link from "next/link";
 export interface NavbarProps {
 	links: { label: React.ReactNode; to: string }[];
 	title?: React.ReactNode;
+	logo?: boolean;
 	linkClasses?: string | string[];
 	className?: string | string[];
 	actions?: React.ReactNode;
@@ -26,7 +28,8 @@ export interface NavbarProps {
  */
 function Navbar({
 	links,
-	title = "App",
+	title = "Z Venture",
+	logo = true,
 	linkClasses,
 	className,
 	actions,
@@ -80,7 +83,15 @@ function Navbar({
 				</button>
 
 				<Link href="/">
-					<span className="font-semibold tracking-wide text-lg">
+					<span className="font-semibold tracking-wide text-lg flex items-center gap-3">
+						{logo ? (
+							<Image
+								src="/logoCmpct.png"
+								alt="Logo"
+								width={40}
+								height={40}
+							/>
+						) : null}
 						{title}
 					</span>
 				</Link>
