@@ -55,6 +55,11 @@ export default function Footer({ className }: { className?: string }) {
 					</ul>
 				</div>
 			</main>
+			<div>
+				<Link href={"https://github.com/JeffreyJYZ/z_venture"}>
+					Repo
+				</Link>
+			</div>
 			<Image src="/logo.png" alt="Footer Logo" width={200} height={200} />
 		</footer>
 	);
