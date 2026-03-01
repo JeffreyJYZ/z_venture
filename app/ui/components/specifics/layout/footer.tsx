@@ -2,6 +2,7 @@
 import { URLs } from "@/utils/data/urls";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Footer({ className }: { className?: string }) {
 	return (
@@ -55,10 +56,19 @@ export default function Footer({ className }: { className?: string }) {
 					</ul>
 				</div>
 			</main>
-			<div>
-				<Link href={"https://github.com/JeffreyJYZ/z_venture"}>
-					Repo
-				</Link>
+			<div
+				onClick={() =>
+					redirect("https://github.com/JeffreyJYZ/z_venture")
+				}
+				className="border border-white/50 m-2.5 p-2.5 rounded-xl flex items-center gap-2 bg-white/40 text-black font-bold cursor-pointer"
+			>
+				<Image
+					src={"https://github.com/favicon.ico"}
+					alt="GitHub Logo"
+					width={32}
+					height={32}
+				/>
+				Repo
 			</div>
 			<Image src="/logo.png" alt="Footer Logo" width={200} height={200} />
 		</footer>

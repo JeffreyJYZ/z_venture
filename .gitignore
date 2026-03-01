@@ -51,3 +51,6 @@ next-env.d.ts
 
 # scripts
 scripts
+
+# rust
+/rust-api/target

@@ -34,6 +34,22 @@ const nextConfig: NextConfig = {
 			},
 		];
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "github.com",
+				port: "",
+				pathname: "/favicon.ico",
+			},
+			{
+				protocol: "https",
+				hostname: "www.github.com",
+				port: "",
+				pathname: "/favicon.ico",
+			},
+		],
+	},
 };
 
 export default nextConfig;
