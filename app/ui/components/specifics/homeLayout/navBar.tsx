@@ -48,15 +48,25 @@ function Navbar({
 
 	const renderedLinks = links
 		.filter((link) => typeof link.to === "string" && link.to.length > 0)
-		.map(({ label, to }, index) => (
-			<Link
-				key={`${to}-${index}`}
-				href={to}
-				className={`text-sm font-medium text-white/90 h:text-white ${linkClasses}`}
-			>
-				{label}
-			</Link>
-		));
+		.map(({ label, to }, index) =>
+			(() => {
+				const isActive = pathname === to;
+				return (
+					<Link
+						key={`${to}-${index}`}
+						href={to}
+						className={`rounded-md border px-3 py-1.5 text-sm font-medium no-underline transition ${
+							isActive
+								? "border-red-300/40 bg-red-900/45 text-red-100"
+								: "border-transparent text-white/85 h:bg-white/10 h:text-white"
+						} ${linkClasses}`}
+						aria-current={isActive ? "page" : undefined}
+					>
+						{label}
+					</Link>
+				);
+			})(),
+		);
 
 	useEffect(() => {
 		setIsOpen(false);
@@ -134,12 +144,12 @@ function Navbar({
 	return (
 		<nav
 			ref={navRef}
-			className={`display bg-black/70 text-white px-6 py-4 flex items-center justify-between border-b border-white/10 backdrop-blur ${className}`}
+			className={`display fixed left-1/2 top-4 z-40 flex w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 items-center justify-between rounded-4xl border border-red-300/25 bg-black/45 px-4 py-3 text-white shadow-sm backdrop-blur-md md:w-[calc(100%-3rem)] md:px-6 md:py-4 ${className}`}
 		>
 			<div className="flex items-center gap-4 mr-10">
 				<button
 					onClick={() => setIsOpen(!isOpen)}
-					className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 h:text-white h:bg-white/10"
+					className="md:hidden inline-flex items-center justify-center rounded-md border border-red-300/20 bg-black/30 p-2 text-white/80 h:bg-white/10 h:text-white"
 					aria-label="Toggle navigation"
 					aria-expanded={isOpen}
 					aria-controls="main-navigation"
@@ -184,7 +194,7 @@ function Navbar({
 			<div
 				id="main-navigation"
 				ref={menuRef}
-				className={`md:hidden absolute left-0 right-0 top-full bg-black/95 border-b border-white/10 transition-all duration-200 ${
+				className={`md:hidden absolute left-0 right-0 top-[calc(100%+0.5rem)] rounded-3xl border border-red-300/20 bg-black/80 backdrop-blur-md transition-all duration-200 ${
 					isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
 				} overflow-hidden`}
 			>

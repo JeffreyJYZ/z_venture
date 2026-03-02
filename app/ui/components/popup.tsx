@@ -50,17 +50,17 @@ export default function Popup({
 			role="alert"
 			aria-live="polite"
 			aria-atomic="true"
-			className="w-full rounded-3xl border border-none bg-red-500 p-3 text-(--foreground)"
+			className="w-full rounded-2xl border border-red-300/30 bg-red-500/15 p-3 text-(--foreground) backdrop-blur-sm"
 		>
 			<div className="flex items-start justify-between gap-3">
-				<div className={`text-red-950 text-sm ${className}`}>
+				<div className={`text-red-100 text-sm ${className}`}>
 					{children}
 				</div>
 				{closable ? (
 					<button
 						type="button"
 						onClick={() => setOpen(false)}
-						className="m-0 min-h-0 rounded bg-transparent px-2 py-0 leading-none text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-950"
+						className="m-0 min-h-0 rounded bg-transparent px-2 py-0 leading-none text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-200"
 						aria-label="Close error Popup"
 					>
 						×

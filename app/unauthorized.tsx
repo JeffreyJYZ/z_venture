@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Container from "./ui/components/container";
-import Navbar from "./ui/components/navBar";
+import Navbar from "./ui/components/specifics/homeLayout/navBar";
 import { toNavLinks, URLs } from "@/utils/data/urls";
 
 export default function Unauthorized() {

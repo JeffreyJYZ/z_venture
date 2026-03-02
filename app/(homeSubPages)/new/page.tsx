@@ -25,23 +25,34 @@ export default async function Page({
 					adventure!
 				</Popup>
 			) : null}
-			<h1>Start a New Adventure</h1>
+			<h1 className="justify-self-center">Start a New Adventure</h1>
 			{!(await isCurrentTokenExpired()) ? (
 				<Form actionParam={newGame} sbmtBtnText="New Game">
 					<input
 						type="text"
 						placeholder="Game Name"
 						name="gameName"
+						className="w-full rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-white/90 shadow-sm outline-none transition placeholder:text-white/50 f:border-white/35 f:ring-2 f:ring-white/20"
 						required
 					/>
 				</Form>
 			) : (
 				<div className="flex flex-col gap-3">
-					<p className="text-red-500">
+					<p className="text-red-300">
 						Please sign in or sign up to start a game.
 					</p>
-					<Link href="/signin">Go to Sign In</Link>
-					<Link href="/signup">Create an Account</Link>
+					<Link
+						href="/signin"
+						className="inline-flex w-fit rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-sm text-white/90 no-underline transition hover:bg-white/15"
+					>
+						Go to Sign In
+					</Link>
+					<Link
+						href="/signup"
+						className="inline-flex w-fit rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-sm text-white/90 no-underline transition hover:bg-white/15"
+					>
+						Create an Account
+					</Link>
 				</div>
 			)}
 		</>

@@ -14,7 +14,12 @@ export default async function ContinuePage() {
 		return (
 			<div className="flex flex-col gap-2">
 				<p>Please sign in to continue a game.</p>
-				<Link href="/signin">Go to Sign In</Link>
+				<Link
+					href="/signin"
+					className="inline-flex w-fit rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-sm text-white/90 no-underline transition hover:bg-white/15"
+				>
+					Go to Sign In
+				</Link>
 			</div>
 		);
 	}
@@ -48,13 +53,13 @@ export default async function ContinuePage() {
 
 	return (
 		<>
-			<h1>Continue</h1>
+			<h1 className="justify-self-center">Continue</h1>
 
 			<Form actionParam={continueGame} sbmtBtnText="Continue">
 				<select
 					name="gameName"
 					defaultValue={selectedGameName}
-					className="w-full rounded-lg border border-slate-700 bg-slate-900 px-2 py-2 text-slate-100 shadow-sm outline-none transition f:border-slate-400 f:ring-2 f:ring-slate-600"
+					className="w-full rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-white/90 shadow-sm outline-none transition placeholder:text-white/50 f:border-white/35 f:ring-2 f:ring-white/20"
 					required
 				>
 					<option value="" disabled>

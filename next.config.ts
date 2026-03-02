@@ -44,9 +44,10 @@ const nextConfig: NextConfig = {
 			},
 			{
 				protocol: "https",
-				hostname: "www.github.com",
+				hostname: "uxwing.com",
 				port: "",
-				pathname: "/favicon.ico",
+				pathname:
+					"/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.png",
 			},
 		],
 	},

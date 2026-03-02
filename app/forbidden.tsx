@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Navbar from "./ui/components/navBar";
+import Navbar from "./ui/components/specifics/homeLayout/navBar";
 import { URLs } from "@/utils/data/urls";
 import { toNavLinks } from "../utils/data/urls";
 export default function Forbidden() {

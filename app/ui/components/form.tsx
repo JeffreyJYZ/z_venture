@@ -89,7 +89,7 @@ export default function Form({
 				disabled={isAnyPending || pending}
 				aria-disabled={isAnyPending || pending}
 				style={sbmtBtnStyles}
-				className={sbmtBtnClasses.join(" ")}
+				className={`rounded-lg border border-white/15 bg-white/10 px-4 py-2 text-white transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-60 ${sbmtBtnClasses.join(" ")}`}
 			>
 				{isAnyPending || pending ? sbmtBtnLoadingText : sbmtBtnText}
 			</button>

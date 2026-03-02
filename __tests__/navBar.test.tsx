@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import Navbar from "@/app/ui/components/navBar";
+import Navbar from "@/app/ui/components/specifics/homeLayout/navBar";
 import { toNavLinks, URLs } from "@/utils/data/urls";
 
 describe("NavBar", () => {

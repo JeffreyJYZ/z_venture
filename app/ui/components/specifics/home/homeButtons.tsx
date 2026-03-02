@@ -15,16 +15,18 @@ const BtnStyles: React.CSSProperties = {
 	height: "100px",
 	minWidth: "150px",
 	padding: "20px",
-	borderRadius: "30px",
+	borderRadius: "16px",
 	fontSize: "20px",
 	marginTop: "20px",
-	backgroundColor: "#a80000",
-	color: "black",
+	backgroundColor: "rgba(255, 255, 255, 0.12)",
+	color: "#f8fafc",
+	border: "1px solid rgba(255,255,255,0.18)",
+	backdropFilter: "blur(6px)",
 	alignItems: "center",
 	display: "flex",
 	justifyContent: "center",
 	textDecoration: "none",
-	fontWeight: "bold",
+	fontWeight: 600,
 	flexGrow: 1,
 };
 
@@ -44,7 +46,7 @@ export default function HomeButtons({
 	return (
 		<section
 			className={
-				"flex gap-2.5 flex-wrap apple" +
+				"flex gap-2.5 flex-wrap apple w-full" +
 				(anyPending ? " pointer-events-none opacity-50" : "")
 			}
 			onClick={() => setAnyPending(true)}
