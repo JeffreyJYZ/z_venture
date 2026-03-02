@@ -39,7 +39,7 @@ export default async function MapPage() {
 	return (
 		<>
 			<h1 className="self-center">Map</h1>
-			<div>
+			<div className="rounded-2xl border border-white/10 bg-black/25 p-4 shadow-sm backdrop-blur-sm md:p-6">
 				<form
 					action={async () => {
 						"use server";
@@ -58,7 +58,7 @@ export default async function MapPage() {
 						type="submit"
 						disabled={currentLocationName === "Base"}
 						className={
-							"text-white bg-black border-4 border-red-800 rounded-2xl px-10 py-7" +
+							"text-white rounded-2xl border border-red-300/25 bg-black/35 px-10 py-7 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/10" +
 							(currentLocationName === "Base"
 								? " opacity-50 cursor-not-allowed"
 								: "")
@@ -93,7 +93,7 @@ export default async function MapPage() {
 							<button
 								type="submit"
 								className={
-									"display rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 transition-all duration-200 w-full" +
+									"display rounded-xl border border-red-300/20 bg-black/35 text-white px-3 py-4 min-h-18 shadow-sm backdrop-blur-sm hover:-translate-y-0.5 hover:bg-white/10 transition-all duration-200 w-full" +
 									(currentLocationName === location?.name
 										? " text-gray-500 opacity-50 cursor-not-allowed"
 										: "")

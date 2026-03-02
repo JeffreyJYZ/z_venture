@@ -1,4 +1,18 @@
-import { toHomeNavLinks } from "@/utils/data/urls";
+import { toHomeNavLinks, toNavLinks, URLs } from "@/utils/data/urls";
+
+describe("toNavLinks", () => {
+	it("maps URL object entries to label/to link objects", () => {
+		const links = toNavLinks(URLs.game);
+
+		expect(links).toEqual([
+			{ label: "Exit", to: "/" },
+			{ label: "Main", to: "/game" },
+			{ label: "Inventory", to: "/game/inventory" },
+			{ label: "Settings", to: "/game/settings" },
+			{ label: "Map", to: "/game/map" },
+		]);
+	});
+});
 
 describe("toHomeNavLinks", () => {
 	it("shows auth links and hides game links when user has no account", () => {
