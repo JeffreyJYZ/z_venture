@@ -9,7 +9,9 @@ export default function Error({
 }) {
 	console.error("ErrorBoundary caught an error:", error);
 	return (
-		<div style={{ padding: "2rem", textAlign: "center" }}>
+		<div
+			style={{ padding: "2rem", textAlign: "center", marginTop: "5rem" }}
+		>
 			<h1 style={{ color: "#ff4d4f" }}>Something went wrong!</h1>
 			<p>
 				An unexpected error occurred. Please try refreshing the page or

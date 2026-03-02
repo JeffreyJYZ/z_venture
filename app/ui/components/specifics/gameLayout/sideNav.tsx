@@ -61,7 +61,7 @@ export default function SideNav({
 		const root = document.documentElement;
 		root.style.setProperty(
 			"--game-content-offset",
-			isDesktop ? (collapsed ? "10rem" : "21rem") : "0rem",
+			isDesktop ? (collapsed ? "150px" : "350px") : "0rem",
 		);
 
 		return () => {
@@ -73,7 +73,7 @@ export default function SideNav({
 		<>
 			<nav
 				className={`fixed left-6 top-6 bottom-6 z-20 hidden flex-col rounded-2xl border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 md:flex ${
-					collapsed ? "w-24 p-3" : "w-72 p-4"
+					collapsed ? "w-30 p-3" : "w-80 p-4"
 				}`}
 			>
 				<div className="mb-6 flex items-center justify-between gap-2">
@@ -122,11 +122,11 @@ export default function SideNav({
 								<Link
 									href={link.to}
 									title={collapsed ? link.label : undefined}
-									className={`block rounded-lg border px-3 py-2 text-sm transition ${
+									className={`sidenav-link block rounded-lg border px-3 py-2 text-sm transition ${
 										isExit
 											? "border-red-400/40 bg-red-500/20 text-red-100 hover:bg-red-500/30 hover:text-white"
 											: isActive
-												? "border-white/35 bg-white/15 text-white"
+												? "border-white/35 bg-white/15 text-white hover:border-white/45 hover:bg-white/25"
 												: "border-transparent text-white/80 hover:border-white/15 hover:bg-white/10 hover:text-white"
 									} ${collapsed ? "text-center" : "text-left"}`}
 									aria-current={
@@ -181,12 +181,12 @@ export default function SideNav({
 									<li key={`mobile-${i}`}>
 										<Link
 											href={link.to}
-											className={`block rounded-lg border px-3 py-2 text-sm ${
+											className={`sidenav-link block rounded-lg border px-3 py-2 text-sm transition ${
 												isExit
-													? "border-red-400/40 bg-red-500/20 text-red-100"
+													? "border-red-400/40 bg-red-500/20 text-red-100 hover:bg-red-500/30 hover:text-white"
 													: isActive
-														? "border-white/35 bg-white/15 text-white"
-														: "border-transparent text-white/85"
+														? "border-white/35 bg-white/15 text-white hover:border-white/45 hover:bg-white/25"
+														: "border-transparent text-white/85 hover:border-white/15 hover:bg-white/10 hover:text-white"
 											}`}
 											aria-current={
 												isActive && !isExit

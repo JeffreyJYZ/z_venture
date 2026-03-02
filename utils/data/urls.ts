@@ -1,16 +1,16 @@
 export const URLs = {
 	all: {
-		Home: "/",
-		Game: "/game",
-		Inventory: "/game/inventory",
-		Settings: "/settings",
+		"Home": "/",
+		"Game": "/game",
+		"Inventory": "/game/inventory",
+		"Settings": "/settings",
 		"Game Settings": "/settings/game",
 		"Sign In": "/signin",
 		"Sign Up": "/signup",
 		"New Game": "/new",
 		"Continue Game": "/continue",
-		About: "/about",
-		Map: "/game/map",
+		"About": "/about",
+		"Map": "/game/map",
 	},
 	game: {
 		Exit: "/",
@@ -20,12 +20,13 @@ export const URLs = {
 		Map: "/game/map",
 	},
 	home: {
-		Home: "/",
+		"Home": "/",
 		"Sign In": "/signin",
 		"Sign Up": "/signup",
 		"New Game": "/new",
 		"Continue Game": "/continue",
-		About: "/about",
+		"Last Game": "/game",
+		"About": "/about",
 	},
 } as const;
 
@@ -34,4 +35,28 @@ export function toNavLinks(urls: (typeof URLs)[keyof typeof URLs]) {
 		label,
 		to,
 	}));
+}
+
+export function toHomeNavLinks({
+	hasAccount,
+	hasLastGame,
+}: {
+	hasAccount: boolean;
+	hasLastGame: boolean;
+}) {
+	return toNavLinks(URLs.home).filter((link) => {
+		if (!hasAccount) {
+			return ["/", "/signin", "/signup", "/about"].includes(link.to);
+		}
+
+		if (link.to === "/signin" || link.to === "/signup") {
+			return false;
+		}
+
+		if (link.to === "/game") {
+			return hasLastGame;
+		}
+
+		return true;
+	});
 }

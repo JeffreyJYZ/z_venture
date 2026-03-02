@@ -58,7 +58,7 @@ function Navbar({
 						className={`rounded-md border px-3 py-1.5 text-sm font-medium no-underline transition ${
 							isActive
 								? "border-red-300/40 bg-red-900/45 text-red-100"
-								: "border-transparent text-white/85 h:bg-white/10 h:text-white"
+								: "border-transparent text-white/85 hover:bg-white/10 hover:text-white"
 						} ${linkClasses}`}
 						aria-current={isActive ? "page" : undefined}
 					>
@@ -149,7 +149,7 @@ function Navbar({
 			<div className="flex items-center gap-4 mr-10">
 				<button
 					onClick={() => setIsOpen(!isOpen)}
-					className="md:hidden inline-flex items-center justify-center rounded-md border border-red-300/20 bg-black/30 p-2 text-white/80 h:bg-white/10 h:text-white"
+					className="md:hidden inline-flex items-center justify-center rounded-md border border-red-300/20 bg-black/30 p-2 text-white/80 hover:bg-white/10 hover:text-white"
 					aria-label="Toggle navigation"
 					aria-expanded={isOpen}
 					aria-controls="main-navigation"

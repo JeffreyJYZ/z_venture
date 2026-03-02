@@ -38,7 +38,7 @@ export default async function MapPage() {
 	const currentLocationName = gameState?.location;
 	return (
 		<>
-			<h1>Map</h1>
+			<h1 className="self-center">Map</h1>
 			<div>
 				<form
 					action={async () => {
@@ -50,7 +50,7 @@ export default async function MapPage() {
 									encodeURIComponent(result.error),
 							);
 						}
-						await revalidateAll();
+						revalidateAll();
 					}}
 					className="justify-self-center"
 				>
@@ -93,7 +93,7 @@ export default async function MapPage() {
 							<button
 								type="submit"
 								className={
-									"display rounded-xl bg-black text-white px-3 py-4 min-h-18 h:-translate-y-0.5 h:bg-gray-800 transition-all duration-200 w-full" +
+									"display rounded-xl bg-black text-white px-3 py-4 min-h-18 hover:-translate-y-0.5 hover:bg-gray-800 transition-all duration-200 w-full" +
 									(currentLocationName === location?.name
 										? " text-gray-500 opacity-50 cursor-not-allowed"
 										: "")

@@ -1,9 +1,11 @@
 import Container from "../ui/components/container";
-import { toNavLinks, URLs } from "@/utils/data/urls";
+import { toHomeNavLinks } from "@/utils/data/urls";
 import Navbar from "../ui/components/specifics/homeLayout/navBar";
 import fonts from "../ui/fonts";
 import Image from "next/image";
 import { isCurrentTokenExpired } from "@/utils/funcs/db/getUser";
+import { getLastGameId } from "@/utils/funcs/db/getGame";
+import { isError } from "@/utils/funcs/isRetryableError";
 
 export default async function Base({
 	children,
@@ -11,11 +13,14 @@ export default async function Base({
 	children: React.ReactNode;
 }) {
 	const hasAccount = !(await isCurrentTokenExpired());
-	const links = hasAccount
-		? toNavLinks(URLs.home).filter(
-				(link) => link.label !== "Sign In" && link.label !== "Sign Up",
-			)
-		: toNavLinks(URLs.home).slice(0, 3).concat(toNavLinks(URLs.home)[5]);
+	const lastGameId = await getLastGameId();
+	if (isError(lastGameId) && !(lastGameId.error === "User not authenticated"))
+		throw new Error(
+			"Error fetching last game ID: " + String(lastGameId.error),
+		);
+
+	const hasLastGame = !!lastGameId;
+	const links = toHomeNavLinks({ hasAccount, hasLastGame });
 	return (
 		<div className="relative min-h-screen overflow-x-hidden">
 			<div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(153,27,27,0.30),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(69,10,10,0.35),transparent_50%)]" />

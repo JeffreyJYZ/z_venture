@@ -1,52 +1,8 @@
 @import "tailwindcss";
-
-@custom-variant h (&:hover);
-@custom-variant f (&:focus);
-
-@layer base {
-	:root {
-		--background: #360000;
-		--foreground: #ffffff;
-	}
-	body {
-		background: var(--background);
-		color: var(--foreground);
-		font-family: var(--font-body), sans-serif;
-	}
-	.body {
-		font-family: var(--font-body), sans-serif;
-	}
-	.display {
-		font-family: var(--font-display), serif;
-	}
-	.apple {
-		font-family: var(--font-apple), sans-serif;
-	}
-	h1 {
-		font-size: 50px;
-		font-family: var(--font-display), serif;
-	}
-	h2 {
-		font-size: 30px;
-		font-family: var(--font-body), sans-serif;
-	}
-	button {
-		background-color: var(--foreground);
-		border-radius: 10px;
-		padding: 5px;
-		min-height: 25px;
-		text-align: center;
-		color: var(--background);
-		margin: 5px;
-	}
-	button:hover {
-		cursor: pointer;
-	}
-	a {
-		transition-duration: 0.1s;
-	}
-	a:hover {
-		color: rgb(0, 121, 182);
-		text-decoration: underline;
-	}
-}
+@import "./styles.css";
+@custom-variant hover (&:hover);
+@custom-variant focus (&:focus);
+@custom-variant active (&:active);
+@custom-variant disabled (&:disabled);
+@custom-variant focus-within (&:focus-within);
+@custom-variant focus-visible (&:focus-visible);

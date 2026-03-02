@@ -103,7 +103,7 @@ export async function isExpiredToken(token: string): Promise<boolean> {
 	const now = new Date();
 
 	if (isError(session)) {
-		return true;
+		throw new Error("Error fetching session: " + String(session.error));
 	}
 
 	if (!session) return true;
@@ -121,6 +121,6 @@ export async function isCurrentTokenExpired(): Promise<boolean> {
 export async function getCurrentUser() {
 	const username = await getUsername();
 	if (isError(username)) return username;
-	if (!username) return { error: "User not logged in" };
+	if (!username) return { error: "User not authenticated" };
 	return await getUser(username);
 }

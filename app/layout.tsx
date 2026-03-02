@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import "@/app/globals.css";
+import "./globals.css";
 import fonts from "./ui/fonts";
 import CustomTopLoader from "./ui/components/customTopLoader";
 import Image from "next/image";
