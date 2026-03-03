@@ -57,3 +57,7 @@ scripts
 
 # swc
 /.swc
+
+# ChatGPT NavBar
+/app/NavBarTest
+/app/ui/components/specifics/homeLayout/newNavBar.tsx

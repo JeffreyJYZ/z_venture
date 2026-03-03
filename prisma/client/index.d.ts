@@ -45,7 +45,9 @@ export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
  * Type-safe database client for TypeScript & Node.js
  * @example
  * ```
- * const prisma = new PrismaClient()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```
@@ -66,7 +68,9 @@ export class PrismaClient<
    * Type-safe database client for TypeScript & Node.js
    * @example
    * ```
-   * const prisma = new PrismaClient()
+   * const prisma = new PrismaClient({
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * })
    * // Fetch zero or more Users
    * const users = await prisma.user.findMany()
    * ```
@@ -146,7 +150,7 @@ export class PrismaClient<
    * ])
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
@@ -255,8 +259,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.3.0
-   * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
+   * Prisma Client JS version: 7.4.2
+   * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
    */
   export type PrismaVersion = {
     client: string
@@ -4620,8 +4624,6 @@ export namespace Prisma {
     inventory: number
     ruppees: number
     stats: number
-    visitedAreas: number
-    killedBosses: number
     _all: number
   }
 
@@ -4658,8 +4660,6 @@ export namespace Prisma {
     inventory?: true
     ruppees?: true
     stats?: true
-    visitedAreas?: true
-    killedBosses?: true
     _all?: true
   }
 
@@ -4757,8 +4757,6 @@ export namespace Prisma {
     inventory: JsonValue
     ruppees: number
     stats: JsonValue
-    visitedAreas: string[]
-    killedBosses: string[]
     _count: GameStateCountAggregateOutputType | null
     _avg: GameStateAvgAggregateOutputType | null
     _sum: GameStateSumAggregateOutputType | null
@@ -4788,8 +4786,6 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    visitedAreas?: boolean
-    killedBosses?: boolean
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
 
@@ -4801,8 +4797,6 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    visitedAreas?: boolean
-    killedBosses?: boolean
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
 
@@ -4814,8 +4808,6 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    visitedAreas?: boolean
-    killedBosses?: boolean
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameState"]>
 
@@ -4827,11 +4819,9 @@ export namespace Prisma {
     inventory?: boolean
     ruppees?: boolean
     stats?: boolean
-    visitedAreas?: boolean
-    killedBosses?: boolean
   }
 
-  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saveId" | "name" | "location" | "inventory" | "ruppees" | "stats" | "visitedAreas" | "killedBosses", ExtArgs["result"]["gameState"]>
+  export type GameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saveId" | "name" | "location" | "inventory" | "ruppees" | "stats", ExtArgs["result"]["gameState"]>
   export type GameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     save?: boolean | SaveDefaultArgs<ExtArgs>
   }
@@ -4855,8 +4845,6 @@ export namespace Prisma {
       inventory: Prisma.JsonValue
       ruppees: number
       stats: Prisma.JsonValue
-      visitedAreas: string[]
-      killedBosses: string[]
     }, ExtArgs["result"]["gameState"]>
     composites: {}
   }
@@ -5288,8 +5276,6 @@ export namespace Prisma {
     readonly inventory: FieldRef<"GameState", 'Json'>
     readonly ruppees: FieldRef<"GameState", 'Int'>
     readonly stats: FieldRef<"GameState", 'Json'>
-    readonly visitedAreas: FieldRef<"GameState", 'String[]'>
-    readonly killedBosses: FieldRef<"GameState", 'String[]'>
   }
     
 
@@ -6804,9 +6790,7 @@ export namespace Prisma {
     location: 'location',
     inventory: 'inventory',
     ruppees: 'ruppees',
-    stats: 'stats',
-    visitedAreas: 'visitedAreas',
-    killedBosses: 'killedBosses'
+    stats: 'stats'
   };
 
   export type GameStateScalarFieldEnum = (typeof GameStateScalarFieldEnum)[keyof typeof GameStateScalarFieldEnum]
@@ -7138,8 +7122,6 @@ export namespace Prisma {
     inventory?: JsonFilter<"GameState">
     ruppees?: IntFilter<"GameState"> | number
     stats?: JsonFilter<"GameState">
-    visitedAreas?: StringNullableListFilter<"GameState">
-    killedBosses?: StringNullableListFilter<"GameState">
     save?: XOR<SaveScalarRelationFilter, SaveWhereInput>
   }
 
@@ -7151,8 +7133,6 @@ export namespace Prisma {
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
-    visitedAreas?: SortOrder
-    killedBosses?: SortOrder
     save?: SaveOrderByWithRelationInput
   }
 
@@ -7167,8 +7147,6 @@ export namespace Prisma {
     inventory?: JsonFilter<"GameState">
     ruppees?: IntFilter<"GameState"> | number
     stats?: JsonFilter<"GameState">
-    visitedAreas?: StringNullableListFilter<"GameState">
-    killedBosses?: StringNullableListFilter<"GameState">
     save?: XOR<SaveScalarRelationFilter, SaveWhereInput>
   }, "id" | "id" | "saveId">
 
@@ -7180,8 +7158,6 @@ export namespace Prisma {
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
-    visitedAreas?: SortOrder
-    killedBosses?: SortOrder
     _count?: GameStateCountOrderByAggregateInput
     _avg?: GameStateAvgOrderByAggregateInput
     _max?: GameStateMaxOrderByAggregateInput
@@ -7200,8 +7176,6 @@ export namespace Prisma {
     inventory?: JsonWithAggregatesFilter<"GameState">
     ruppees?: IntWithAggregatesFilter<"GameState"> | number
     stats?: JsonWithAggregatesFilter<"GameState">
-    visitedAreas?: StringNullableListFilter<"GameState">
-    killedBosses?: StringNullableListFilter<"GameState">
   }
 
   export type SessionWhereInput = {
@@ -7450,8 +7424,6 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
     save: SaveCreateNestedOneWithoutStateInput
   }
 
@@ -7463,8 +7435,6 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
   }
 
   export type GameStateUpdateInput = {
@@ -7474,8 +7444,6 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
     save?: SaveUpdateOneRequiredWithoutStateNestedInput
   }
 
@@ -7487,8 +7455,6 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type GameStateCreateManyInput = {
@@ -7499,8 +7465,6 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
   }
 
   export type GameStateUpdateManyMutationInput = {
@@ -7510,8 +7474,6 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type GameStateUncheckedUpdateManyInput = {
@@ -7522,8 +7484,6 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type SessionCreateInput = {
@@ -7842,14 +7802,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type SaveScalarRelationFilter = {
     is?: SaveWhereInput
     isNot?: SaveWhereInput
@@ -7863,8 +7815,6 @@ export namespace Prisma {
     inventory?: SortOrder
     ruppees?: SortOrder
     stats?: SortOrder
-    visitedAreas?: SortOrder
-    killedBosses?: SortOrder
   }
 
   export type GameStateAvgOrderByAggregateInput = {
@@ -8156,14 +8106,6 @@ export namespace Prisma {
     update?: XOR<XOR<GameStateUpdateToOneWithWhereWithoutSaveInput, GameStateUpdateWithoutSaveInput>, GameStateUncheckedUpdateWithoutSaveInput>
   }
 
-  export type GameStateCreatevisitedAreasInput = {
-    set: string[]
-  }
-
-  export type GameStateCreatekilledBossesInput = {
-    set: string[]
-  }
-
   export type SaveCreateNestedOneWithoutStateInput = {
     create?: XOR<SaveCreateWithoutStateInput, SaveUncheckedCreateWithoutStateInput>
     connectOrCreate?: SaveCreateOrConnectWithoutStateInput
@@ -8176,16 +8118,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type GameStateUpdatevisitedAreasInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type GameStateUpdatekilledBossesInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type SaveUpdateOneRequiredWithoutStateNestedInput = {
@@ -8619,8 +8551,6 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
   }
 
   export type GameStateUncheckedCreateWithoutSaveInput = {
@@ -8630,8 +8560,6 @@ export namespace Prisma {
     inventory: JsonNullValueInput | InputJsonValue
     ruppees?: number
     stats: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateCreatevisitedAreasInput | string[]
-    killedBosses?: GameStateCreatekilledBossesInput | string[]
   }
 
   export type GameStateCreateOrConnectWithoutSaveInput = {
@@ -8682,8 +8610,6 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type GameStateUncheckedUpdateWithoutSaveInput = {
@@ -8693,8 +8619,6 @@ export namespace Prisma {
     inventory?: JsonNullValueInput | InputJsonValue
     ruppees?: IntFieldUpdateOperationsInput | number
     stats?: JsonNullValueInput | InputJsonValue
-    visitedAreas?: GameStateUpdatevisitedAreasInput | string[]
-    killedBosses?: GameStateUpdatekilledBossesInput | string[]
   }
 
   export type SaveCreateWithoutStateInput = {

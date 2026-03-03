@@ -41,16 +41,14 @@ model Save {
 }
 
 model GameState {
-    id           String   @id @unique @default(uuid())
-    save         Save     @relation(fields: [saveId], references: [id])
-    saveId       String   @unique
-    name         String
-    location     String   @default("Base")
-    inventory    Json
-    ruppees      Int      @default(0)
-    stats        Json
-    visitedAreas String[] @default([])
-    killedBosses String[] @default([])
+    id        String @id @unique @default(uuid())
+    save      Save   @relation(fields: [saveId], references: [id])
+    saveId    String @unique
+    name      String
+    location  String @default("Base")
+    inventory Json
+    ruppees   Int    @default(0)
+    stats     Json
 }
 
 model Session {
