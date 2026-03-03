@@ -18,6 +18,8 @@ export default async function locationAction(locationName?: LocationName) {
 	}
 	const updateResult = await updatePlayerLocation(lastGameId, locationName);
 	if (isError(updateResult)) {
-		throw updateResult.error;
+		return {
+			error: "Error updating location: " + String(updateResult.error),
+		};
 	}
 }

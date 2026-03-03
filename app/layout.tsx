@@ -17,11 +17,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className="h-full">
+		<html lang="en" className="h-full" suppressHydrationWarning>
 			<head>
 				<link rel="icon" href="./favicon.ico" />
 			</head>
 			<body
+				suppressHydrationWarning
 				className={`${fonts.body.variable} ${fonts.display.variable} body antialiased min-h-full flex flex-col duration-200`}
 			>
 				<CustomTopLoader />

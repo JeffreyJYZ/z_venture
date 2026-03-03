@@ -2,7 +2,6 @@ import Link from "next/link";
 import Form from "@/app/ui/components/form";
 import continueGame from "@/app/actions/game/continue";
 import prisma from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import { isCurrentTokenExpired } from "@/utils/funcs/dbFuncs";
 import { getUsername } from "@/utils/data/cookies";
 import { isError } from "@/utils/funcs/isRetryableError";
@@ -25,8 +24,18 @@ export default async function ContinuePage() {
 	}
 
 	const username = await getUsername();
-	if (!username || isError(username)) {
-		throw new Error("User not authenticated");
+	if (!username) {
+		return (
+			<div className="flex flex-col gap-2">
+				<p>Please sign in to continue a game.</p>
+				<Link
+					href="/signin"
+					className="inline-flex w-fit rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-sm text-white/90 no-underline transition hover:bg-white/15"
+				>
+					Go to Sign In
+				</Link>
+			</div>
+		);
 	}
 
 	const games = await withRetry(() =>
@@ -37,7 +46,8 @@ export default async function ContinuePage() {
 		}),
 	);
 	if (isError(games)) {
-		throw new Error("Error fetching games:\n" + games.error);
+		console.error("Error fetching games:", games.error);
+		return <p>Unable to load games right now. Please try again.</p>;
 	}
 
 	const user = await withRetry(() =>
@@ -47,7 +57,8 @@ export default async function ContinuePage() {
 		}),
 	);
 	if (isError(user)) {
-		throw new Error("Error fetching user data:\n" + user.error);
+		console.error("Error fetching user data:", user.error);
+		return <p>Unable to load account data right now. Please try again.</p>;
 	}
 	const selectedGameName = user?.lastGameName ?? "";
 

@@ -19,13 +19,11 @@ export default async function GameLayout({
 }) {
 	if (await isCurrentTokenExpired()) unauthorized();
 	const game = await getCurrentGame();
-	if (!game) unauthorized();
+	if (!game || isError(game)) unauthorized();
 	const urls = toNavLinks(URLs.game);
 	let GameName;
 	if (!isError(game)) {
 		GameName = game.name;
-	} else {
-		throw new Error("Failed to fetch current game. Error: " + game.error);
 	}
 	return (
 		<div className="min-h-screen w-full bg-black/10">

@@ -52,7 +52,8 @@ async function getGameData(id: string): Promise<GameWithSaves> {
 		unauthorized();
 	}
 	if (isError(currentUser)) {
-		throw new Error("Error fetching user: " + String(currentUser.error));
+		console.error("Error fetching user:", currentUser.error);
+		unauthorized();
 	}
 	if (!id) {
 		if (!currentUser.lastGameName) {
@@ -63,10 +64,11 @@ async function getGameData(id: string): Promise<GameWithSaves> {
 		game = await getGameById(id);
 	}
 	if (isError(game)) {
-		throw new Error("Error fetching game: " + String(game.error));
+		console.error("Error fetching game:", game.error);
+		unauthorized();
 	}
 	if (!game) {
-		throw new Error("Game not found");
+		unauthorized();
 	}
 	return game;
 }

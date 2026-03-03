@@ -6,7 +6,13 @@ import { Inventory } from "@/utils/types/inventory";
 export default async function InventoryPage() {
 	const state = await getCurrentGameState();
 	if (isError(state)) {
-		throw new Error("Error fetching current game state: " + state.error);
+		console.error("Error fetching current game state:", state.error);
+		return (
+			<div>
+				Unable to load inventory right now. Please try again, or{" "}
+				<Link href="/game">go back to game</Link>.
+			</div>
+		);
 	}
 	if (!state) {
 		return (

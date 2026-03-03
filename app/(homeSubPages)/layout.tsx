@@ -14,12 +14,11 @@ export default async function Base({
 }) {
 	const hasAccount = !(await isCurrentTokenExpired());
 	const lastGameId = await getLastGameId();
-	if (isError(lastGameId) && !(lastGameId.error === "User not authenticated"))
-		throw new Error(
-			"Error fetching last game ID: " + String(lastGameId.error),
-		);
+	if (isError(lastGameId) && lastGameId.error !== "User not authenticated") {
+		console.error("Error fetching last game ID:", lastGameId.error);
+	}
 
-	const hasLastGame = !!lastGameId;
+	const hasLastGame = !isError(lastGameId) && !!lastGameId;
 	const links = toHomeNavLinks({ hasAccount, hasLastGame });
 	return (
 		<div className="relative min-h-screen overflow-x-hidden">

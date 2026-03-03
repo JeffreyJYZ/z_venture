@@ -6,11 +6,50 @@ import { isRetryableError } from "./isRetryableError";
 
 export function normalizeError(error: unknown): string {
 	if (typeof error === "string" && error.trim()) return error;
-	if (error instanceof Error && error.message?.trim()) return error.message;
+	if (error instanceof Error) {
+		const parts: string[] = [];
+		if (error.name) parts.push(error.name);
+		if (error.message?.trim()) parts.push(error.message.trim());
+
+		const maybeErrorWithCode = error as Error & {
+			code?: unknown;
+			clientVersion?: unknown;
+		};
+		if (typeof maybeErrorWithCode.code === "string") {
+			parts.push(`code=${maybeErrorWithCode.code}`);
+		}
+		if (typeof maybeErrorWithCode.clientVersion === "string") {
+			parts.push(`clientVersion=${maybeErrorWithCode.clientVersion}`);
+		}
+
+		if (parts.length > 0) return parts.join(" | ");
+	}
 	if (error && typeof error === "object") {
-		const maybeMessage = (error as { message?: unknown }).message;
+		const maybeObj = error as {
+			name?: unknown;
+			code?: unknown;
+			message?: unknown;
+			clientVersion?: unknown;
+		};
+		const objectParts: string[] = [];
+		if (typeof maybeObj.name === "string" && maybeObj.name.trim()) {
+			objectParts.push(maybeObj.name.trim());
+		}
+		if (typeof maybeObj.code === "string" && maybeObj.code.trim()) {
+			objectParts.push(`code=${maybeObj.code.trim()}`);
+		}
+		const maybeMessage = maybeObj.message;
 		if (typeof maybeMessage === "string" && maybeMessage.trim()) {
-			return maybeMessage;
+			objectParts.push(maybeMessage.trim());
+		}
+		if (
+			typeof maybeObj.clientVersion === "string" &&
+			maybeObj.clientVersion.trim()
+		) {
+			objectParts.push(`clientVersion=${maybeObj.clientVersion.trim()}`);
+		}
+		if (objectParts.length > 0) {
+			return objectParts.join(" | ");
 		}
 		try {
 			const serialized = JSON.stringify(error);

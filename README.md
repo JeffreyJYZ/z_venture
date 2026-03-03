@@ -23,9 +23,18 @@ This project uses `pnpm`.
 
 ### Setup
 
+[Install pnpm](https://pnpm.io/installation) first.
+
 ```bash
-corepack enable
 pnpm install
+```
+
+add a postgressql database url for [prisma](https://www.prisma.io/docs) in .env
+
+```bash
+npx prisma db push
+npx prisma generate
+pnpm dev
 ```
 
 ### Common commands
