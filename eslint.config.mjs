@@ -26,6 +26,7 @@ const eslintConfig = defineConfig([
 			"@typescript-eslint/no-unused-imports": "warn",
 			"unused-imports/no-unused-imports": "warn",
 			"unused-imports/no-unused-vars": "off",
+			"markdownlint(MD033)": "off",
 		},
 	},
 ]);
