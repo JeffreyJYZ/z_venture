@@ -10,6 +10,7 @@ export default function Toast() {
 	const [message, setMessage] = useState("");
 	const [phase, setPhase] = useState<"hidden" | "in" | "out">("hidden");
 
+	// Detect toast param and clean URL
 	useEffect(() => {
 		const toast = searchParams.get("toast");
 		if (!toast) return;
@@ -17,11 +18,15 @@ export default function Toast() {
 		setMessage(toast);
 		setPhase("in");
 
-		// Remove toast param from URL without navigation
 		const params = new URLSearchParams(searchParams.toString());
 		params.delete("toast");
 		const qs = params.toString();
 		router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+	}, [searchParams, router, pathname]);
+
+	// Auto-dismiss after entering
+	useEffect(() => {
+		if (phase !== "in") return;
 
 		const fadeOut = setTimeout(() => setPhase("out"), 2500);
 		const hide = setTimeout(() => setPhase("hidden"), 3000);
@@ -29,7 +34,7 @@ export default function Toast() {
 			clearTimeout(fadeOut);
 			clearTimeout(hide);
 		};
-	}, [searchParams, router, pathname]);
+	}, [phase]);
 
 	if (phase === "hidden" || !message) return null;
 
