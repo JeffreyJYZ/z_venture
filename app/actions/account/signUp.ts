@@ -40,5 +40,9 @@ export default async function signUp(_: any, data: FormData) {
 	if (!cookieStore || typeof cookieStore.set !== "function")
 		throw new Error("Could not access cookies");
 	cookieStore.set("session", newSession.token, cookiesSetRules);
-	redirect(newUser.lastGameName ? "/continue" : "/new");
+	redirect(
+		newUser.lastGameName
+			? "/continue?toast=Account+created"
+			: "/new?toast=Account+created",
+	);
 }

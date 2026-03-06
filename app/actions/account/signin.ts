@@ -83,5 +83,9 @@ export default async function signIn(_: any, data: FormData) {
 		throw new Error("Unable to create or retrieve user session");
 
 	cookieStore.set("session", newSession.token, cookiesSetRules);
-	redirect(currentUser.lastGameName ? "/continue" : "/new");
+	redirect(
+		currentUser.lastGameName
+			? "/continue?toast=Signed+in"
+			: "/new?toast=Signed+in",
+	);
 }

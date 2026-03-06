@@ -1,11 +1,8 @@
 import Locations from "@/utils/data/locations";
 import locationAction from "@/app/actions/game/locationChange";
-import { revalidateAll } from "@/utils/funcs/helper";
 import { LocationWithPosition } from "@/utils/types/locations";
 import { redirect, unauthorized } from "next/navigation";
 import { getCurrentGameState } from "@/utils/funcs/dbFuncs";
-import Link from "next/link";
-import UnableToLoad from "@/app/ui/components/unableToLoad";
 
 const locations = Locations.filter(
 	(location) => location.position !== "base",
@@ -43,8 +40,8 @@ export default async function MapPage() {
 				<form
 					action={async () => {
 						"use server";
-						const result = await locationAction("Base");
-						revalidateAll();
+						await locationAction("Base");
+						redirect("/game/map?toast=Moved+to+Base");
 					}}
 					className="justify-self-center"
 				>
@@ -71,10 +68,10 @@ export default async function MapPage() {
 						<form
 							action={async () => {
 								"use server";
-								const result = await locationAction(
-									location?.name,
+								await locationAction(location?.name);
+								redirect(
+									`/game/map?toast=${encodeURIComponent("Moved to " + (location?.name ?? ""))}`,
 								);
-								revalidateAll();
 							}}
 							key={location?.name ?? `empty-${index}`}
 						>

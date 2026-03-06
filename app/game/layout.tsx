@@ -26,7 +26,7 @@ export default async function GameLayout({
 				style={{ marginLeft: "var(--game-content-offset, 21rem)" }}
 			>
 				<Container
-					className={`w-full min-h-[calc(100dvh-6rem)] items-stretch md:min-h-[calc(100vh-3rem)] rounded-2xl border border-white/10 bg-black/25 p-4 shadow-sm backdrop-blur-sm md:p-6 ${fonts.body.className}`}
+					className={`w-full min-h-[calc(100dvh-6rem)] md:min-h-[calc(100vh-3rem)] rounded-2xl border border-white/10 bg-black/25 p-4 shadow-sm backdrop-blur-sm md:p-6 ${fonts.body.className}`}
 				>
 					<div className="flex flex-col gap-6">{children}</div>
 				</Container>

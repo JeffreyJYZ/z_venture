@@ -4,7 +4,9 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import fonts from "./ui/fonts";
 import CustomTopLoader from "./ui/components/customTopLoader";
+import Toast from "./ui/components/toast";
 import Image from "next/image";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
 	title: "Z Venture",
@@ -26,6 +28,9 @@ export default function RootLayout({
 				className={`${fonts.body.variable} ${fonts.display.variable} body antialiased min-h-full flex flex-col duration-200`}
 			>
 				<CustomTopLoader />
+				<Suspense>
+					<Toast />
+				</Suspense>
 				<main>{children}</main>
 				<a
 					href="https://github.com/JeffreyJYZ/z_venture"

@@ -35,5 +35,5 @@ export default async function newGame(_: any, data: FormData) {
 			},
 		}),
 	);
-	redirect(`/game?id=${result.id}`);
+	redirect(`/game?id=${result.id}&toast=Game+created`);
 }
