@@ -1,11 +1,11 @@
 import { getCurrentGameState } from "@/utils/funcs/dbFuncs";
 import { getLastGameId } from "@/utils/funcs/dbFuncs";
-import { isError } from "@/utils/funcs/isRetryableError";
 import prisma from "@/lib/prisma";
 import { GameState } from "@/prisma/client/client";
 import { Prisma } from "@/prisma/client";
 import { NextResponse } from "next/server";
 import { consumeRateLimit, getClientIdentifier } from "@/utils/funcs/rateLimit";
+import { withRetry } from "@/utils/funcs/helper";
 
 export async function POST(request: Request) {
 	try {
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 			typeof rawName === "string" ? rawName.trim() : "Manual Save";
 
 		const currentGameState = await getCurrentGameState();
-		if (isError(currentGameState) || !currentGameState) {
+		if (!currentGameState) {
 			return NextResponse.json(
 				{ error: "Error fetching current game state" },
 				{ status: 400 },
@@ -66,24 +66,26 @@ export async function POST(request: Request) {
 		delete newGameState.saveId;
 
 		const currentGameId = await getLastGameId();
-		if (isError(currentGameId) || !currentGameId) {
+		if (!currentGameId) {
 			return NextResponse.json(
 				{ error: "Error fetching current game ID" },
 				{ status: 400 },
 			);
 		}
-		const save = await prisma.save.create({
-			data: {
-				gameId: currentGameId,
-				time: new Date().toISOString(),
-				state: {
-					create: {
-						...(newGameState as Prisma.GameStateCreateWithoutSaveInput),
+		const save = await withRetry(() =>
+			prisma.save.create({
+				data: {
+					gameId: currentGameId,
+					time: new Date().toISOString(),
+					state: {
+						create: {
+							...(newGameState as Prisma.GameStateCreateWithoutSaveInput),
+						},
 					},
+					auto: false,
 				},
-				auto: false,
-			},
-		});
+			}),
+		);
 
 		if (isFormSubmission) {
 			return NextResponse.redirect(new URL("/game", request.url), 303);

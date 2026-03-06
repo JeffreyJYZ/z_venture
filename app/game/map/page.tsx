@@ -1,11 +1,11 @@
 import Locations from "@/utils/data/locations";
 import locationAction from "@/app/actions/game/locationChange";
 import { revalidateAll } from "@/utils/funcs/helper";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { LocationWithPosition } from "@/utils/types/locations";
-import { redirect } from "next/navigation";
+import { redirect, unauthorized } from "next/navigation";
 import { getCurrentGameState } from "@/utils/funcs/dbFuncs";
 import Link from "next/link";
+import UnableToLoad from "@/app/ui/components/unableToLoad";
 
 const locations = Locations.filter(
 	(location) => location.position !== "base",
@@ -30,20 +30,11 @@ const gridRows = Array.from({ length: maxY + 1 }, (_, y) =>
 
 export default async function MapPage() {
 	const gameState = await getCurrentGameState();
-	if (isError(gameState) || !gameState) {
-		if (isError(gameState)) {
-			console.error(
-				"Error fetching current game state:",
-				gameState.error,
-			);
-		}
-		return (
-			<div>
-				Unable to load map right now. Please try again, or{" "}
-				<Link href="/game">return to game</Link>.
-			</div>
-		);
+
+	if (!gameState) {
+		unauthorized();
 	}
+
 	const currentLocationName = gameState?.location;
 	return (
 		<>
@@ -53,12 +44,6 @@ export default async function MapPage() {
 					action={async () => {
 						"use server";
 						const result = await locationAction("Base");
-						if (result) {
-							redirect(
-								"/game/map?error=" +
-									encodeURIComponent(result.error),
-							);
-						}
 						revalidateAll();
 					}}
 					className="justify-self-center"
@@ -89,13 +74,7 @@ export default async function MapPage() {
 								const result = await locationAction(
 									location?.name,
 								);
-								if (result) {
-									redirect(
-										"/game/map?error=" +
-											encodeURIComponent(result.error),
-									);
-								}
-								await revalidateAll();
+								revalidateAll();
 							}}
 							key={location?.name ?? `empty-${index}`}
 						>

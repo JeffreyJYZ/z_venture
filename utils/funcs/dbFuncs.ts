@@ -13,7 +13,7 @@ type FindManyResult<M extends Prisma.ModelName> =
 
 export async function allOfType<M extends Prisma.ModelName>(
 	model: M,
-): Promise<FindManyResult<M> | { error: unknown }> {
+): Promise<FindManyResult<M>> {
 	const key = (model.charAt(0).toLowerCase() + model.slice(1)) as ModelKey;
 	const delegate = prisma[key] as unknown as {
 		findMany: (args: {

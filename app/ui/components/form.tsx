@@ -1,6 +1,5 @@
 "use client";
 import { useActionState, useEffect, useRef } from "react";
-import { isError } from "@/utils/funcs/isRetryableError";
 import Popup from "./popup";
 
 /**
@@ -55,12 +54,7 @@ export default function Form({
 		}
 	}, [pending, setIsAnyPending]);
 
-	const errorMessage =
-		typeof state === "string"
-			? state
-			: isError(state)
-				? String(state.error)
-				: "";
+	const errorMessage = typeof state === "string" ? state : "";
 
 	useEffect(() => {
 		if (!errorMessage) return;

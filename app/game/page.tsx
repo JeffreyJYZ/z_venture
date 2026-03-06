@@ -1,5 +1,4 @@
 import { getCurrentUser } from "@/utils/funcs/dbFuncs";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { getGameById, getGameByName } from "@/utils/funcs/dbFuncs";
 import Link from "next/link";
 import { Game, GameState, Save } from "@/prisma/client";
@@ -46,13 +45,9 @@ export type GameWithSaves = Game & {
 };
 
 async function getGameData(id: string): Promise<GameWithSaves> {
-	let game: GameWithSaves | { error: unknown } | null = null;
+	let game: GameWithSaves | null = null;
 	const currentUser = await getCurrentUser();
 	if (!currentUser) {
-		unauthorized();
-	}
-	if (isError(currentUser)) {
-		console.error("Error fetching user:", currentUser.error);
 		unauthorized();
 	}
 	if (!id) {
@@ -62,10 +57,6 @@ async function getGameData(id: string): Promise<GameWithSaves> {
 		game = await getGameByName(currentUser.lastGameName);
 	} else {
 		game = await getGameById(id);
-	}
-	if (isError(game)) {
-		console.error("Error fetching game:", game.error);
-		unauthorized();
 	}
 	if (!game) {
 		unauthorized();

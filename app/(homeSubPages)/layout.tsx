@@ -5,7 +5,6 @@ import fonts from "../ui/fonts";
 import Image from "next/image";
 import { isCurrentTokenExpired } from "@/utils/funcs/db/getUser";
 import { getLastGameId } from "@/utils/funcs/db/getGame";
-import { isError } from "@/utils/funcs/isRetryableError";
 
 export default async function Base({
 	children,
@@ -13,12 +12,13 @@ export default async function Base({
 	children: React.ReactNode;
 }) {
 	const hasAccount = !(await isCurrentTokenExpired());
-	const lastGameId = await getLastGameId();
-	if (isError(lastGameId) && lastGameId.error !== "User not authenticated") {
-		console.error("Error fetching last game ID:", lastGameId.error);
+	let hasLastGame = false;
+	try {
+		const lastGameId = await getLastGameId();
+		hasLastGame = !!lastGameId;
+	} catch {
+		// User not authenticated or no last game — leave hasLastGame false
 	}
-
-	const hasLastGame = !isError(lastGameId) && !!lastGameId;
 	const links = toHomeNavLinks({ hasAccount, hasLastGame });
 	return (
 		<div className="relative min-h-screen overflow-x-hidden">

@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 import { withRetry } from "../helper";
-import { isError } from "../isRetryableError";
 import { cookies } from "next/headers";
 import { getUsername } from "../../data/cookies";
 
@@ -77,8 +76,7 @@ export async function createUser(
 	admin: boolean = false,
 ) {
 	const isUnique = await isUsernameUnique(username);
-	if (isError(isUnique)) return isUnique;
-	if (!isUnique) return { error: "Username already exists" };
+	if (!isUnique) throw new Error("Username already exists");
 	return await withRetry(() =>
 		prisma.user.create({
 			data: {
@@ -92,7 +90,6 @@ export async function createUser(
 
 export async function isUsernameUnique(username: string) {
 	const existingUser = await getUserInsensitive(username);
-	if (isError(existingUser)) return existingUser;
 	return !existingUser;
 }
 
@@ -101,11 +98,6 @@ export async function isExpiredToken(token: string): Promise<boolean> {
 		prisma.session.findUnique({ where: { token } }),
 	);
 	const now = new Date();
-
-	if (isError(session)) {
-		console.error("Error fetching session:", session.error);
-		return true;
-	}
 
 	if (!session) return true;
 
@@ -121,6 +113,6 @@ export async function isCurrentTokenExpired(): Promise<boolean> {
 
 export async function getCurrentUser() {
 	const username = await getUsername();
-	if (!username) return { error: "User not authenticated" };
+	if (!username) throw new Error("User not authenticated");
 	return await getUser(username);
 }

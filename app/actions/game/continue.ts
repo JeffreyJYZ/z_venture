@@ -2,20 +2,16 @@
 import { withRetry } from "@/utils/funcs/helper";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { getUsername } from "@/utils/data/cookies";
 
 export default async function continueGame(_: any, data: FormData) {
 	const gameName = (data.get("gameName") as string)?.trim();
 	if (!gameName) {
-		return { error: "Game name is required" };
+		throw new Error("Game name is required");
 	}
 	const username = await getUsername();
 	if (!username) {
-		return { error: "User not authenticated" };
-	}
-	if (isError(username)) {
-		return { error: String(username.error) };
+		throw new Error("User not authenticated");
 	}
 	const game = await withRetry(() =>
 		prisma.game.findMany({
@@ -23,13 +19,10 @@ export default async function continueGame(_: any, data: FormData) {
 			select: { id: true },
 		}),
 	);
-	if (isError(game)) {
-		return { error: "Failed to fetch Game. Error: " + String(game.error) };
-	}
 	if (!game || game.length === 0) {
-		return { error: "Game not found" };
+		throw new Error("Game not found");
 	}
-	const resultt = await withRetry(() =>
+	await withRetry(() =>
 		prisma.user.update({
 			where: { username },
 			data: {
@@ -37,10 +30,5 @@ export default async function continueGame(_: any, data: FormData) {
 			},
 		}),
 	);
-	if (isError(resultt)) {
-		return {
-			error: "Failed to update user. Error: " + String(resultt.error),
-		};
-	}
 	redirect("/game");
 }

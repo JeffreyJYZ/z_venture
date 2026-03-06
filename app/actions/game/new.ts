@@ -4,7 +4,6 @@ import { getUsername } from "@/utils/data/cookies";
 import { isValidString, withRetry } from "@/utils/funcs/helper";
 import { initGame } from "@/utils/funcs/inits";
 import { isGameNameUniqueForUser } from "@/utils/funcs/dbFuncs";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
@@ -15,32 +14,20 @@ export default async function newGame(_: any, data: FormData) {
 		""
 	).trim();
 	if (!name) {
-		return { error: "Name is required" };
+		throw new Error("Name is required");
 	}
-	if (!isValidString(name)) return { error: "Invalid Name" };
+	if (!isValidString(name)) throw new Error("Invalid Name");
 	const username = await getUsername();
 	if (!username) {
-		return { error: "User not authenticated" };
-	}
-	if (isError(username)) {
-		return { error: String(username.error) };
+		throw new Error("User not authenticated");
 	}
 	const isUnique = await isGameNameUniqueForUser(username, name);
-	if (isError(isUnique)) {
-		return { error: String(isUnique.error) };
-	}
 	if (!isUnique) {
-		return { error: "Game name already exists for this user" };
+		throw new Error("Game name already exists for this user");
 	}
 	const newGame = initGame(name, username);
-	if (isError(newGame)) {
-		return { error: String(newGame.error) };
-	}
 	let result = await withRetry(() => prisma.game.create({ data: newGame }));
-	if (isError(result)) {
-		return { error: "Failed to save Game. Error: " + String(result.error) };
-	}
-	const resultt = await withRetry(() =>
+	await withRetry(() =>
 		prisma.user.update({
 			where: { username },
 			data: {
@@ -48,10 +35,5 @@ export default async function newGame(_: any, data: FormData) {
 			},
 		}),
 	);
-	if (isError(resultt)) {
-		return {
-			error: "Failed to update user. Error: " + String(resultt.error),
-		};
-	}
 	redirect(`/game?id=${result.id}`);
 }

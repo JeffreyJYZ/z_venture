@@ -1,5 +1,4 @@
-import { BeatLoader, SyncLoader } from "react-spinners";
-import DotLoader from "../ui/components/loader";
+import { SyncLoader } from "react-spinners";
 
 export default function Loading() {
 	return (

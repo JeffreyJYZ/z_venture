@@ -2,17 +2,16 @@
 
 import { deleteSessionByToken } from "@/utils/funcs/dbFuncs";
 import cookiesSetRules from "@/utils/data/cookies";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function logout() {
 	const cookieStore = await cookies();
+
 	const sessionToken = cookieStore.get("session")?.value;
 
 	if (sessionToken) {
-		const result = await deleteSessionByToken(sessionToken);
-		if (isError(result)) return { error: String(result.error) };
+		await deleteSessionByToken(sessionToken);
 	}
 
 	// Clear cookie regardless of DB state so the client is signed out.

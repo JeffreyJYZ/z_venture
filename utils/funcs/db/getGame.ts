@@ -3,16 +3,12 @@
 import { withRetry } from "@/utils/funcs/helper";
 import prisma from "@/lib/prisma";
 import { getUsername } from "@/utils/data/cookies";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { getCurrentUser } from "./getUser";
 
 export async function getGameById(id: string) {
 	const username = await getUsername();
 	if (!username) {
-		return { error: "User not authenticated" };
-	}
-	if (isError(username)) {
-		return username;
+		throw new Error("User not authenticated");
 	}
 	const game = await withRetry(() =>
 		prisma.game.findFirst({
@@ -33,10 +29,7 @@ export async function getGameById(id: string) {
 export async function getGameByName(name: string) {
 	const username = await getUsername();
 	if (!username) {
-		return { error: "User not authenticated" };
-	}
-	if (isError(username)) {
-		return username;
+		throw new Error("User not authenticated");
 	}
 	const game = await withRetry(() =>
 		prisma.game.findMany({
@@ -51,24 +44,22 @@ export async function getGameByName(name: string) {
 			},
 		}),
 	);
-	if (isError(game)) {
-		return { error: "Failed to fetch Game. Error: " + String(game.error) };
+	if (!game || game.length === 0) {
+		throw new Error("Failed to fetch Game");
 	}
 	return game[0];
 }
 
 export async function getCurrentGame() {
 	const gameIdResult = await getLastGameId();
-	if (isError(gameIdResult)) return gameIdResult;
-	if (!gameIdResult) return { error: "Game not found" };
+	if (!gameIdResult) throw new Error("Game not found");
 	return await getGameById(gameIdResult);
 }
 
 export async function getLastGameId() {
 	const user = await getCurrentUser();
-	if (isError(user)) return user;
-	if (!user) return { error: "User not found" };
-	if (!user.lastGameName) return { error: "No last game found for user" };
+	if (!user) throw new Error("User not found");
+	if (!user.lastGameName) throw new Error("No last game found for user");
 
 	const lastGame = await withRetry(() =>
 		prisma.game.findFirst({
@@ -78,8 +69,7 @@ export async function getLastGameId() {
 			},
 		}),
 	);
-	if (isError(lastGame)) return lastGame;
-	if (!lastGame) return { error: "Last game not found" };
+	if (!lastGame) throw new Error("Last game not found");
 
 	return lastGame.id;
 }
@@ -100,13 +90,11 @@ export async function isGameNameUniqueForUser(
 			select: { id: true },
 		}),
 	);
-	if (isError(existingGame)) return existingGame;
 	return !existingGame;
 }
 
 export async function isGameNameUniqueForCurrentUser(gameName: string) {
 	const username = await getUsername();
-	if (isError(username)) return username;
-	if (!username) return { error: "User not logged in" };
+	if (!username) throw new Error("User not logged in");
 	return await isGameNameUniqueForUser(username, gameName);
 }

@@ -7,7 +7,6 @@ import {
 	getUserSessions,
 	updateUserPassword,
 } from "@/utils/funcs/dbFuncs";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { consumeRateLimit, getClientIdentifier } from "@/utils/funcs/rateLimit";
 import bcrypt from "bcryptjs";
 import { cookies, headers } from "next/headers";
@@ -21,7 +20,7 @@ export default async function signIn(_: any, data: FormData) {
 	const genericAuthError = "Incorrect username or password";
 
 	if (!username || !password) {
-		return { error: genericAuthError };
+		throw new Error(genericAuthError);
 	}
 
 	const headerStore = await headers();
@@ -32,20 +31,18 @@ export default async function signIn(_: any, data: FormData) {
 		windowMs: 1000 * 60 * 10,
 	});
 	if (!allowed) {
-		return {
-			error: "Too many sign-in attempts. Try again in a few minutes.",
-		};
+		throw new Error(
+			"Too many sign-in attempts. Try again in a few minutes.",
+		);
 	}
 
 	let currentUser = await getUser(username);
-	if (isError(currentUser)) return { error: genericAuthError };
 	if (!currentUser) {
 		const fallbackUser = await getUserInsensitive(username);
-		if (isError(fallbackUser)) return { error: genericAuthError };
 		currentUser = fallbackUser;
 	}
 	if (!currentUser) {
-		return { error: genericAuthError };
+		throw new Error(genericAuthError);
 	}
 
 	let matches = await bcrypt.compare(password, currentUser.password);
@@ -62,38 +59,28 @@ export default async function signIn(_: any, data: FormData) {
 				? passwordTrimmed
 				: password;
 			const upgradedHash = await bcrypt.hash(newPassword, 13);
-			const upgraded = await updateUserPassword(
-				currentUser.username,
-				upgradedHash,
-			);
-			if (isError(upgraded)) return { error: genericAuthError };
+			await updateUserPassword(currentUser.username, upgradedHash);
 		} else {
-			return { error: genericAuthError };
+			throw new Error(genericAuthError);
 		}
 	}
 
 	const sessions = await getUserSessions(currentUser.username);
-	if (isError(sessions)) return { error: genericAuthError };
 	const cookieStore = await cookies();
 	if (!cookieStore || typeof cookieStore.set !== "function")
-		return {
-			error: genericAuthError,
-		};
+		throw new Error("Cookie store is not available");
 	let newSession = sessions?.length > 0 ? sessions[0] : null;
 	if (newSession) {
 		const fiveDaysMs = 1000 * 60 * 60 * 24 * 5;
 		const timeLeftMs = newSession.expiresAt.getTime() - Date.now();
 		if (timeLeftMs <= fiveDaysMs) {
-			const created = await createUserSession(currentUser.username);
-			if (isError(created)) return { error: genericAuthError };
-			newSession = created;
+			newSession = await createUserSession(currentUser.username);
 		}
 	} else {
-		const created = await createUserSession(currentUser.username);
-		if (isError(created)) return { error: genericAuthError };
-		newSession = created;
+		newSession = await createUserSession(currentUser.username);
 	}
-	if (!newSession) return { error: genericAuthError };
+	if (!newSession)
+		throw new Error("Unable to create or retrieve user session");
 
 	cookieStore.set("session", newSession.token, cookiesSetRules);
 	redirect(currentUser.lastGameName ? "/continue" : "/new");

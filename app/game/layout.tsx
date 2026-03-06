@@ -1,14 +1,9 @@
 import Container from "../ui/components/container";
 import { toNavLinks, URLs } from "../../utils/data/urls";
-import Navbar, {
-	NavbarProps,
-} from "../ui/components/specifics/homeLayout/navBar";
-import { getCurrentGame, getLastGameId } from "../../utils/funcs/dbFuncs";
+import { getCurrentGame } from "../../utils/funcs/dbFuncs";
 import { isCurrentTokenExpired } from "../../utils/funcs/dbFuncs";
 import { default as fonts } from "../ui/fonts";
 import { unauthorized } from "next/navigation";
-import { isError } from "../../utils/funcs/isRetryableError";
-import { getGameById } from "@/utils/funcs/dbFuncs";
 import SaveHotkey from "../ui/components/saveHotkey";
 import SideNav from "../ui/components/specifics/gameLayout/sideNav";
 
@@ -19,12 +14,9 @@ export default async function GameLayout({
 }) {
 	if (await isCurrentTokenExpired()) unauthorized();
 	const game = await getCurrentGame();
-	if (!game || isError(game)) unauthorized();
+	if (!game) unauthorized();
 	const urls = toNavLinks(URLs.game);
-	let GameName;
-	if (!isError(game)) {
-		GameName = game.name;
-	}
+	const GameName = game.name;
 	return (
 		<div className="min-h-screen w-full bg-black/10">
 			<SaveHotkey />
@@ -34,7 +26,7 @@ export default async function GameLayout({
 				style={{ marginLeft: "var(--game-content-offset, 21rem)" }}
 			>
 				<Container
-					className={`w-full min-h-[calc(100dvh-6rem)] md:min-h-[calc(100vh-3rem)] rounded-2xl border border-white/10 bg-black/25 p-4 shadow-sm backdrop-blur-sm md:p-6 ${fonts.body.className}`}
+					className={`w-full min-h-[calc(100dvh-6rem)] items-stretch md:min-h-[calc(100vh-3rem)] rounded-2xl border border-white/10 bg-black/25 p-4 shadow-sm backdrop-blur-sm md:p-6 ${fonts.body.className}`}
 				>
 					<div className="flex flex-col gap-6">{children}</div>
 				</Container>

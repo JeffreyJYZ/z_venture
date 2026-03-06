@@ -1,26 +1,13 @@
 import { getCurrentGameState } from "@/utils/funcs/dbFuncs";
-import { isError } from "@/utils/funcs/isRetryableError";
 import Link from "next/link";
 import { Inventory } from "@/utils/types/inventory";
+import UnableToLoad from "@/app/ui/components/unableToLoad";
+import { unauthorized } from "next/navigation";
 
 export default async function InventoryPage() {
 	const state = await getCurrentGameState();
-	if (isError(state)) {
-		console.error("Error fetching current game state:", state.error);
-		return (
-			<div>
-				Unable to load inventory right now. Please try again, or{" "}
-				<Link href="/game">go back to game</Link>.
-			</div>
-		);
-	}
 	if (!state) {
-		return (
-			<div>
-				No game state found. Please{" "}
-				<Link href="/new">start a new game.</Link> Or refresh the page.
-			</div>
-		);
+		unauthorized();
 	}
 	const inventory = state.inventory as object as Inventory;
 

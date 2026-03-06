@@ -4,7 +4,6 @@ import continueGame from "@/app/actions/game/continue";
 import prisma from "@/lib/prisma";
 import { isCurrentTokenExpired } from "@/utils/funcs/dbFuncs";
 import { getUsername } from "@/utils/data/cookies";
-import { isError } from "@/utils/funcs/isRetryableError";
 import { withRetry } from "@/utils/funcs/helper";
 
 export default async function ContinuePage() {
@@ -45,10 +44,6 @@ export default async function ContinuePage() {
 			orderBy: { createdAt: "desc" },
 		}),
 	);
-	if (isError(games)) {
-		console.error("Error fetching games:", games.error);
-		return <p>Unable to load games right now. Please try again.</p>;
-	}
 
 	const user = await withRetry(() =>
 		prisma.user.findUnique({
@@ -56,10 +51,6 @@ export default async function ContinuePage() {
 			select: { lastGameName: true },
 		}),
 	);
-	if (isError(user)) {
-		console.error("Error fetching user data:", user.error);
-		return <p>Unable to load account data right now. Please try again.</p>;
-	}
 	const selectedGameName = user?.lastGameName ?? "";
 
 	return (

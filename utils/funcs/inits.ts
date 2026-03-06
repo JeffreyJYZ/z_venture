@@ -3,9 +3,9 @@ import { Prisma } from "@/prisma/client";
 export function initGame(
 	name: string,
 	username: string,
-): Prisma.GameUncheckedCreateInput | { error: unknown } {
+): Prisma.GameUncheckedCreateInput {
 	if (!name.trim()) {
-		return { error: "Game name cannot be empty" };
+		throw new Error("Game name cannot be empty");
 	}
 	return {
 		name,

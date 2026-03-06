@@ -4,7 +4,7 @@
  * DotLoader is a simple loading indicator component that displays a message followed by animated dots.
  * The dots appear sequentially to indicate that a loading process is ongoing.
  * @param props - The properties for the DotLoader component.
- * @param [props.children] - The message to display before the dots. Defaults to "Loading".
+ * @param [props.children] - The message to display before the dots. defaults to "Loading".
  * @param [props.className] - Additional CSS classes to apply to the loader element.
  * @returns The rendered DotLoader component.
  */

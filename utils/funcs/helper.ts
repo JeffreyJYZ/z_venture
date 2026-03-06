@@ -86,13 +86,11 @@ export async function withRetry<T>(
 	options: {
 		retries?: number;
 		baseDelayMs?: number;
-		throw?: boolean;
 	} = {
 		retries: 10,
 		baseDelayMs: 300,
-		throw: false,
 	},
-): Promise<T | { error: string }> {
+): Promise<T> {
 	const retries = options?.retries ?? 5;
 	const baseDelayMs = options?.baseDelayMs ?? 300;
 
@@ -107,8 +105,7 @@ export async function withRetry<T>(
 			attempt++;
 
 			if (!isRetryableError(error) || attempt >= retries) {
-				if (options.throw) throw error;
-				return { error: normalizeError(error) };
+				throw error;
 			}
 			const delay =
 				baseDelayMs * 2 ** (attempt - 1) +
@@ -118,7 +115,7 @@ export async function withRetry<T>(
 		}
 	}
 
-	return { error: normalizeError(lastError) };
+	throw lastError;
 }
 
 export function toReadable(str: string) {
