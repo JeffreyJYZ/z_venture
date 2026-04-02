@@ -1,0 +1,98 @@
+.section {
+	margin-top: 1rem;
+	padding: 1.25rem;
+	background: rgba(255, 255, 255, 0.04);
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.heading {
+	font-family: var(--font-display);
+	font-size: 1.1rem;
+	color: #ffd5a0;
+	margin-bottom: 1rem;
+}
+
+.infoGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 0.75rem;
+}
+
+.infoItem {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	padding: 0.6rem 0.8rem;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.infoLabel {
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: rgba(255, 255, 255, 0.45);
+}
+
+.infoValue {
+	font-family: var(--font-display);
+	font-size: 0.95rem;
+	color: white;
+}
+
+.controlsList {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.controlItem {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 0.9rem;
+	color: rgba(255, 255, 255, 0.75);
+}
+
+.kbd {
+	display: inline-block;
+	padding: 0.25rem 0.55rem;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 5px;
+	font-family: var(--font-body);
+	font-size: 0.8rem;
+	color: #ffd5a0;
+	min-width: 2.5rem;
+	text-align: center;
+}
+
+.tipsList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.tipsList li {
+	padding-left: 1.2rem;
+	position: relative;
+	font-size: 0.88rem;
+	color: rgba(255, 255, 255, 0.7);
+	line-height: 1.5;
+}
+
+.tipsList li::before {
+	content: "•";
+	position: absolute;
+	left: 0;
+	color: #ffd5a0;
+}
+
+.tipsList li strong {
+	color: #ffd5a0;
+}

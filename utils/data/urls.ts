@@ -16,6 +16,7 @@ export const URLs = {
 		Exit: "/",
 		Main: "/game",
 		Inventory: "/game/inventory",
+		Shop: "/game/shop",
 		Settings: "/game/settings",
 		Map: "/game/map",
 	},

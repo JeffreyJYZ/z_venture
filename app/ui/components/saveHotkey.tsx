@@ -23,7 +23,7 @@ export default function SaveHotkey() {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						Accept: "application/json",
+						"Accept": "application/json",
 					},
 					body: JSON.stringify({
 						name: "QuickSave" + new Date().toLocaleString(),
@@ -36,7 +36,7 @@ export default function SaveHotkey() {
 			} finally {
 				setTimeout(() => {
 					isSavingRef.current = false;
-				}, 300);
+				}, 100);
 			}
 		};
 

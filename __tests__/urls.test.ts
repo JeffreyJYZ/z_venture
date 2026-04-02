@@ -8,6 +8,7 @@ describe("toNavLinks", () => {
 			{ label: "Exit", to: "/" },
 			{ label: "Main", to: "/game" },
 			{ label: "Inventory", to: "/game/inventory" },
+			{ label: "Shop", to: "/game/shop" },
 			{ label: "Settings", to: "/game/settings" },
 			{ label: "Map", to: "/game/map" },
 		]);

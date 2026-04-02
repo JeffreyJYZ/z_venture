@@ -1,18 +1,123 @@
 .sectionHeading {
-	font-size: 2rem;
+	font-size: 1.6rem;
 	font-weight: bold;
-	margin-bottom: 1rem;
+	margin-bottom: 0.75rem;
 	color: #ffdfdf;
 	font-family: var(--font-display), serif;
 }
 
 .pageSection {
-	padding: 10px;
+	padding: 14px;
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	min-width: 220px;
 }
 
 .savesTable {
 	border-collapse: separate;
 	border-spacing: 10px 5px;
+	font-size: 0.85rem;
+}
+
+/* Player Card */
+.playerCard {
+	padding: 16px;
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	min-width: 280px;
+	flex: 1;
+	max-width: 400px;
+}
+
+.playerHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.levelBadge {
+	background: linear-gradient(135deg, #7c3aed, #5b21b6);
+	color: white;
+	font-weight: 800;
+	font-size: 0.85rem;
+	padding: 4px 14px;
+	border-radius: 20px;
+	letter-spacing: 0.5px;
+}
+
+.statsGrid {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.statRow {
+	width: 100%;
+}
+
+.statsList {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 6px;
+	margin-top: 4px;
+}
+
+.statItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 6px 10px;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.statLabel {
+	font-size: 0.8rem;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.statValue {
+	font-weight: 700;
+	font-size: 0.9rem;
+	color: #ffdfdf;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Inventory Grid */
+.inventoryGrid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 6px;
+}
+
+.inventorySlot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 6px 10px;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.04);
+	font-size: 0.8rem;
+}
+
+.itemName {
+	color: rgba(255, 255, 255, 0.8);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.itemCount {
+	color: #a78bfa;
+	font-weight: 700;
+	font-size: 0.85rem;
+	flex-shrink: 0;
+	margin-left: 6px;
 }
 
 .fightButton {

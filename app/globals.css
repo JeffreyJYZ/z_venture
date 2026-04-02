@@ -1,8 +1,2 @@
 @import "tailwindcss";
 @import "./styles.css";
-@custom-variant hover (&:hover);
-@custom-variant focus (&:focus);
-@custom-variant active (&:active);
-@custom-variant disabled (&:disabled);
-@custom-variant focus-within (&:focus-within);
-@custom-variant focus-visible (&:focus-visible);

@@ -23,15 +23,19 @@ export function initSave() {
 			create: {
 				name: "[Game Init]",
 				inventory: {
-					items: [],
-					maxSize: 10,
+					items: {
+						"health-potion": { amount: 3 },
+					},
+					maxSize: 20,
 				},
 				stats: {
 					health: 100,
 					attack: 10,
 					agility: 10,
 					experience: 0,
+					defense: 0,
 				},
+				ruppees: 25,
 			},
 		},
 	};
