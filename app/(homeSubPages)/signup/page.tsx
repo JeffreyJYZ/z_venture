@@ -9,7 +9,7 @@ export default async function SignUpPage() {
 	}
 	return (
 		<>
-			<h1>Sign Up</h1>
+			<h1 className="justify-self-center">Sign Up</h1>
 			<SignUpForm actionParam={signUp} />
 		</>
 	);

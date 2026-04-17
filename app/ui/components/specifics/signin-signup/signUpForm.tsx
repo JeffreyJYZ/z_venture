@@ -9,7 +9,7 @@ import {
 } from "@/utils/funcs/authValidation";
 
 type AccountAction = (
-	state: string | null,
+	state: string | void | null,
 	data: FormData,
 ) => Promise<string | null | void>;
 

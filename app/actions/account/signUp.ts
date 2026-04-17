@@ -9,7 +9,7 @@ import { getSignUpValidationMessage } from "@/utils/funcs/authValidation";
 import { consumeRateLimit, getClientIdentifier } from "@/utils/funcs/rateLimit";
 import { headers } from "next/headers";
 
-export default async function signUp(_: string | null, data: FormData) {
+export default async function signUp(_: string | void | null, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();
 	const password = String(data.get("password") ?? "").trim();
 	const confirmPassword = String(data.get("cfmPassword") ?? "").trim();

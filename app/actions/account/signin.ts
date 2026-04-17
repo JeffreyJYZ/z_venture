@@ -13,7 +13,7 @@ import bcrypt from "bcryptjs";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function signIn(_: string | null, data: FormData) {
+export default async function signIn(_: string | void | null, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();
 	const passwordRaw = String(data.get("password") ?? "");
 	const passwordTrimmed = passwordRaw.trim();

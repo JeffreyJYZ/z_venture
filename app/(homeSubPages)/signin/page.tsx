@@ -9,7 +9,7 @@ export default async function SignInPage() {
 	}
 	return (
 		<>
-			<h1>Sign In</h1>
+			<h1 className="justify-self-center">Sign In</h1>
 			<SignInForm actionParam={signIn} />
 		</>
 	);
