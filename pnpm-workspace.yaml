@@ -1,0 +1,7 @@
+onlyBuiltDependencies:
+  - '@prisma/engines'
+  - bcrypt
+  - electron
+  - prisma
+  - sharp
+  - unrs-resolver

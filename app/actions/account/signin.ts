@@ -7,20 +7,25 @@ import {
 	getUserSessions,
 	updateUserPassword,
 } from "@/utils/funcs/dbFuncs";
+import { getSignInValidationMessage } from "@/utils/funcs/authValidation";
 import { consumeRateLimit, getClientIdentifier } from "@/utils/funcs/rateLimit";
 import bcrypt from "bcryptjs";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function signIn(_: any, data: FormData) {
+export default async function signIn(_: string | null, data: FormData) {
 	const username = String(data.get("username") ?? "").trim();
 	const passwordRaw = String(data.get("password") ?? "");
 	const passwordTrimmed = passwordRaw.trim();
 	const password = passwordRaw;
 	const genericAuthError = "Incorrect username or password";
+	const validationMessage = getSignInValidationMessage({
+		username,
+		password,
+	});
 
-	if (!username || !password) {
-		throw new Error(genericAuthError);
+	if (validationMessage) {
+		return validationMessage;
 	}
 
 	const headerStore = await headers();
@@ -31,24 +36,40 @@ export default async function signIn(_: any, data: FormData) {
 		windowMs: 1000 * 60 * 10,
 	});
 	if (!allowed) {
-		throw new Error(
-			"Too many sign-in attempts. Try again in a few minutes.",
-		);
+		return "Too many sign-in attempts. Try again in a few minutes.";
 	}
 
-	let currentUser = await getUser(username);
-	if (!currentUser) {
-		const fallbackUser = await getUserInsensitive(username);
-		currentUser = fallbackUser;
-	}
-	if (!currentUser) {
-		throw new Error(genericAuthError);
+	let currentUser;
+	try {
+		currentUser = await getUser(username);
+	} catch {
+		return "Unable to sign you in right now.";
 	}
 
-	let matches = await bcrypt.compare(password, currentUser.password);
-	if (!matches && passwordTrimmed !== passwordRaw) {
-		matches = await bcrypt.compare(passwordTrimmed, currentUser.password);
+	if (!currentUser) {
+		try {
+			currentUser = await getUserInsensitive(username);
+		} catch {
+			return "Unable to sign you in right now.";
+		}
 	}
+	if (!currentUser) {
+		return genericAuthError;
+	}
+
+	let matches = false;
+	try {
+		matches = await bcrypt.compare(password, currentUser.password);
+		if (!matches && passwordTrimmed !== passwordRaw) {
+			matches = await bcrypt.compare(
+				passwordTrimmed,
+				currentUser.password,
+			);
+		}
+	} catch {
+		matches = false;
+	}
+
 	if (!matches) {
 		const plaintextMatch = currentUser.password === password;
 		const trimmedPlaintextMatch =
@@ -59,28 +80,41 @@ export default async function signIn(_: any, data: FormData) {
 				? passwordTrimmed
 				: password;
 			const upgradedHash = await bcrypt.hash(newPassword, 13);
-			await updateUserPassword(currentUser.username, upgradedHash);
+			try {
+				await updateUserPassword(currentUser.username, upgradedHash);
+			} catch {}
 		} else {
-			throw new Error(genericAuthError);
+			return genericAuthError;
 		}
 	}
 
-	const sessions = await getUserSessions(currentUser.username);
+	let sessions;
+	try {
+		sessions = await getUserSessions(currentUser.username);
+	} catch {
+		return "Unable to sign you in right now.";
+	}
+
 	const cookieStore = await cookies();
-	if (!cookieStore || typeof cookieStore.set !== "function")
-		throw new Error("Cookie store is not available");
+	if (!cookieStore || typeof cookieStore.set !== "function") {
+		return "Unable to sign you in right now.";
+	}
+
 	let newSession = sessions?.length > 0 ? sessions[0] : null;
-	if (newSession) {
-		const fiveDaysMs = 1000 * 60 * 60 * 24 * 5;
-		const timeLeftMs = newSession.expiresAt.getTime() - Date.now();
-		if (timeLeftMs <= fiveDaysMs) {
+	try {
+		if (newSession) {
+			const fiveDaysMs = 1000 * 60 * 60 * 24 * 5;
+			const timeLeftMs = newSession.expiresAt.getTime() - Date.now();
+			if (timeLeftMs <= fiveDaysMs) {
+				newSession = await createUserSession(currentUser.username);
+			}
+		} else {
 			newSession = await createUserSession(currentUser.username);
 		}
-	} else {
-		newSession = await createUserSession(currentUser.username);
+	} catch {
+		return "Unable to sign you in right now.";
 	}
-	if (!newSession)
-		throw new Error("Unable to create or retrieve user session");
+	if (!newSession) return "Unable to sign you in right now.";
 
 	cookieStore.set("session", newSession.token, cookiesSetRules);
 	redirect(
