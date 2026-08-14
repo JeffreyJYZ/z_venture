@@ -2,7 +2,7 @@
 
 > **Status:** Early-stage development. The project is functional in parts, but not yet a complete playable experience.
 
-**Live deployment:** [z-venture.vercel.app](https://z-venture.vercel.app)
+**Production Site:** [zventure.jyz.land](https://zventure.jyz.land)
 
 Z Venture is a browser-first RPG prototype built with Next.js App Router, Prisma, and PostgreSQL. It includes account creation/sign-in, game creation/continuation, map-based location movement, and save snapshots.
 
